@@ -1,0 +1,14 @@
+{
+    "requiredField": "This field is required",
+    "country": "Country",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "picturePreview": "Picture Preview",
+    "picture": "Picture",	
+    "name": "Name",	
+    "description": "Description",
+    "yes": "Yes",
+    "no": "No",
+    "retakePicture": "Retake Picture",
+    "continueNext": "Continue"
+}

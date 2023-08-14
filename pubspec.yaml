@@ -1,0 +1,37 @@
+name: nets_core
+description: A set of core components for the Nets projects.
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  cached_network_image: ^3.2.3
+  camera: ^0.10.5+3
+  country_picker: ^2.0.20
+  flutter:
+    sdk: flutter
+  hooks_riverpod: ^2.3.7
+  intl: ^0.18.0
+  jiffy: ^6.2.1
+  webview_flutter: ^4.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+ 
