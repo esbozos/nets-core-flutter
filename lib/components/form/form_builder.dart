@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:nets_core/components/form/text_form_input.dart';
 import 'package:nets_core/components/widgets/buttons.dart';
-import 'package:nets_core/utils/extentions.dart';
+import 'package:nets_core/l10n/app_localizations.dart';
+import 'package:nets_core/utils/extensions.dart';
 
 class FBFieldOption {
   FBFieldOption({required this.label, required this.value});
@@ -256,7 +257,7 @@ class _FBuilderState extends State<FBuilder> {
 
   Widget buildFields() {
     // ignore: unused_local_variable
-    AppLocalizations t = AppLocalizations.of(context);
+    AppLocalizations? t = AppLocalizations.of(context);
     return Column(
         children: widget.fields.map<Widget>((field) {
       if (field.conditionalBy != null && !field.conditionalBy!(_values)) {
@@ -349,7 +350,7 @@ class _FBuilderState extends State<FBuilder> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    AppLocalizations t = AppLocalizations.of(context);
+    AppLocalizations? t = AppLocalizations.of(context);
     return Center(
         child: Container(
             constraints: const BoxConstraints(maxWidth: 450),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:nets_core/utils/extentions.dart';
+import 'package:nets_core/utils/extensions.dart';
 
 class WideButton extends StatefulWidget {
   final Function()? onPressed;

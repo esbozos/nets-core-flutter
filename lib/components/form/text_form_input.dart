@@ -2,7 +2,7 @@ import 'package:country_picker/country_picker.dart';
 
 import 'package:flutter/material.dart';
 // ignore: unused_import
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +13,7 @@ import 'package:jiffy/jiffy.dart';
 // ignore: implementation_imports
 import 'package:country_picker/src/res/country_codes.dart';
 import 'package:collection/collection.dart';
-import 'package:nets_core/utils/extentions.dart';
+import 'package:nets_core/utils/extensions.dart';
 
 class FBTextInput extends StatefulWidget {
   const FBTextInput(
