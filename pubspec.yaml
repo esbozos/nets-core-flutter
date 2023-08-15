@@ -10,6 +10,7 @@ environment:
 dependencies:
   cached_network_image: ^3.2.3
   camera: ^0.10.5+3
+  collection: ^1.17.1
   convex_bottom_bar: ^3.2.0
   country_picker: ^2.0.20
   flutter:
@@ -22,7 +23,6 @@ dependencies:
   intl: ^0.18.0
   jiffy: ^6.2.1
   webview_flutter: ^4.2.2
-  collection:
 
 dev_dependencies:
   flutter_test:
