@@ -5,7 +5,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'package:nets_core/components/widgets/buttons.dart';
-import 'package:nets_core/l10n/app_localizations.dart';
+
+import 'package:nets_core/l10n/localizations.dart';
 
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
@@ -96,7 +97,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             );
           } catch (e) {
             // If an error occurs, log the error to the console.
-            print(e);
+            debugPrint(e.toString());
+            rethrow;
           }
         },
         child: const Icon(Icons.camera_alt),
@@ -115,9 +117,10 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var trans = AppLocalizations.of(context);
+    var t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
     return Scaffold(
-        appBar: AppBar(title: Text(trans.picturePreview)),
+        appBar: AppBar(title: Text(t.translate('picturePreview'))),
         // The image is stored as a file on the device. Use the `Image.file`
         // constructor with the given path to display the image.
         body: ListView(
@@ -133,13 +136,13 @@ class DisplayPictureScreen extends StatelessWidget {
                             color: Theme.of(context).colorScheme.surface,
                             textColor: Theme.of(context).colorScheme.onSurface,
                             icon: const Icon(Icons.camera_alt),
-                            label: trans.retakePicture,
+                            label: t.translate('retakePicture'),
                             onPressed: () {
                               Navigator.pop(context);
                             }),
                         WideButton(
                             icon: const Icon(Icons.check),
-                            label: trans.continueNext,
+                            label: t.translate('continueNext'),
                             onPressed: () {
                               if (onPictureTaken != null) {
                                 onPictureTaken!(File(imagePath));

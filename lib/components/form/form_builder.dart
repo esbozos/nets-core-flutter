@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:nets_core/components/form/text_form_input.dart';
 import 'package:nets_core/components/widgets/buttons.dart';
-import 'package:nets_core/l10n/app_localizations.dart';
+import 'package:nets_core/l10n/localizations.dart';
+
 import 'package:nets_core/utils/extensions.dart';
 
 class FBFieldOption {
@@ -83,11 +84,12 @@ class FBuilder extends StatefulWidget {
     this.showCancelButton = true,
     this.deleteButton,
     this.title,
+    this.locale,
   });
   final FBButton? submitButton;
   final FBButton? cancelButton;
   final bool showCancelButton;
-
+  final Locale? locale;
   final FBButton? deleteButton;
   final Function() onCancel;
   final Function(Map<String, dynamic> values) onSubmit;
@@ -125,7 +127,8 @@ class _FBuilderState extends State<FBuilder> {
   }
 
   Widget buildFieldType(FBField field) {
-    AppLocalizations t = AppLocalizations.of(context);
+    var t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
 
     if (field.type == FBFieldTypes.text) {
       return Padding(
@@ -144,10 +147,10 @@ class _FBuilderState extends State<FBuilder> {
               validate: field.validate ??
                   (String? value) {
                     if (value == null && !field.optional) {
-                      return t.requiredField;
+                      return t.translate('requiredField');
                     }
                     if (value!.isEmpty && !field.optional) {
-                      return t.requiredField;
+                      return t.translate('requiredField');
                     }
                     return null;
                   }));
@@ -166,10 +169,10 @@ class _FBuilderState extends State<FBuilder> {
         validate: field.validate ??
             (String? value) {
               if (value == null && !field.optional) {
-                return t.requiredField;
+                return t.translate('requiredField');
               }
               if (value!.isEmpty && !field.optional) {
-                return t.requiredField;
+                return t.translate('requiredField');
               }
               return null;
             },
@@ -206,11 +209,12 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.country) {
       return FBCountryInput(
-          onSelect: (Country c) {
-            updateFieldValue(field.id, c.countryCode);
-          },
-          initialValue: field.initialValue,
-          label: t.country);
+        onSelect: (Country c) {
+          updateFieldValue(field.id, c.countryCode);
+        },
+        initialValue: field.initialValue,
+        label: t.translate('country'),
+      );
     }
     if (field.type == FBFieldTypes.email) {
       return FBEmailInput(
@@ -252,12 +256,13 @@ class _FBuilderState extends State<FBuilder> {
         },
       );
     }
-    return const Text('Not implemented field type');
+    return Text(t.translate('notImplementedFieldType'));
   }
 
   Widget buildFields() {
     // ignore: unused_local_variable
-    AppLocalizations? t = AppLocalizations.of(context);
+    var t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
     return Column(
         children: widget.fields.map<Widget>((field) {
       if (field.conditionalBy != null && !field.conditionalBy!(_values)) {
@@ -271,10 +276,11 @@ class _FBuilderState extends State<FBuilder> {
   }
 
   Widget buildButtons() {
-    AppLocalizations t = AppLocalizations.of(context);
+    var t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
     if (!widget.showCancelButton) {
       return WideButton(
-        label: widget.submitButton?.label ?? t.submit,
+        label: widget.submitButton?.label ?? t.translate('submit'),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             widget.onSubmit(_values);
@@ -286,8 +292,8 @@ class _FBuilderState extends State<FBuilder> {
       );
     }
     return CancelOrSubmitButtons(
-      cancelLabel: widget.cancelButton?.label ?? t.cancel,
-      submitLabel: widget.submitButton?.label ?? t.submit,
+      cancelLabel: widget.cancelButton?.label ?? t.translate('cancel'),
+      submitLabel: widget.submitButton?.label ?? t.translate('submit'),
       cancelIcon: widget.cancelButton?.icon,
       submitIcon: widget.submitButton?.icon,
       onCancel: () {
@@ -350,7 +356,7 @@ class _FBuilderState extends State<FBuilder> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    AppLocalizations? t = AppLocalizations.of(context);
+
     return Center(
         child: Container(
             constraints: const BoxConstraints(maxWidth: 450),
