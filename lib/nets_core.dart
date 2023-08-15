@@ -9,9 +9,8 @@ class NetsCore {
   static const MethodChannel _channel = const MethodChannel('store_checker');
 
   static Future<bool> get isTrusted async {
-    final bool isTrusted = await _channel.invokeMethod('isTrusted');
     final String? sourceName = await _channel.invokeMethod('getSource');
-    debugPrint('isTrusted: $isTrusted sourceName: $sourceName');
+    debugPrint('isTrusted sourceName: $sourceName');
     return true;
   }
 }
