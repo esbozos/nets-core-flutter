@@ -147,8 +147,6 @@ class NavItemBuilder extends DelegateBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
-    var u;
-
     return Stack(
       alignment: Alignment.center,
       children: [
