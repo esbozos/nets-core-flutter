@@ -1,9 +1,17 @@
 library nets_core;
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 export 'services/storage_service.dart';
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+class NetsCore {
+  static const MethodChannel _channel = const MethodChannel('store_checker');
+
+  static Future<bool> get isTrusted async {
+    final bool isTrusted = await _channel.invokeMethod('isTrusted');
+    final String? sourceName = await _channel.invokeMethod('getSource');
+    debugPrint('isTrusted: $isTrusted sourceName: $sourceName');
+    return true;
+  }
 }
