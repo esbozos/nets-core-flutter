@@ -69,6 +69,36 @@ class DeviceIdentifier {
   String toString() {
     return name;
   }
+
+  copyWith({
+    String? name,
+    String? os,
+    String? uuid,
+    String? osVersion,
+    String? appVersion,
+    String? deviceToken,
+    String? firebaseToken,
+    bool? active,
+    int? id,
+    DateTime? lastLogin,
+    DateTime? created,
+    DateTime? updated,
+  }) {
+    return DeviceIdentifier(
+      name: name ?? this.name,
+      os: os ?? this.os,
+      uuid: uuid ?? this.uuid,
+      osVersion: osVersion ?? this.osVersion,
+      appVersion: appVersion ?? this.appVersion,
+      deviceToken: deviceToken ?? this.deviceToken,
+      firebaseToken: firebaseToken ?? this.firebaseToken,
+      active: active ?? this.active,
+      id: id ?? this.id,
+      lastLogin: lastLogin ?? this.lastLogin,
+      created: created ?? this.created,
+      updated: updated ?? this.updated,
+    );
+  }
 }
 
 class DeviceIdentifierUtil {
