@@ -10,24 +10,25 @@ class DeviceIdentifier {
   String? appVersion;
   String? deviceToken;
   String? firebaseToken;
+  String? ip;
   bool active;
   int? id;
   DateTime? lastLogin, created, updated;
 
-  DeviceIdentifier({
-    required this.name,
-    required this.os,
-    this.uuid,
-    this.osVersion,
-    this.appVersion,
-    this.deviceToken,
-    this.firebaseToken,
-    this.active = true,
-    this.id,
-    this.lastLogin,
-    this.created,
-    this.updated,
-  });
+  DeviceIdentifier(
+      {required this.name,
+      required this.os,
+      this.uuid,
+      this.osVersion,
+      this.appVersion,
+      this.deviceToken,
+      this.firebaseToken,
+      this.active = true,
+      this.id,
+      this.lastLogin,
+      this.created,
+      this.updated,
+      this.ip});
 
   factory DeviceIdentifier.fromJson(Map<String, dynamic> json) {
     return DeviceIdentifier(
@@ -43,6 +44,7 @@ class DeviceIdentifier {
       lastLogin: json['last_login'] != null
           ? DateTime.parse(json['last_login'])
           : null,
+      ip: json['ip'],
       created: json['created'] != null ? DateTime.parse(json['created']) : null,
       updated: json['updated'] != null ? DateTime.parse(json['updated']) : null,
     );
@@ -62,6 +64,7 @@ class DeviceIdentifier {
       'last_login': lastLogin?.toIso8601String(),
       'created': created?.toIso8601String(),
       'updated': updated?.toIso8601String(),
+      'ip': ip,
     };
   }
 
@@ -83,6 +86,7 @@ class DeviceIdentifier {
     DateTime? lastLogin,
     DateTime? created,
     DateTime? updated,
+    String? ip,
   }) {
     return DeviceIdentifier(
       name: name ?? this.name,
@@ -97,6 +101,7 @@ class DeviceIdentifier {
       lastLogin: lastLogin ?? this.lastLogin,
       created: created ?? this.created,
       updated: updated ?? this.updated,
+      ip: ip ?? this.ip,
     );
   }
 }
@@ -208,10 +213,15 @@ class DeviceIdentifierUtil {
       deviceToken: '',
       firebaseToken: '',
       active: true,
+      id: null,
+      lastLogin: null,
+      created: null,
+      updated: null,
+      ip: '',
     );
 
     if (Platform.isAndroid) {
-      if (allInfo['isPhysicalDevice']) {
+      if (!allInfo['isPhysicalDevice']) {
         emu = 'EMULATOR';
       }
       deviceIdentifier.name =
@@ -223,7 +233,7 @@ class DeviceIdentifierUtil {
       deviceIdentifier.deviceToken = '';
       deviceIdentifier.firebaseToken = '';
     } else if (Platform.isIOS) {
-      if (allInfo['isPhysicalDevice']) {
+      if (!allInfo['isPhysicalDevice']) {
         emu = 'EMULATOR';
       }
       deviceIdentifier.name = '${allInfo['name']} ${allInfo['model']} $emu ';
