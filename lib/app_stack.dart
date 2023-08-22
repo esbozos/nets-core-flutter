@@ -33,12 +33,18 @@ class AppStack extends ConsumerStatefulWidget {
       required this.menu,
       this.activeColor,
       this.activeGradient,
-      this.inactiveColor})
+      this.inactiveColor,
+      this.backgroundColor,
+      this.activeBackgroundColor,
+      this.inactiveBackgroundColor})
       : super(key: key);
   final Widget child;
   final String title;
   final Color? activeColor;
   final Color? inactiveColor;
+  final Color? backgroundColor;
+  final Color? activeBackgroundColor;
+  final Color? inactiveBackgroundColor;
   final Gradient? activeGradient;
   final List<AppStackMenuItem> menu;
 
@@ -100,14 +106,18 @@ class _AppStackState extends ConsumerState<AppStack> {
                   curveSize: 0,
                   initialActiveIndex: 0,
                   count: AppState.navigationItems.length,
-                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  backgroundColor: widget.backgroundColor ??
+                      Theme.of(context).colorScheme.primary,
                   onTap: (index) => context.go(AppState.mapScreen[index]!),
                   itemBuilder: NavItemBuilder(
                       ref: ref,
                       items: widget.menu,
                       activeColor: widget.activeColor,
                       activeGradient: widget.activeGradient,
-                      inactiveColor: widget.inactiveColor),
+                      inactiveColor: widget.inactiveColor,
+                      backgroundColor: widget.backgroundColor,
+                      activeBackgroundColor: widget.activeBackgroundColor,
+                      inactiveBackgroundColor: widget.inactiveBackgroundColor),
                   // shadowColor: Colors.white,
                   //  activeColor: Colors.white,
                   // backgroundColor: Colors.transparent,
@@ -138,12 +148,19 @@ class NavItemBuilder extends DelegateBuilder {
   Color? activeColor;
   Gradient? activeGradient;
   Color? inactiveColor;
+  Color? backgroundColor;
+  Color? inactiveBackgroundColor;
+  Color? activeBackgroundColor;
+
   NavItemBuilder(
       {required this.ref,
       required this.items,
       this.activeColor = Colors.white,
       this.activeGradient,
-      this.inactiveColor});
+      this.inactiveColor,
+      this.backgroundColor,
+      this.inactiveBackgroundColor,
+      this.activeBackgroundColor});
 
   @override
   Widget build(BuildContext context, int index, bool active) {
@@ -157,7 +174,7 @@ class NavItemBuilder extends DelegateBuilder {
           decoration: BoxDecoration(
             gradient: active ? activeGradient : null,
             color: active
-                ? activeColor ?? Theme.of(context).colorScheme.primary
+                ? activeBackgroundColor ?? Theme.of(context).colorScheme.primary
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(90),
           ),
@@ -173,8 +190,10 @@ class NavItemBuilder extends DelegateBuilder {
                     children: [
                       Icon(items[index].icon,
                           color: active
-                              ? activeColor ?? Colors.white
-                              : inactiveColor ?? Colors.white),
+                              ? activeColor ??
+                                  Theme.of(context).colorScheme.onPrimary
+                              : inactiveColor ??
+                                  Theme.of(context).colorScheme.onSecondary),
                     ]),
               ),
       ],
