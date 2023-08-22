@@ -28,11 +28,13 @@ class FBTextInput extends StatefulWidget {
       this.keyboardType = TextInputType.text,
       this.helpText,
       this.maxLength,
+      this.icon,
       this.validate});
   final String? label;
   final String? initialValue;
   final String? placeHolder;
   final int? lines;
+  final Widget? icon;
   final bool obscureText;
   final void Function()? onTap;
   final void Function(String?)? onChange;
@@ -80,6 +82,7 @@ class _FBTextInputState extends State<FBTextInput> {
         hintText: widget.placeHolder,
         helperText: focused ? widget.helpText : null,
         helperMaxLines: 2,
+        icon: widget.icon,
         // border: const UnderlineInputBorder()
       ),
       validator: widget.validate,
@@ -101,6 +104,7 @@ class FBDateInput extends StatefulHookConsumerWidget {
       this.initialValue,
       this.placeHolder,
       this.onChange,
+      this.icon,
       this.onTap});
   final String? label;
   final String? placeHolder;
@@ -108,6 +112,7 @@ class FBDateInput extends StatefulHookConsumerWidget {
   final DateTime? maxDate;
   final DateTime? minDate;
   final int? minAge;
+  final Widget? icon;
   final int? maxAge;
   final DateTime? initialValue;
   final void Function(DateTime?)? onChange;
@@ -205,7 +210,8 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
           decoration: InputDecoration(
               enabledBorder: const UnderlineInputBorder(),
               labelText: widget.label,
-              hintText: widget.placeHolder),
+              hintText: widget.placeHolder,
+              icon: widget.icon),
           enabled: false,
           onTap: () {
             // _showDialog(Column(children: [
@@ -261,11 +267,13 @@ class FBCountryInput extends StatefulWidget {
       this.label,
       this.exclude,
       this.placeHolder,
+      this.icon,
       this.initialValue});
   final List<String>? exclude;
   final void Function(Country) onSelect;
   final String? initialValue;
   final String? label;
+  final Widget? icon;
   final String? placeHolder;
 
   @override
@@ -309,7 +317,8 @@ class _FBCountryInput extends State<FBCountryInput> {
       decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
-          hintText: widget.placeHolder),
+          hintText: widget.placeHolder,
+          icon: widget.icon),
       onTap: () {
         showCountryPicker(
             context: context,
@@ -329,16 +338,17 @@ class _FBCountryInput extends State<FBCountryInput> {
 }
 
 class FBEmailInput extends StatefulWidget {
-  const FBEmailInput({
-    super.key,
-    required this.onChange,
-    this.label,
-    this.placeHolder,
-    this.initialValue,
-  });
+  const FBEmailInput(
+      {super.key,
+      required this.onChange,
+      this.label,
+      this.placeHolder,
+      this.initialValue,
+      this.icon});
   final String? label;
   final String? placeHolder;
   final String? initialValue;
+  final Widget? icon;
   final void Function(String?)? onChange;
 
   @override
@@ -368,7 +378,8 @@ class _FBEmailInputState extends State<FBEmailInput> {
       decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
-          hintText: widget.placeHolder),
+          hintText: widget.placeHolder,
+          icon: widget.icon),
       validator: (String? value) {
         if (value == null) return 'Please enter some text';
         // check if value match email pattern
@@ -441,20 +452,21 @@ class _FBBooleanInputState extends State<FBBooleanInput> {
 }
 
 class FBDecimalInput extends StatefulWidget {
-  const FBDecimalInput({
-    super.key,
-    required this.onChange,
-    this.label,
-    this.placeHolder,
-    this.initialValue,
-    this.helpText,
-    this.min,
-    this.max,
-  });
+  const FBDecimalInput(
+      {super.key,
+      required this.onChange,
+      this.label,
+      this.placeHolder,
+      this.initialValue,
+      this.helpText,
+      this.min,
+      this.max,
+      this.icon});
   final String? label;
   final String? placeHolder;
   final String? initialValue;
   final String? helpText;
+  final Widget? icon;
   final void Function(String?)? onChange;
   final double? min;
   final double? max;
@@ -486,7 +498,8 @@ class _FBDecimalInputState extends State<FBDecimalInput> {
       decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
-          hintText: widget.placeHolder),
+          hintText: widget.placeHolder,
+          icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (String? value) {
         if (value == null) return 'Please enter some text';
@@ -502,20 +515,21 @@ class _FBDecimalInputState extends State<FBDecimalInput> {
 }
 
 class FBNumberInput extends StatefulWidget {
-  const FBNumberInput({
-    super.key,
-    required this.onChange,
-    this.label,
-    this.placeHolder,
-    this.initialValue = 0,
-    this.helpText,
-    this.min,
-    this.max,
-  });
+  const FBNumberInput(
+      {super.key,
+      required this.onChange,
+      this.label,
+      this.placeHolder,
+      this.initialValue = 0,
+      this.helpText,
+      this.min,
+      this.max,
+      this.icon});
   final String? label;
   final String? placeHolder;
   final int? initialValue;
   final String? helpText;
+  final Widget? icon;
   final void Function(String?)? onChange;
   final double? min;
   final double? max;
@@ -547,7 +561,8 @@ class _FBNumberInputState extends State<FBNumberInput> {
       decoration: InputDecoration(
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
-          hintText: widget.placeHolder),
+          hintText: widget.placeHolder,
+          icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (String? value) {
         if (value == null) return 'Please enter a number';

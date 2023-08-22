@@ -141,6 +141,7 @@ class _FBuilderState extends State<FBuilder> {
               helpText: field.helpText,
               maxLength: field.maxLength,
               keyboardType: field.keyboardType,
+              icon: field.icon,
               onChange: (String? v) {
                 updateFieldValue(field.id, v);
               },
@@ -162,6 +163,8 @@ class _FBuilderState extends State<FBuilder> {
         initialValue: field.initialValue,
         placeHolder: field.placeholder,
         helpText: field.helpText,
+        icon: field.icon,
+        maxLength: field.maxLength,
         keyboardType: field.keyboardType ?? TextInputType.visiblePassword,
         onChange: (String? v) {
           updateFieldValue(field.id, v);
@@ -194,7 +197,8 @@ class _FBuilderState extends State<FBuilder> {
       return DropdownButtonFormField(
           decoration: InputDecoration(
               enabledBorder: const UnderlineInputBorder(),
-              labelText: field.label!.capitalize),
+              labelText: field.label!.capitalize,
+              icon: field.icon),
           value: _values[field.id],
           icon: const Icon(Icons.arrow_downward_rounded),
           items: field.options!.map((o) {
@@ -209,6 +213,7 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.country) {
       return FBCountryInput(
+        icon: field.icon,
         onSelect: (Country c) {
           updateFieldValue(field.id, c.countryCode);
         },
@@ -218,6 +223,7 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.email) {
       return FBEmailInput(
+        icon: field.icon,
         label: field.label,
         initialValue: field.initialValue,
         placeHolder: field.placeholder,
@@ -238,6 +244,7 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.decimal) {
       return FBDecimalInput(
+        icon: field.icon,
         label: field.label,
         initialValue: field.initialValue,
         helpText: field.helpText,
@@ -249,6 +256,7 @@ class _FBuilderState extends State<FBuilder> {
     if (field.type == FBFieldTypes.number) {
       return FBNumberInput(
         label: field.label,
+        icon: field.icon,
         initialValue: field.initialValue,
         helpText: field.helpText,
         onChange: (String? s) {
