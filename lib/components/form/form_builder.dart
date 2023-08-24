@@ -184,14 +184,14 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.date) {
       return FBDateInput(
-        label: field.label,
-        initialValue: field.initialValue,
-        placeHolder: field.placeholder,
-        maxDate: field.maxValue,
-        onChange: (DateTime? s) {
-          updateFieldValue(field.id, s);
-        },
-      );
+          label: field.label,
+          initialValue: field.initialValue,
+          placeHolder: field.placeholder,
+          maxDate: field.maxValue,
+          onChange: (DateTime? s) {
+            updateFieldValue(field.id, s);
+          },
+          icon: field.icon);
     }
     if (field.type == FBFieldTypes.select) {
       return DropdownButtonFormField(
