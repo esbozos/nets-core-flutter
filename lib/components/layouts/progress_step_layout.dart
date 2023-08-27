@@ -37,6 +37,9 @@ class _ProgressStepLayoutState extends ConsumerState<ProgressStepLayout> {
     if (isMobile) {
       maxWidth = MediaQuery.of(context).size.width - 20;
     }
+    if (widget.maxWidth != null) {
+      maxWidth = widget.maxWidth!;
+    }
 
     return WillPopScope(
         onWillPop: () {
@@ -70,7 +73,7 @@ class _ProgressStepLayoutState extends ConsumerState<ProgressStepLayout> {
                         icon: const Icon(Icons.arrow_back))
                   ]),
             SizedBox(
-              height: widget.topPadding,
+              height: widget.topPadding ?? 60,
             ),
             Column(children: [
               Container(
