@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ProgressStepLayout extends StatefulHookConsumerWidget {
   final double progress;
   final double? progressBarHeight;
-  final double maxWidth;
+  final double? maxWidth;
   final void Function()? onBack;
   final List<Widget> children;
-  final double topPadding;
+  final double? topPadding;
   const ProgressStepLayout(
       {Key? key,
       required this.children,
