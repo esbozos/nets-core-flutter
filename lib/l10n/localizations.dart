@@ -33,6 +33,7 @@ Map<String, Map<String, String>> _localizedValues = {
     'picturePreview': 'Picture preview',
     'retakePicture': 'Retake picture',
     'continueNext': 'Continue',
+    'loading': 'Loading...',
   }
 };
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nets_core/components/layouts/progress_step_layout.dart';
+import 'package:nets_core/components/screens/loading_screen.dart';
+import 'package:nets_core/l10n/localizations.dart';
 
 class StepPage {
   final String? title;
@@ -15,16 +17,22 @@ class StepPage {
 class PageStepper extends StatefulHookConsumerWidget {
   final String? title;
   final List<StepPage> steps;
+  final bool loading;
+  final Widget? loadingWidget;
   final double? maxWidth;
   final double? progressBarHeight;
   final double? topPadding;
+  final String? localeName;
 
   const PageStepper(
       {Key? key,
       this.title,
       required this.steps,
+      this.loading = false,
+      this.loadingWidget,
       this.maxWidth,
       this.progressBarHeight,
+      this.localeName,
       this.topPadding})
       : super(key: key);
 
@@ -36,6 +44,8 @@ class _PageStepperState extends ConsumerState<PageStepper> {
   @override
   Widget build(BuildContext context) {
     var currentStep = useState(0);
+
+    var trans = NetsCoreLocalizations(localeName: widget.localeName).translate;
 
     return ProgressStepLayout(
         progressBarHeight: widget.progressBarHeight,
@@ -50,6 +60,11 @@ class _PageStepperState extends ConsumerState<PageStepper> {
               }
             : null,
         children: [
+          if (widget.loading)
+            if (widget.loadingWidget != null)
+              widget.loadingWidget!
+            else
+              LoadingScreen(message: trans('loading')),
           if (widget.title != null)
             Text(
               widget.title!,
