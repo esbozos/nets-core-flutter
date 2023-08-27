@@ -54,6 +54,8 @@ class _PageStepperState extends ConsumerState<PageStepper> {
         return LoadingScreen(message: trans('loading'));
       }
     }
+    debugPrint(
+        "progress, ${currentStep.value} / ${widget.steps.length} = ${currentStep.value + 1 / widget.steps.length}");
     return ProgressStepLayout(
         progressBarHeight: widget.progressBarHeight,
         maxWidth: widget.maxWidth,
