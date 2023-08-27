@@ -47,6 +47,13 @@ class _PageStepperState extends ConsumerState<PageStepper> {
 
     var trans = NetsCoreLocalizations(localeName: widget.localeName).translate;
 
+    if (widget.loading) {
+      if (widget.loadingWidget != null) {
+        return widget.loadingWidget!;
+      } else {
+        return LoadingScreen(message: trans('loading'));
+      }
+    }
     return ProgressStepLayout(
         progressBarHeight: widget.progressBarHeight,
         maxWidth: widget.maxWidth,
@@ -60,11 +67,6 @@ class _PageStepperState extends ConsumerState<PageStepper> {
               }
             : null,
         children: [
-          if (widget.loading)
-            if (widget.loadingWidget != null)
-              widget.loadingWidget!
-            else
-              LoadingScreen(message: trans('loading')),
           if (widget.title != null)
             Text(
               widget.title!,
