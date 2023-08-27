@@ -58,7 +58,7 @@ class _PageStepperState extends ConsumerState<PageStepper> {
         progressBarHeight: widget.progressBarHeight,
         maxWidth: widget.maxWidth,
         topPadding: widget.topPadding,
-        progress: currentStep.value / widget.steps.length,
+        progress: currentStep.value + 1 / widget.steps.length,
         onBack: currentStep.value > 0
             ? () {
                 if (currentStep.value > 0) {
