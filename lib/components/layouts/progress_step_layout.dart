@@ -55,7 +55,7 @@ class _ProgressStepLayoutState extends ConsumerState<ProgressStepLayout> {
             // show progress
             LinearProgressIndicator(
               value: widget.progress,
-              minHeight: widget.progressBarHeight,
+              minHeight: widget.progressBarHeight ?? 10,
             ),
             // show back button
             if (widget.onBack != null)
