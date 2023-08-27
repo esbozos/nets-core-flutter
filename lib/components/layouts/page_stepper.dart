@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nets_core/components/layouts/progress_step_layout.dart';
 
 class StepPage {
-  final String title;
+  final String? title;
 
   final Function(BuildContext context, bool isActive, void Function() next)
       builder;
@@ -50,6 +50,14 @@ class _PageStepperState extends ConsumerState<PageStepper> {
               }
             : null,
         children: [
+          if (widget.title != null)
+            Text(
+              widget.title!,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          if (widget.steps[currentStep.value].title != null)
+            Text(widget.steps[currentStep.value].title!,
+                style: Theme.of(context).textTheme.titleSmall),
           widget.steps[currentStep.value].builder(
               context,
               currentStep.value ==
