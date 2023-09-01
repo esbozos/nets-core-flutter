@@ -164,6 +164,14 @@ class NavItemBuilder extends DelegateBuilder {
 
   @override
   Widget build(BuildContext context, int index, bool active) {
+    Color bgColor = active
+        ? activeBackgroundColor ?? Theme.of(context).colorScheme.primary
+        : inactiveBackgroundColor ?? Colors.transparent;
+
+    Color iconColor = active
+        ? activeColor ?? Theme.of(context).colorScheme.onPrimary
+        : inactiveColor ?? Theme.of(context).colorScheme.inversePrimary;
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -173,9 +181,7 @@ class NavItemBuilder extends DelegateBuilder {
           height: active ? 60 : 30,
           decoration: BoxDecoration(
             gradient: active ? activeGradient : null,
-            color: active
-                ? activeBackgroundColor ?? Theme.of(context).colorScheme.primary
-                : Colors.transparent,
+            color: bgColor,
             borderRadius: BorderRadius.circular(90),
           ),
           alignment: Alignment.center,
@@ -189,11 +195,7 @@ class NavItemBuilder extends DelegateBuilder {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(items[index].icon,
-                          color: active
-                              ? activeColor ??
-                                  Theme.of(context).colorScheme.onPrimary
-                              : inactiveColor ??
-                                  Theme.of(context).colorScheme.onSecondary),
+                          color: iconColor, size: active ? 30 : 20),
                     ]),
               ),
       ],
