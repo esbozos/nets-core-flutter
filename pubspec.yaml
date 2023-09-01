@@ -1,6 +1,6 @@
 name: nets_core
 description: A set of core components for the Nets projects.
-version: 0.0.35
+version: 0.0.36
 homepage:
 
 environment:
@@ -18,9 +18,12 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  flutter_secure_storage: ^8.0.0
+  flutter_secure_storage: ^9.0.0
   go_router: ^10.0.0
   hooks_riverpod: ^2.3.7
+  flutter_local_notifications: ^15.1.0+1
+  firebase_core: ^2.15.0
+  firebase_messaging: ^14.6.5
 
   jiffy: ^6.2.1
   webview_flutter: ^4.2.2
