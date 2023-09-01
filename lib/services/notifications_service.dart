@@ -76,7 +76,7 @@ Future<void> showLocalNotification(
   NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-      notificationId ?? id++, message.title, message.body, notificationDetails,
+      notificationId ?? id++, message.title, message.body, null,
       payload: message.payload);
 }
 
