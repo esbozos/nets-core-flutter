@@ -67,7 +67,9 @@ Future<void> showLocalNotification(
           importance: Importance.max,
           priority: Priority.high,
           color: channel.color,
-          icon: channel.icon ?? '@mipmap/ic_launcher',
+          icon: channel.icon != null
+              ? '@mipmap/${channel.icon}'
+              : '@mipmap/ic_launcher',
           actions: message.actions
               ?.map((e) =>
                   AndroidNotificationAction(e.id, e.title, titleColor: e.color))
@@ -76,7 +78,7 @@ Future<void> showLocalNotification(
   NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-      notificationId ?? id++, message.title, message.body, null,
+      notificationId ?? id++, message.title, message.body, notificationDetails,
       payload: message.payload);
 }
 
