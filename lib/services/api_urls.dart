@@ -102,6 +102,7 @@ class ApiUrls {
 
     // String p = path;
     String s = kDebugMode ? baseMediaUrlDev : baseMediaUrl;
-    return '$s$p';
+    s = s.endsWith('/') ? s.substring(0, s.length - 1) : s;
+    return '$s/$p';
   }
 }
