@@ -12,11 +12,13 @@
 version=$(grep version: pubspec.yaml | awk '{print $2}')
 # get the patch number
 patch=$(echo $version | awk -F. '{print $3}')
-# increment the patch number parsing it to integer
+# parse the patch number to integer
+patch=$((10#$patch))
+# increment the patch number
 patch=$((patch+1))
 echo "version: 0.0.$patch"
 # update the version number only first occurrence
-sed -i "s/$version/version: 0.0.$patch/" pubspec.yaml
+sed -i "s/$version/version: 0.0.$patch/" pubspec.yaml 
 # commit the changes
 git commit -am "version: 0.0.$patch"
 # push the changes to the remote repository
