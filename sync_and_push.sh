@@ -17,6 +17,7 @@ patch=$(echo $patch | awk '{$NF = $NF + 1;} 1' | sed 's/ /./g')
 # increment the patch number using sed
 new_version=$(echo $version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
 # replace the old version number with the new version number
+echo "changing version from $version to $new_version"
 sed -i "s/$version/$new_version/g" pubspec.yaml
 
 # commit the changes
