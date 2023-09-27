@@ -1,6 +1,6 @@
 name: nets_core
 description: A set of core components for the Nets projects.
-version: version: 0.0.43
+version: 0.0.44
 homepage:
 
 environment:
