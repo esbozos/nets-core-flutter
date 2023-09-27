@@ -10,6 +10,8 @@
 
 # get the current version number
 version=$(grep version: pubspec.yaml | awk '{print $2}')
+# log to the console
+echo "current version is $version"
 # get the patch number using grep and awk
 patch=$(grep version: pubspec.yaml | awk -F. '{print $NF}')
 # increment the patch number using echo, awk and sed
