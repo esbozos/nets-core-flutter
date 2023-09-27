@@ -24,5 +24,5 @@ git commit -am "version: 0.0.$patch"
 git push
 
 # log to the console
-echo "version: 0.0.$patch pushed to the remote repository"
+echo "$new_version pushed to the remote repository"
 # end of script
