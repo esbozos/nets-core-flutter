@@ -12,8 +12,9 @@
 version=$(grep version: pubspec.yaml | awk '{print $2}')
 # get the patch number
 patch=$(echo $version | awk -F. '{print $3}')
-# increment the patch number
+# increment the patch number parsing it to integer
 patch=$((patch+1))
+echo "version: 0.0.$patch"
 # update the version number only first occurrence
 sed -i "s/$version/version: 0.0.$patch/" pubspec.yaml
 # commit the changes
