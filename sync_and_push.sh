@@ -9,13 +9,12 @@
 # and push the changes to the remote repository
 
 # get the current version number
-version=$(grep -o '(?<=version: ).*' pubspec.yaml)
+version=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
 # log to the console
 echo "current version is $version"
-# get the patch number
-patch=$(echo $version | cut -d '.' -f 3)
-# increment the patch number
-patch=$((patch+1))
+# get the patch number from the version number and increment it
+patch=$(echo $version | cut -d '.' -f 3 | awk '{print $1+1}')
+
 # log to the console
 echo "new patch number is $patch"
 # create the new version number
