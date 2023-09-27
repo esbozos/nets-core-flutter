@@ -21,8 +21,8 @@ echo "new patch number is $patch"
 new_version="version: 0.0.$patch"
 # log to the console
 echo "new version is $new_version"
-# replace the old version number with the new version number
-sed -i "s/version: $version/$new_version/g" pubspec.yaml
+# replace the old version number with the new version number ")syntax error: invalid arithmetic operator (error token is "
+sed -i "s/$version/$new_version/g" pubspec.yaml
 # log to the console
 echo "pubspec.yaml file updated"
 # commit the changes
