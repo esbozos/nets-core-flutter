@@ -21,7 +21,7 @@ new_version=$(echo $version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
 # replace the old version number with the new version number
 echo "changing version from $version to $new_version in pubspec.yaml "
 
-sed -i "s/$version/$new_version/g" pubspec.yaml
+sed -i "s/version: $version/version: $new_version/g" pubspec.yaml
 
 # commit the changes
 git commit -am "version: 0.0.$patch"
