@@ -16,7 +16,8 @@ patch=$(grep version: pubspec.yaml | awk -F. '{print $NF}')
 patch=$(echo $patch | awk '{$NF = $NF + 1;} 1' | sed 's/ /./g')
 # increment the patch number using sed
 new_version=$(echo $version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-sed -i "s/$version/$new_version/" pubspec.yaml
+# replace the old version number with the new version number
+sed -i "s/$version/$new_version/g" pubspec.yaml
 
 # commit the changes
 git commit -am "version: 0.0.$patch"
