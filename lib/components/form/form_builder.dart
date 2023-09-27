@@ -153,6 +153,11 @@ class _FBuilderState extends State<FBuilder> {
                     if (value!.isEmpty && !field.optional) {
                       return t.translate('requiredField');
                     }
+                    if (field.minLength != null &&
+                        value.length < field.minLength!) {
+                      return t.translate('minLength',
+                          args: [field.minLength.toString()]);
+                    }
                     return null;
                   }));
     }

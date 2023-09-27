@@ -34,6 +34,7 @@ Map<String, Map<String, String>> _localizedValues = {
     'retakePicture': 'Retake picture',
     'continueNext': 'Continue',
     'loading': 'Loading...',
+    'minLength': 'Min length is {0}',
   }
 };
 
@@ -41,7 +42,7 @@ class NetsCoreLocalizations {
   final String? localeName;
 
   NetsCoreLocalizations({this.localeName});
-  String translate(String key) {
+  String translate(String key, {List<String>? args}) {
     String _localeName = localeName ?? Platform.localeName.split('_')[0];
 
     if (!_localizedValues.containsKey(_localeName) ||
@@ -50,7 +51,16 @@ class NetsCoreLocalizations {
         _localizedValues[_localeName] == null) {
       return key;
     } else {
-      return _localizedValues[localeName]![key]!;
+      String translation = _localizedValues[localeName]![key]!;
+      if (args != null) {
+        for (int i = 0; i < args.length; i++) {
+          translation = translation.replaceAll('{$i}', args[i]);
+        }
+      } else {
+        // Remove all placeholders
+        translation = translation.replaceAll(RegExp(r'\{\d+\}'), '');
+      }
+      return translation;
     }
   }
 }
