@@ -9,20 +9,23 @@
 # and push the changes to the remote repository
 
 # get the current version number
-version=$(grep version: pubspec.yaml | awk '{print $2}')
+version=$(grep -oP '(?<=version: ).*' pubspec.yaml)
 # log to the console
 echo "current version is $version"
-# get the patch number using grep and awk
-patch=$(grep version: pubspec.yaml | awk -F. '{print $NF}')
-# increment the patch number using echo, awk and sed
-patch=$(echo $patch | awk '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-# increment the patch number using sed
-new_version=$(echo $version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
+# get the patch number
+patch=$(echo $version | cut -d '.' -f 3)
+# increment the patch number
+patch=$((patch+1))
+# log to the console
+echo "new patch number is $patch"
+# create the new version number
+new_version="version: 0.0.$patch"
+# log to the console
+echo "new version is $new_version"
 # replace the old version number with the new version number
-echo "changing version from $version to $new_version in pubspec.yaml "
-
-sed -i "s/version: $version/version: $new_version/g" pubspec.yaml
-
+sed -i "s/$version/$new_version/g" pubspec.yaml
+# log to the console
+echo "pubspec.yaml file updated"
 # commit the changes
 git commit -am "version: 0.0.$patch"
 # push the changes to the remote repository
