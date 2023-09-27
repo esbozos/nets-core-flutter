@@ -9,7 +9,7 @@
 # and push the changes to the remote repository
 
 # get the current version number
-version=$(grep -oP '(?<=version: ).*' pubspec.yaml)
+version=$(grep -o '(?<=version: ).*' pubspec.yaml)
 # log to the console
 echo "current version is $version"
 # get the patch number
