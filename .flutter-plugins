@@ -1,7 +1,7 @@
 # This is a generated file; do not edit or check into version control.
-camera=/Users/nets/.pub-cache/hosted/pub.dev/camera-0.10.5+4/
-camera_android=/Users/nets/.pub-cache/hosted/pub.dev/camera_android-0.10.8+9/
-camera_avfoundation=/Users/nets/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+5/
+camera=/Users/nets/.pub-cache/hosted/pub.dev/camera-0.10.5+5/
+camera_android=/Users/nets/.pub-cache/hosted/pub.dev/camera_android-0.10.8+12/
+camera_avfoundation=/Users/nets/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+6/
 camera_web=/Users/nets/.pub-cache/hosted/pub.dev/camera_web-0.3.2+3/
 device_info_plus=/Users/nets/.pub-cache/hosted/pub.dev/device_info_plus-9.0.3/
 firebase_core=/Users/nets/.pub-cache/hosted/pub.dev/firebase_core-2.16.0/
@@ -22,5 +22,5 @@ path_provider_linux=/Users/nets/.pub-cache/hosted/pub.dev/path_provider_linux-2.
 path_provider_windows=/Users/nets/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
 sqflite=/Users/nets/.pub-cache/hosted/pub.dev/sqflite-2.3.0/
 webview_flutter=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter-4.2.4/
-webview_flutter_android=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_android-3.10.1/
-webview_flutter_wkwebview=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.7.4/
+webview_flutter_android=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_android-3.12.0/
+webview_flutter_wkwebview=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.9.0/
