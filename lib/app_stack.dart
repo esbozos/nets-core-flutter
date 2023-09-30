@@ -36,7 +36,10 @@ class AppStack extends ConsumerStatefulWidget {
       this.inactiveColor,
       this.backgroundColor,
       this.activeBackgroundColor,
-      this.inactiveBackgroundColor})
+      this.inactiveBackgroundColor,
+      this.showAppBar = false,
+      this.showNavBar = true,
+      this.listener})
       : super(key: key);
   final Widget child;
   final String title;
@@ -47,6 +50,9 @@ class AppStack extends ConsumerStatefulWidget {
   final Color? inactiveBackgroundColor;
   final Gradient? activeGradient;
   final List<AppStackMenuItem> menu;
+  final bool showAppBar;
+  final bool showNavBar;
+  final Function(BuildContext context)? listener;
 
   @override
   ConsumerState<AppStack> createState() => _AppStackState();
@@ -62,6 +68,9 @@ class _AppStackState extends ConsumerState<AppStack> {
   void initState() {
     super.initState();
     buildNavigation();
+    if (widget.listener != null) {
+      widget.listener!(context);
+    }
   }
 
   @override
@@ -94,11 +103,11 @@ class _AppStackState extends ConsumerState<AppStack> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: AppState.showNavBar,
-      builder: (context, showBar, child) {
+      builder: (context, showNavBar, child) {
         return Scaffold(
           key: _scaffoldKey,
           body: SafeArea(child: widget.child),
-          bottomNavigationBar: !showBar
+          bottomNavigationBar: !showNavBar
               ? null
               : ConvexAppBar.builder(
                   key: _appBarKey,
