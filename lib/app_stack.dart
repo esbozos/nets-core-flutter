@@ -52,7 +52,7 @@ class AppStack extends ConsumerStatefulWidget {
   final List<AppStackMenuItem> menu;
   final bool showAppBar;
   final bool showNavBar;
-  final Function(BuildContext context)? listener;
+  final Function(BuildContext context, WidgetRef ref)? listener;
 
   @override
   ConsumerState<AppStack> createState() => _AppStackState();
@@ -69,7 +69,7 @@ class _AppStackState extends ConsumerState<AppStack> {
     super.initState();
     buildNavigation();
     if (widget.listener != null) {
-      widget.listener!(context);
+      widget.listener!(context, ref);
     }
   }
 
