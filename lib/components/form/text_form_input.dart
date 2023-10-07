@@ -319,6 +319,13 @@ class _FBCountryInput extends State<FBCountryInput> {
           labelText: widget.label!.capitalize,
           hintText: widget.placeHolder,
           prefixIcon: widget.icon),
+      validator: (value) {
+        debugPrint("//// country value $value");
+        if (value == null || value.isEmpty) return 'Please select a country';
+        if (_country == null) return 'Please select a country';
+
+        return null;
+      },
       onTap: () {
         showCountryPicker(
             context: context,
