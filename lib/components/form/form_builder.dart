@@ -203,9 +203,14 @@ class _FBuilderState extends State<FBuilder> {
           decoration: InputDecoration(
               enabledBorder: const UnderlineInputBorder(),
               labelText: field.label!.capitalize,
+              labelStyle: Theme.of(context)
+                  .textTheme
+                  .bodySmall!
+                  .copyWith(overflow: TextOverflow.ellipsis),
+              isDense: true,
               icon: field.icon),
           value: _values[field.id],
-          icon: const Icon(Icons.arrow_downward_rounded),
+          icon: const Icon(Icons.keyboard_arrow_down_rounded),
           items: field.options!.map((o) {
             return DropdownMenuItem(
               value: o.value,
