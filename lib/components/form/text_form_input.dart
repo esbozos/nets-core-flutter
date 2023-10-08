@@ -574,7 +574,7 @@ class _FBNumberInputState extends State<FBNumberInput> {
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
           hintText: widget.placeHolder,
-          prefixIcon: widget.icon),
+          icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (String? value) {
         if ((value == null || value.isEmpty) && !widget.optional) {
