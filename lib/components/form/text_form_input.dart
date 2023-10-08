@@ -83,7 +83,7 @@ class _FBTextInputState extends State<FBTextInput> {
         hintText: widget.placeHolder,
         helperText: focused ? widget.helpText : null,
         helperMaxLines: 2,
-        prefixIcon: widget.icon,
+        icon: widget.icon,
         // border: const UnderlineInputBorder()
       ),
       validator: widget.validate,
@@ -212,7 +212,7 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
               enabledBorder: const UnderlineInputBorder(),
               labelText: widget.label,
               hintText: widget.placeHolder,
-              prefixIcon: widget.icon),
+              icon: widget.icon),
           enabled: false,
           onTap: () {
             // _showDialog(Column(children: [
@@ -319,7 +319,7 @@ class _FBCountryInput extends State<FBCountryInput> {
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
           hintText: widget.placeHolder,
-          prefixIcon: widget.icon),
+          icon: widget.icon),
       validator: (value) {
         debugPrint("//// country value $value");
         if (value == null || value.isEmpty) return 'Please select a country';
@@ -387,7 +387,7 @@ class _FBEmailInputState extends State<FBEmailInput> {
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
           hintText: widget.placeHolder,
-          prefixIcon: widget.icon),
+          icon: widget.icon),
       validator: (String? value) {
         if (value == null) return 'Please enter some text';
         // check if value match email pattern
@@ -507,7 +507,7 @@ class _FBDecimalInputState extends State<FBDecimalInput> {
           enabledBorder: const UnderlineInputBorder(),
           labelText: widget.label!.capitalize,
           hintText: widget.placeHolder,
-          prefixIcon: widget.icon),
+          icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (String? value) {
         if (value == null) return 'Please enter some text';
