@@ -199,27 +199,30 @@ class _FBuilderState extends State<FBuilder> {
           icon: field.icon);
     }
     if (field.type == FBFieldTypes.select) {
-      return DropdownButtonFormField(
-          decoration: InputDecoration(
-              enabledBorder: const UnderlineInputBorder(),
-              labelText: field.label!.capitalize,
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(overflow: TextOverflow.ellipsis),
-              isDense: true,
-              icon: field.icon),
-          value: _values[field.id],
-          icon: const Icon(Icons.keyboard_arrow_down_rounded),
-          items: field.options!.map((o) {
-            return DropdownMenuItem(
-              value: o.value,
-              child: o.label,
-            );
-          }).toList(),
-          onChanged: (s) {
-            updateFieldValue(field.id, s);
-          });
+      return Column(children: [
+        DropdownButtonFormField(
+            isExpanded: true,
+            decoration: InputDecoration(
+                enabledBorder: const UnderlineInputBorder(),
+                labelText: field.label!.capitalize,
+                labelStyle: Theme.of(context)
+                    .textTheme
+                    .bodySmall!
+                    .copyWith(overflow: TextOverflow.ellipsis),
+                isDense: true,
+                icon: field.icon),
+            value: _values[field.id],
+            icon: const Icon(Icons.keyboard_arrow_down_rounded),
+            items: field.options!.map((o) {
+              return DropdownMenuItem(
+                value: o.value,
+                child: o.label,
+              );
+            }).toList(),
+            onChanged: (s) {
+              updateFieldValue(field.id, s);
+            })
+      ]);
     }
     if (field.type == FBFieldTypes.country) {
       return FBCountryInput(
