@@ -85,11 +85,13 @@ class FBuilder extends StatefulWidget {
     this.deleteButton,
     this.title,
     this.locale,
+    this.isDense = false,
   });
   final FBButton? submitButton;
   final FBButton? cancelButton;
   final bool showCancelButton;
   final Locale? locale;
+  final bool isDense;
   final FBButton? deleteButton;
   final Function() onCancel;
   final Function(Map<String, dynamic> values) onSubmit;
@@ -142,6 +144,7 @@ class _FBuilderState extends State<FBuilder> {
               maxLength: field.maxLength,
               keyboardType: field.keyboardType,
               icon: field.icon,
+              isDense: widget.isDense,
               onChange: (String? v) {
                 updateFieldValue(field.id, v);
               },
@@ -169,6 +172,7 @@ class _FBuilderState extends State<FBuilder> {
         placeHolder: field.placeholder,
         helpText: field.helpText,
         icon: field.icon,
+        isDense: widget.isDense,
         maxLength: field.maxLength,
         keyboardType: field.keyboardType ?? TextInputType.visiblePassword,
         onChange: (String? v) {
@@ -193,6 +197,7 @@ class _FBuilderState extends State<FBuilder> {
           initialValue: field.initialValue,
           placeHolder: field.placeholder,
           maxDate: field.maxValue,
+          isDense: widget.isDense,
           onChange: (DateTime? s) {
             updateFieldValue(field.id, s);
           },
@@ -209,7 +214,7 @@ class _FBuilderState extends State<FBuilder> {
                     .textTheme
                     .bodySmall!
                     .copyWith(overflow: TextOverflow.ellipsis),
-                isDense: true,
+                isDense: widget.isDense,
                 icon: field.icon),
             value: _values[field.id],
             icon: const Icon(Icons.keyboard_arrow_down_rounded),
@@ -227,6 +232,7 @@ class _FBuilderState extends State<FBuilder> {
     if (field.type == FBFieldTypes.country) {
       return FBCountryInput(
         icon: field.icon,
+        isDense: widget.isDense,
         onSelect: (Country c) {
           updateFieldValue(field.id, c.countryCode);
         },
@@ -239,6 +245,8 @@ class _FBuilderState extends State<FBuilder> {
         icon: field.icon,
         label: field.label,
         initialValue: field.initialValue,
+        helpText: field.helpText,
+        isDense: widget.isDense,
         placeHolder: field.placeholder,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
@@ -250,6 +258,7 @@ class _FBuilderState extends State<FBuilder> {
         label: field.label,
         initialValue: field.initialValue,
         helpText: field.helpText,
+        isDense: widget.isDense,
         onChange: (bool s) {
           updateFieldValue(field.id, s);
         },
@@ -258,6 +267,7 @@ class _FBuilderState extends State<FBuilder> {
     if (field.type == FBFieldTypes.decimal) {
       return FBDecimalInput(
         icon: field.icon,
+        isDense: widget.isDense,
         label: field.label,
         initialValue: field.initialValue,
         helpText: field.helpText,
@@ -275,6 +285,7 @@ class _FBuilderState extends State<FBuilder> {
         optional: field.optional,
         max: field.maxValue,
         min: field.minValue,
+        isDense: widget.isDense,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
