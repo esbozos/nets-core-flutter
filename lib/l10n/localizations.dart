@@ -35,6 +35,11 @@ Map<String, Map<String, String>> _localizedValues = {
     'continueNext': 'Continue',
     'loading': 'Loading...',
     'minLength': 'Min length is {0}',
+    'numberIsRequired': 'Number is required',
+    'numberShouldBeInteger': 'Number should be integer',
+    'numberShouldBePositive': 'Number should be positive',
+    'numberShouldBeLessThan': 'Number should be less than {0}',
+    'numberShouldBeGreaterThan': 'Number should be greater than {0}',
   }
 };
 

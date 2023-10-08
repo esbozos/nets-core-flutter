@@ -13,6 +13,7 @@ import 'package:jiffy/jiffy.dart';
 // ignore: implementation_imports
 import 'package:country_picker/src/res/country_codes.dart';
 import 'package:collection/collection.dart';
+import 'package:nets_core/l10n/localizations.dart';
 import 'package:nets_core/utils/extensions.dart';
 
 class FBTextInput extends StatefulWidget {
@@ -531,12 +532,14 @@ class FBNumberInput extends StatefulWidget {
       this.helpText,
       this.min,
       this.max,
+      this.optional = false,
       this.icon});
   final String? label;
   final String? placeHolder;
   final int? initialValue;
   final String? helpText;
   final Widget? icon;
+  final bool optional;
   final void Function(String?)? onChange;
   final double? min;
   final double? max;
@@ -563,6 +566,8 @@ class _FBNumberInputState extends State<FBNumberInput> {
 
   @override
   Widget build(BuildContext context) {
+    var t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
     return TextFormField(
       controller: _value,
       decoration: InputDecoration(
@@ -572,10 +577,21 @@ class _FBNumberInputState extends State<FBNumberInput> {
           prefixIcon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (String? value) {
-        if (value == null) return 'Please enter a number';
-        // check if value match email pattern
-        if (!RegExp(r"^[0-9]+(\.[0-9]+)?").hasMatch(value)) {
-          return 'Please enter a valid number';
+        if ((value == null || value.isEmpty) && !widget.optional) {
+          return t.translate('numberIsRequired');
+        }
+        try {
+          int.parse(value!);
+        } catch (e) {
+          return t.translate('numberShouldBeInteger');
+        }
+        if (widget.max != null && int.parse(value) > widget.max!) {
+          return t.translate('numberShouldBeLessThan',
+              args: [widget.max.toString()]);
+        }
+        if (widget.min != null && int.parse(value) < widget.min!) {
+          return t.translate('numberShouldBeGreaterThan',
+              args: [widget.min.toString()]);
         }
 
         return null;

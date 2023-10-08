@@ -264,6 +264,9 @@ class _FBuilderState extends State<FBuilder> {
         icon: field.icon,
         initialValue: field.initialValue,
         helpText: field.helpText,
+        optional: field.optional,
+        max: field.maxValue,
+        min: field.minValue,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
