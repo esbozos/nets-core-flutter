@@ -541,8 +541,8 @@ class FBNumberInput extends StatefulWidget {
   final Widget? icon;
   final bool optional;
   final void Function(String?)? onChange;
-  final double? min;
-  final double? max;
+  final int? min;
+  final int? max;
 
   @override
   State<FBNumberInput> createState() => _FBNumberInputState();
