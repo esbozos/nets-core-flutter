@@ -31,6 +31,7 @@ class FBTextInput extends StatefulWidget {
       this.maxLength,
       this.icon,
       this.isDense = false,
+      this.disabled = false,
       this.decoration,
       this.validate});
   final String? label;
@@ -47,6 +48,7 @@ class FBTextInput extends StatefulWidget {
   final int? maxLength;
   final TextInputType? keyboardType;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBTextInput> createState() => _FBTextInputState();
@@ -77,6 +79,7 @@ class _FBTextInputState extends State<FBTextInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: !widget.disabled,
       focusNode: focusNode,
       minLines: widget.lines,
       maxLines: widget.lines,
@@ -123,6 +126,7 @@ class FBDateInput extends StatefulHookConsumerWidget {
       this.icon,
       this.isDense = false,
       this.decoration,
+      this.disabled = false,
       this.onTap});
   final String? label;
   final String? placeHolder;
@@ -136,6 +140,7 @@ class FBDateInput extends StatefulHookConsumerWidget {
   final DateTime? initialValue;
   final void Function(DateTime?)? onChange;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   ConsumerState<FBDateInput> createState() => _FBDateInputState();
@@ -210,21 +215,23 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () async {
-          DateTime? selectedDate = await showDatePicker(
-            context: context,
-            initialDate: _dateValue != null &&
-                    _dateValue!.isBefore(_maxDate) &&
-                    _dateValue!.isAfter(_minDate)
-                ? _dateValue!
-                : _maxDate,
-            firstDate: _minDate,
-            lastDate: _maxDate,
-          );
-          if (selectedDate != null) {
-            handleChange(selectedDate);
-          }
-        },
+        onTap: widget.disabled
+            ? null
+            : () async {
+                DateTime? selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: _dateValue != null &&
+                          _dateValue!.isBefore(_maxDate) &&
+                          _dateValue!.isAfter(_minDate)
+                      ? _dateValue!
+                      : _maxDate,
+                  firstDate: _minDate,
+                  lastDate: _maxDate,
+                );
+                if (selectedDate != null) {
+                  handleChange(selectedDate);
+                }
+              },
         child: TextFormField(
           controller: _value,
           decoration: widget.decoration != null
@@ -297,6 +304,7 @@ class FBCountryInput extends StatefulWidget {
       this.icon,
       this.isDense = false,
       this.decoration,
+      this.disabled = false,
       this.initialValue});
   final List<String>? exclude;
   final void Function(Country) onSelect;
@@ -306,6 +314,7 @@ class FBCountryInput extends StatefulWidget {
   final bool isDense;
   final String? placeHolder;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBCountryInput> createState() => _FBCountryInput();
@@ -345,6 +354,7 @@ class _FBCountryInput extends State<FBCountryInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _value,
+      enabled: !widget.disabled,
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(
               labelText: widget.label!.capitalize,
@@ -393,6 +403,7 @@ class FBEmailInput extends StatefulWidget {
       this.optional = false,
       this.isDense = false,
       this.decoration,
+      this.disabled = false,
       this.icon});
   final String? label;
   final String? placeHolder;
@@ -400,9 +411,10 @@ class FBEmailInput extends StatefulWidget {
   final Widget? icon;
   final String? helpText;
   final bool optional;
-  final isDense;
+  final bool isDense;
   final void Function(String?)? onChange;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBEmailInput> createState() => _FBEmailInputState();
@@ -428,6 +440,7 @@ class _FBEmailInputState extends State<FBEmailInput> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: _value,
+      enabled: !widget.disabled,
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(
               labelText: widget.label!.capitalize,
@@ -467,6 +480,7 @@ class FBBooleanInput extends StatefulWidget {
     this.initialValue,
     this.isDense = false,
     this.decoration,
+    this.disabled = false,
   });
   final String? label;
   final String? placeHolder;
@@ -475,6 +489,7 @@ class FBBooleanInput extends StatefulWidget {
   final String? helpText;
   final void Function(bool) onChange;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBBooleanInput> createState() => _FBBooleanInputState();
@@ -499,12 +514,14 @@ class _FBBooleanInputState extends State<FBBooleanInput> {
       Switch(
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           value: _value,
-          onChanged: (bool? v) {
-            setState(() {
-              _value = v ?? false;
-            });
-            widget.onChange(v ?? false);
-          }),
+          onChanged: widget.disabled
+              ? null
+              : (bool? v) {
+                  setState(() {
+                    _value = v ?? false;
+                  });
+                  widget.onChange(v ?? false);
+                }),
       const SizedBox(width: 10),
       Text(widget.label!.capitalize),
       if (widget.helpText != null)
@@ -531,6 +548,7 @@ class FBDecimalInput extends StatefulWidget {
       this.isDense = false,
       this.max,
       this.decoration,
+      this.disabled = false,
       this.icon});
   final String? label;
   final String? placeHolder;
@@ -542,6 +560,7 @@ class FBDecimalInput extends StatefulWidget {
   final bool isDense;
   final double? max;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBDecimalInput> createState() => _FBDecimalInputState();
@@ -566,6 +585,7 @@ class _FBDecimalInputState extends State<FBDecimalInput> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: !widget.disabled,
       controller: _value,
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(
@@ -606,6 +626,7 @@ class FBNumberInput extends StatefulWidget {
       this.isDense = false,
       this.optional = false,
       this.decoration,
+      this.disabled = false,
       this.icon});
   final String? label;
   final String? placeHolder;
@@ -618,6 +639,7 @@ class FBNumberInput extends StatefulWidget {
   final int? min;
   final int? max;
   final InputDecoration? decoration;
+  final bool disabled;
 
   @override
   State<FBNumberInput> createState() => _FBNumberInputState();
@@ -644,6 +666,7 @@ class _FBNumberInputState extends State<FBNumberInput> {
     var t = NetsCoreLocalizations(
         localeName: Localizations.localeOf(context).toString().split('_')[0]);
     return TextFormField(
+      enabled: !widget.disabled,
       controller: _value,
       decoration: widget.decoration != null
           ? widget.decoration!.copyWith(

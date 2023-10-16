@@ -44,6 +44,7 @@ class FBField {
   final int? minLength;
   final List<FBFieldOption>? options;
   final bool Function(Map<String, dynamic>)? conditionalBy;
+  final bool disabled;
   FBField(
       {required this.id,
       this.label,
@@ -62,6 +63,7 @@ class FBField {
       this.minLength,
       this.expandedHelp,
       this.keyboardType = TextInputType.text,
+      this.disabled = false,
       this.conditionalBy});
 }
 
@@ -89,6 +91,7 @@ class FBuilder extends StatefulWidget {
     this.locale,
     this.isDense = false,
     this.inputDecoration,
+    this.disabled = false,
   });
   final FBButton? submitButton;
   final FBButton? cancelButton;
@@ -101,6 +104,7 @@ class FBuilder extends StatefulWidget {
   final String? title;
   final List<FBField> fields;
   final InputDecoration? inputDecoration;
+  final bool disabled;
   @override
   State<FBuilder> createState() => _FBuilderState();
 }
@@ -169,6 +173,7 @@ class _FBuilderState extends State<FBuilder> {
               icon: field.icon,
               isDense: widget.isDense,
               decoration: inputDecoration,
+              disabled: field.disabled,
               onChange: (String? v) {
                 updateFieldValue(field.id, v);
               },
@@ -199,6 +204,7 @@ class _FBuilderState extends State<FBuilder> {
         isDense: widget.isDense,
         maxLength: field.maxLength,
         decoration: inputDecoration,
+        disabled: field.disabled,
         keyboardType: field.keyboardType ?? TextInputType.visiblePassword,
         onChange: (String? v) {
           updateFieldValue(field.id, v);
@@ -224,6 +230,8 @@ class _FBuilderState extends State<FBuilder> {
           maxDate: field.maxValue,
           isDense: widget.isDense,
           decoration: inputDecoration,
+          disabled: field.disabled,
+          minDate: field.minValue,
           onChange: (DateTime? s) {
             updateFieldValue(field.id, s);
           },
@@ -250,15 +258,18 @@ class _FBuilderState extends State<FBuilder> {
                 child: o.label,
               );
             }).toList(),
-            onChanged: (s) {
-              updateFieldValue(field.id, s);
-            })
+            onChanged: field.disabled
+                ? null
+                : (dynamic s) {
+                    updateFieldValue(field.id, s);
+                  }),
       ]);
     }
     if (field.type == FBFieldTypes.country) {
       return FBCountryInput(
         icon: field.icon,
         isDense: widget.isDense,
+        disabled: field.disabled,
         onSelect: (Country c) {
           updateFieldValue(field.id, c.countryCode);
         },
@@ -272,6 +283,7 @@ class _FBuilderState extends State<FBuilder> {
         icon: field.icon,
         label: field.label,
         initialValue: field.initialValue,
+        disabled: field.disabled,
         helpText: field.helpText,
         isDense: widget.isDense,
         placeHolder: field.placeholder,
@@ -287,6 +299,7 @@ class _FBuilderState extends State<FBuilder> {
         initialValue: field.initialValue,
         helpText: field.helpText,
         isDense: widget.isDense,
+        disabled: field.disabled,
         decoration: inputDecoration,
         onChange: (bool s) {
           updateFieldValue(field.id, s);
@@ -302,6 +315,7 @@ class _FBuilderState extends State<FBuilder> {
         helpText: field.helpText,
         max: field.maxValue,
         min: field.minValue,
+        disabled: field.disabled,
         decoration: inputDecoration,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
@@ -318,6 +332,7 @@ class _FBuilderState extends State<FBuilder> {
         max: field.maxValue,
         min: field.minValue,
         isDense: widget.isDense,
+        disabled: field.disabled,
         decoration: inputDecoration,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
