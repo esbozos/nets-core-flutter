@@ -34,6 +34,7 @@ class FBField {
   final Widget? icon;
   final String? placeholder;
   final String? helpText;
+  final Widget? expandedHelp;
   final bool optional;
   final int? lines;
   final TextInputType? keyboardType;
@@ -59,6 +60,7 @@ class FBField {
       this.optional = false,
       this.maxLength,
       this.minLength,
+      this.expandedHelp,
       this.keyboardType = TextInputType.text,
       this.conditionalBy});
 }
@@ -86,6 +88,7 @@ class FBuilder extends StatefulWidget {
     this.title,
     this.locale,
     this.isDense = false,
+    this.inputDecoration,
   });
   final FBButton? submitButton;
   final FBButton? cancelButton;
@@ -97,6 +100,7 @@ class FBuilder extends StatefulWidget {
   final Function(Map<String, dynamic> values) onSubmit;
   final String? title;
   final List<FBField> fields;
+  final InputDecoration? inputDecoration;
   @override
   State<FBuilder> createState() => _FBuilderState();
 }
@@ -129,6 +133,25 @@ class _FBuilderState extends State<FBuilder> {
   }
 
   Widget buildFieldType(FBField field) {
+    InputDecoration inputDecoration = widget.inputDecoration ??
+        InputDecoration(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.grey)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.grey)),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.grey)),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.red)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.red)),
+            errorStyle: const TextStyle(color: Colors.red),
+            contentPadding: const EdgeInsets.all(10));
     var t = NetsCoreLocalizations(
         localeName: Localizations.localeOf(context).toString().split('_')[0]);
 
@@ -145,6 +168,7 @@ class _FBuilderState extends State<FBuilder> {
               keyboardType: field.keyboardType,
               icon: field.icon,
               isDense: widget.isDense,
+              decoration: inputDecoration,
               onChange: (String? v) {
                 updateFieldValue(field.id, v);
               },
@@ -174,6 +198,7 @@ class _FBuilderState extends State<FBuilder> {
         icon: field.icon,
         isDense: widget.isDense,
         maxLength: field.maxLength,
+        decoration: inputDecoration,
         keyboardType: field.keyboardType ?? TextInputType.visiblePassword,
         onChange: (String? v) {
           updateFieldValue(field.id, v);
@@ -198,6 +223,7 @@ class _FBuilderState extends State<FBuilder> {
           placeHolder: field.placeholder,
           maxDate: field.maxValue,
           isDense: widget.isDense,
+          decoration: inputDecoration,
           onChange: (DateTime? s) {
             updateFieldValue(field.id, s);
           },
@@ -207,7 +233,7 @@ class _FBuilderState extends State<FBuilder> {
       return Column(children: [
         DropdownButtonFormField(
             isExpanded: true,
-            decoration: InputDecoration(
+            decoration: inputDecoration.copyWith(
                 enabledBorder: const UnderlineInputBorder(),
                 labelText: field.label!.capitalize,
                 labelStyle: Theme.of(context)
@@ -236,6 +262,7 @@ class _FBuilderState extends State<FBuilder> {
         onSelect: (Country c) {
           updateFieldValue(field.id, c.countryCode);
         },
+        decoration: inputDecoration,
         initialValue: field.initialValue,
         label: t.translate('country'),
       );
@@ -248,6 +275,7 @@ class _FBuilderState extends State<FBuilder> {
         helpText: field.helpText,
         isDense: widget.isDense,
         placeHolder: field.placeholder,
+        decoration: inputDecoration,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
@@ -259,6 +287,7 @@ class _FBuilderState extends State<FBuilder> {
         initialValue: field.initialValue,
         helpText: field.helpText,
         isDense: widget.isDense,
+        decoration: inputDecoration,
         onChange: (bool s) {
           updateFieldValue(field.id, s);
         },
@@ -271,6 +300,9 @@ class _FBuilderState extends State<FBuilder> {
         label: field.label,
         initialValue: field.initialValue,
         helpText: field.helpText,
+        max: field.maxValue,
+        min: field.minValue,
+        decoration: inputDecoration,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
@@ -286,6 +318,7 @@ class _FBuilderState extends State<FBuilder> {
         max: field.maxValue,
         min: field.minValue,
         isDense: widget.isDense,
+        decoration: inputDecoration,
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
@@ -304,6 +337,44 @@ class _FBuilderState extends State<FBuilder> {
         return const SizedBox.shrink();
       }
 
+      if (field.expandedHelp != null) {
+        // show trailing icon two show expandedHelp in modalBottomSheet
+        // in a row with the field
+        return Row(
+          children: [
+            Expanded(child: buildFieldType(field)),
+            IconButton(
+              icon: const Icon(Icons.info_outline_rounded),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              field.expandedHelp!,
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              WideButton(
+                                label: t.translate('close'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.close_rounded),
+                                textColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                color: Theme.of(context).colorScheme.primary,
+                              )
+                            ],
+                          ));
+                    });
+              },
+            )
+          ],
+        );
+      }
       return Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: buildFieldType(field));
