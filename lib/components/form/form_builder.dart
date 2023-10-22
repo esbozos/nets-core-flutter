@@ -82,10 +82,13 @@ class FBuilder extends StatefulWidget {
     super.key,
     required this.fields,
     required this.onSubmit,
+    this.onChanged,
     required this.onCancel,
     this.submitButton,
     this.cancelButton,
     this.showCancelButton = true,
+    this.showSubmitButton = true,
+    this.showDeleteButton = false,
     this.deleteButton,
     this.title,
     this.locale,
@@ -99,8 +102,12 @@ class FBuilder extends StatefulWidget {
   final Locale? locale;
   final bool isDense;
   final FBButton? deleteButton;
+  final bool showSubmitButton;
+  final bool showDeleteButton;
+
   final Function() onCancel;
   final Function(Map<String, dynamic> values) onSubmit;
+  final Function(Map<String, dynamic> values)? onChanged;
   final String? title;
   final List<FBField> fields;
   final InputDecoration? inputDecoration;
@@ -119,6 +126,9 @@ class _FBuilderState extends State<FBuilder> {
     setState(() {
       _values = _values;
     });
+    if (widget.onChanged != null) {
+      widget.onChanged!(_values);
+    }
   }
 
   @override
@@ -397,6 +407,9 @@ class _FBuilderState extends State<FBuilder> {
   }
 
   Widget buildButtons() {
+    if (!widget.showSubmitButton && !widget.showCancelButton) {
+      return const SizedBox.shrink();
+    }
     var t = NetsCoreLocalizations(
         localeName: Localizations.localeOf(context).toString().split('_')[0]);
     if (!widget.showCancelButton) {
@@ -426,52 +439,6 @@ class _FBuilderState extends State<FBuilder> {
         }
       },
     );
-    // Widget submitButton = WideButton(
-    //     label: widget.cancelButton?.label ?? t.submit,
-    //     onPressed: () {
-    //       if (_formKey.currentState!.validate()) {
-    //         widget.onSubmit(_values);
-    //       }
-    //     },
-    //     icon: widget.submitButton?.icon ?? const Icon(Icons.send),
-    //     textColor: Theme.of(context).colorScheme.primary,
-    //     color: Theme.of(context).colorScheme.onPrimary
-    //     // textColor: Colors.white,
-    //     );
-    // Widget cancelButton = WideButton(
-    //   label: widget.cancelButton?.label ?? t.cancel,
-    //   onPressed: () {
-    //     widget.onCancel();
-    //   },
-    //   icon: widget.cancelButton?.icon ?? const Icon(Icons.cancel),
-    //   color: Theme.of(context).colorScheme.onError,
-    //   textColor: Theme.of(context).colorScheme.error,
-    // );
-
-    // if (MediaQuery.of(context).size.width > 600) {
-    //   return Padding(
-    //     padding: const EdgeInsets.all(10),
-    //     child:
-    //         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-    //       SizedBox(
-    //           width: MediaQuery.of(context).size.width / 2.5,
-    //           child: cancelButton),
-    //       SizedBox(
-    //           width: MediaQuery.of(context).size.width / 2.5,
-    //           child: submitButton)
-    //     ]),
-    //   );
-    // }
-    // return Padding(
-    //   padding: const EdgeInsets.all(10),
-    //   child: Column(children: [
-    //     submitButton,
-    //     const SizedBox(
-    //       height: 20,
-    //     ),
-    //     cancelButton
-    //   ]),
-    // );
   }
 
   @override
