@@ -15,6 +15,7 @@ class AppStackMenuItem {
   final String location;
   final String label;
   final IconData icon;
+  final int? badge;
 
   final Widget Function(BuildContext context, bool active)? itemBuilder;
 
@@ -22,7 +23,8 @@ class AppStackMenuItem {
       {required this.label,
       required this.location,
       required this.icon,
-      this.itemBuilder});
+      this.itemBuilder,
+      this.badge});
 }
 
 class AppStack extends ConsumerStatefulWidget {
@@ -207,6 +209,26 @@ class NavItemBuilder extends DelegateBuilder {
                           color: iconColor, size: active ? 30 : 20),
                     ]),
               ),
+        // badge
+        items[index].badge != null
+            ? Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(90),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    items[index].badge.toString(),
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                ),
+              )
+            : Container(),
       ],
     );
   }
