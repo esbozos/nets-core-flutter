@@ -100,16 +100,20 @@ class _AppStackState extends ConsumerState<AppStack> {
         for (var i in AppState.navigationItems) {
           // check if location starts with any of the matchLocations
           if (i.location == locationPath) {
+            debugPrint('nets-core-flutter: match: ${i.location}');
             int index = AppState.navigationItems.indexOf(i);
             _tabController?.animateTo(index);
+            _appBarKey.currentState!.animateTo(index);
             _match = true;
             break;
           }
           if (i.matchLocations.isNotEmpty) {
             for (var j in i.matchLocations) {
               if (locationPath.startsWith(j)) {
+                debugPrint('nets-core-flutter: match: $j');
                 int index = AppState.navigationItems.indexOf(i);
                 _tabController?.animateTo(index);
+                _appBarKey.currentState!.animateTo(index);
                 _match = true;
                 break;
               }
@@ -117,6 +121,7 @@ class _AppStackState extends ConsumerState<AppStack> {
           }
         }
         if (!_match) {
+          _appBarKey.currentState!.animateTo(0);
           _tabController?.animateTo(0);
         }
       });
