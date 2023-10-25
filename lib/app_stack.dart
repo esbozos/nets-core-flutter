@@ -31,7 +31,7 @@ class AppStackMenuItem {
 
 class AppStack extends ConsumerStatefulWidget {
   const AppStack(
-      {Key? key,
+      {super.key,
       required this.child,
       required this.title,
       required this.menu,
@@ -43,8 +43,7 @@ class AppStack extends ConsumerStatefulWidget {
       this.inactiveBackgroundColor,
       this.showAppBar = false,
       this.showNavBar = true,
-      this.listener})
-      : super(key: key);
+      this.listener});
   final Widget child;
   final String title;
   final Color? activeColor;
@@ -90,7 +89,7 @@ class _AppStackState extends ConsumerState<AppStack> {
       updateProviders();
       // add listen to GoRouter.of(context).location
       GoRouter.of(context).routeInformationProvider.addListener(() {
-        bool _match = false;
+        bool match = false;
         String locationPath = GoRouter.of(context)
             .routerDelegate
             .currentConfiguration
@@ -104,7 +103,7 @@ class _AppStackState extends ConsumerState<AppStack> {
             int index = AppState.navigationItems.indexOf(i);
             _tabController?.animateTo(index);
             _appBarKey.currentState!.animateTo(index);
-            _match = true;
+            match = true;
             break;
           }
           if (i.matchLocations.isNotEmpty) {
@@ -114,13 +113,13 @@ class _AppStackState extends ConsumerState<AppStack> {
                 int index = AppState.navigationItems.indexOf(i);
                 _tabController?.animateTo(index);
                 _appBarKey.currentState!.animateTo(index);
-                _match = true;
+                match = true;
                 break;
               }
             }
           }
         }
-        if (!_match) {
+        if (!match) {
           _appBarKey.currentState!.animateTo(0);
           _tabController?.animateTo(0);
         }

@@ -97,7 +97,10 @@ class NotificationService {
 
 Future<NotificationService> initializeLocalNotifications(String? icon,
     {List<NotificationAction>? actionCategories,
-    bool requestPermissions = false}) async {
+    bool requestPermissions = false,
+    void Function(NotificationResponse)? onDidReceiveNotificationResponse,
+    void Function(NotificationResponse)?
+        onDidReceiveBackgroundNotificationResponse}) async {
   NotificationService notificationService = NotificationService(
     initialized: false,
     permissionGranted: false,
@@ -158,7 +161,10 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
     linux: initializationSettingsLinux,
   );
   notificationService.initialized =
-      await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+      await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+          onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+          onDidReceiveBackgroundNotificationResponse:
+              onDidReceiveBackgroundNotificationResponse);
 
   if (requestPermissions) {
     switch (defaultTargetPlatform) {
@@ -167,7 +173,7 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
             await flutterLocalNotificationsPlugin
                 .resolvePlatformSpecificImplementation<
                     AndroidFlutterLocalNotificationsPlugin>()
-                ?.requestPermission();
+                ?.requestNotificationsPermission();
         break;
 
       case TargetPlatform.iOS:

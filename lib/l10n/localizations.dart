@@ -48,12 +48,12 @@ class NetsCoreLocalizations {
 
   NetsCoreLocalizations({this.localeName});
   String translate(String key, {List<String>? args}) {
-    String _localeName = localeName ?? Platform.localeName.split('_')[0];
+    String localeName = this.localeName ?? Platform.localeName.split('_')[0];
 
-    if (!_localizedValues.containsKey(_localeName) ||
-        _localizedValues[_localeName]!.isEmpty ||
-        !_localizedValues[_localeName]!.containsKey(key) ||
-        _localizedValues[_localeName] == null) {
+    if (!_localizedValues.containsKey(localeName) ||
+        _localizedValues[localeName]!.isEmpty ||
+        !_localizedValues[localeName]!.containsKey(key) ||
+        _localizedValues[localeName] == null) {
       return key;
     } else {
       String translation = _localizedValues[localeName]![key]!;

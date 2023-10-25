@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfileAvatar extends StatefulWidget {
-  const ProfileAvatar({Key? key, required this.avatar, this.size = 100})
-      : super(key: key);
+  const ProfileAvatar({super.key, required this.avatar, this.size = 100});
   final double size;
   final String? avatar;
 

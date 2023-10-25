@@ -9,14 +9,13 @@ class ProgressStepLayout extends StatefulHookConsumerWidget {
   final List<Widget> children;
   final double? topPadding;
   const ProgressStepLayout(
-      {Key? key,
+      {super.key,
       required this.children,
       required this.progress,
       this.maxWidth = 600,
       this.progressBarHeight = 10,
       this.topPadding = 60,
-      this.onBack})
-      : super(key: key);
+      this.onBack});
 
   @override
   ConsumerState<ProgressStepLayout> createState() => _ProgressStepLayoutState();

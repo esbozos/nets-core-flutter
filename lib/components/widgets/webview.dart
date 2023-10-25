@@ -11,12 +11,11 @@ class WebViewListener extends StatefulWidget {
   final String url;
   final bool showProgress;
   const WebViewListener(
-      {Key? key,
+      {super.key,
       required this.url,
       this.onNavigationRequest,
       this.onError,
-      this.showProgress = false})
-      : super(key: key);
+      this.showProgress = false});
   @override
   State<WebViewListener> createState() => _StateWebViewListener();
 }

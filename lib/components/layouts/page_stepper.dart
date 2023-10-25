@@ -25,7 +25,7 @@ class PageStepper extends StatefulHookConsumerWidget {
   final String? localeName;
 
   const PageStepper(
-      {Key? key,
+      {super.key,
       this.title,
       required this.steps,
       this.loading = false,
@@ -33,8 +33,7 @@ class PageStepper extends StatefulHookConsumerWidget {
       this.maxWidth,
       this.progressBarHeight,
       this.localeName,
-      this.topPadding})
-      : super(key: key);
+      this.topPadding});
 
   @override
   ConsumerState<PageStepper> createState() => _PageStepperState();

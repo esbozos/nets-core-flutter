@@ -26,12 +26,11 @@ class ListDecorated extends StatefulHookConsumerWidget {
   final bool dense;
   final double width;
   const ListDecorated(
-      {Key? key,
+      {super.key,
       required this.items,
       this.dense = false,
       this.showDivider = false,
-      this.width = 450})
-      : super(key: key);
+      this.width = 450});
 
   @override
   ConsumerState<ListDecorated> createState() => _ListDecoratedState();

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:nets_core/components/lists/options_list_item.dart';
@@ -7,8 +6,7 @@ class OptionsList extends StatefulHookConsumerWidget {
   final String? title;
   final Widget? leading;
   final List<OptionListItem> items;
-  const OptionsList({Key? key, this.title, this.items = const [], this.leading})
-      : super(key: key);
+  const OptionsList({super.key, this.title, this.items = const [], this.leading});
 
   @override
   ConsumerState<OptionsList> createState() => _OptionsListState();
@@ -45,7 +43,7 @@ class _OptionsListState extends ConsumerState<OptionsList> {
                         height: 1,
                       )
                     ]))
-                .toList(),
+                ,
           ],
         ));
   }

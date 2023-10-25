@@ -4,14 +4,14 @@ import 'package:nets_core/components/widgets/sliver_header_generic.dart';
 
 class HeaderBodyScrollLayout extends StatelessWidget {
   const HeaderBodyScrollLayout({
-    Key? key,
+    super.key,
     required this.header,
     required this.body,
     this.shrinkHeader,
     this.scrollController,
     this.expandedHeight = 200,
     this.minHeight,
-  }) : super(key: key);
+  });
   final double expandedHeight;
   final double? minHeight;
 
