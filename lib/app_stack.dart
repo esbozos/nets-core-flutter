@@ -212,7 +212,7 @@ class NavItemBuilder extends DelegateBuilder {
         // badge
         items[index].badge != null && items[index].badge! > 0
             ? Positioned(
-                top: 15,
+                top: 5,
                 right: 15,
                 child: Container(
                   width: 20,
