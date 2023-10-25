@@ -90,18 +90,33 @@ class _AppStackState extends ConsumerState<AppStack> {
       updateProviders();
       // add listen to GoRouter.of(context).location
       GoRouter.of(context).routeInformationProvider.addListener(() {
+        bool _match = false;
         String locationPath = GoRouter.of(context)
             .routerDelegate
             .currentConfiguration
             .uri
             .toString();
         for (var i in AppState.navigationItems) {
-          if (i.matchLocations.contains(locationPath) ||
-              i.location == locationPath) {
+          // check if location starts with any of the matchLocations
+          if (i.location == locationPath) {
             int index = AppState.navigationItems.indexOf(i);
             _tabController?.animateTo(index);
+            _match = true;
             break;
           }
+          if (i.matchLocations.isNotEmpty) {
+            for (var j in i.matchLocations) {
+              if (locationPath.startsWith(j)) {
+                int index = AppState.navigationItems.indexOf(i);
+                _tabController?.animateTo(index);
+                _match = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!_match) {
+          _tabController?.animateTo(0);
         }
       });
     });
@@ -235,8 +250,8 @@ class NavItemBuilder extends DelegateBuilder {
                 top: 5,
                 right: 15,
                 child: Container(
-                  width: 20,
-                  height: 20,
+                  width: 25,
+                  height: 25,
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(90),
