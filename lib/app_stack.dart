@@ -96,6 +96,7 @@ class _AppStackState extends ConsumerState<AppStack> {
             .currentConfiguration
             .uri
             .toString();
+        debugPrint('nets-core-flutter: locationPath: $locationPath');
         for (var i in AppState.navigationItems) {
           // check if location starts with any of the matchLocations
           if (i.location == locationPath) {
