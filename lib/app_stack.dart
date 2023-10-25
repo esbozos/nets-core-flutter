@@ -16,6 +16,7 @@ class AppStackMenuItem {
   final String label;
   final IconData icon;
   final int? badge;
+  final List<String> matchLocations;
 
   final Widget Function(BuildContext context, bool active)? itemBuilder;
 
@@ -24,7 +25,8 @@ class AppStackMenuItem {
       required this.location,
       required this.icon,
       this.itemBuilder,
-      this.badge});
+      this.badge,
+      this.matchLocations = const []});
 }
 
 class AppStack extends ConsumerStatefulWidget {
@@ -65,6 +67,7 @@ class _AppStackState extends ConsumerState<AppStack> {
   final GlobalKey<ConvexAppBarState> _appBarKey =
       GlobalKey<ConvexAppBarState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TabController? _tabController;
 
   @override
   void initState() {
@@ -85,6 +88,22 @@ class _AppStackState extends ConsumerState<AppStack> {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       updateProviders();
+      // add listen to GoRouter.of(context).location
+      GoRouter.of(context).routeInformationProvider.addListener(() {
+        String locationPath = GoRouter.of(context)
+            .routerDelegate
+            .currentConfiguration
+            .uri
+            .toString();
+        for (var i in AppState.navigationItems) {
+          if (i.matchLocations.contains(locationPath) ||
+              i.location == locationPath) {
+            int index = AppState.navigationItems.indexOf(i);
+            _tabController?.animateTo(index);
+            break;
+          }
+        }
+      });
     });
     // updateProviders();
   }
@@ -113,6 +132,7 @@ class _AppStackState extends ConsumerState<AppStack> {
               ? null
               : ConvexAppBar.builder(
                   key: _appBarKey,
+                  controller: _tabController,
                   // gradient: logoGradient,
                   curveSize: 0,
                   initialActiveIndex: 0,
@@ -223,7 +243,9 @@ class NavItemBuilder extends DelegateBuilder {
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    items[index].badge.toString(),
+                    items[index].badge! > 99
+                        ? '99+'
+                        : items[index].badge.toString(),
                     style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ),
