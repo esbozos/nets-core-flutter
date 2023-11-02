@@ -438,6 +438,8 @@ class _FBEmailInputState extends State<FBEmailInput> {
 
   @override
   Widget build(BuildContext context) {
+    NetsCoreLocalizations t = NetsCoreLocalizations(
+        localeName: Localizations.localeOf(context).toString().split('_')[0]);
     return TextFormField(
       controller: _value,
       enabled: !widget.disabled,
@@ -456,11 +458,11 @@ class _FBEmailInputState extends State<FBEmailInput> {
               icon: widget.icon),
       validator: (String? value) {
         if (value == null && !widget.optional) return 'Please enter some text';
-        // check if value match email pattern
+        // check if value match email pattern including _ + . characters
+        var emailRegex = RegExp(r"^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
         if (value != null) {
-          if (!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-              .hasMatch(value)) {
-            return 'Please enter a valid email';
+          if (!emailRegex.hasMatch(value)) {
+            return t.translate('invalidEmail');
           }
         }
 
