@@ -7,15 +7,17 @@ import 'package:nets_core/l10n/localizations.dart';
 
 class StepPage {
   final String? title;
+  final TextStyle? titleStyle;
 
   final Function(BuildContext context, bool isActive, void Function() next)
       builder;
 
-  StepPage({required this.title, required this.builder});
+  StepPage({required this.title, required this.builder, this.titleStyle});
 }
 
 class PageStepper extends StatefulHookConsumerWidget {
   final String? title;
+  final TextStyle? titleStyle;
   final Widget? header;
   final List<StepPage> steps;
   final bool loading;
@@ -28,6 +30,7 @@ class PageStepper extends StatefulHookConsumerWidget {
   const PageStepper(
       {super.key,
       this.title,
+      this.titleStyle,
       this.header,
       required this.steps,
       this.loading = false,
@@ -76,12 +79,14 @@ class _PageStepperState extends ConsumerState<PageStepper> {
           if (widget.title != null)
             Text(
               widget.title!,
-              style: Theme.of(context).textTheme.displaySmall,
+              style:
+                  widget.titleStyle ?? Theme.of(context).textTheme.titleMedium,
             ),
           if (widget.header != null) widget.header!,
           if (widget.steps[currentStep.value].title != null)
             Text(widget.steps[currentStep.value].title!,
-                style: Theme.of(context).textTheme.titleSmall),
+                style: widget.steps[currentStep.value].titleStyle ??
+                    Theme.of(context).textTheme.titleSmall),
           widget.steps[currentStep.value].builder(
               context,
               currentStep.value ==
