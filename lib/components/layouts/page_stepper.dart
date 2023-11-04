@@ -55,13 +55,16 @@ class _PageStepperState extends ConsumerState<PageStepper> {
         return LoadingScreen(message: trans('loading'));
       }
     }
+    // progress is wrong, calculate it properly
+    double progress = (currentStep.value + 1) / widget.steps.length;
+
     debugPrint(
-        "progress, ${currentStep.value} / ${widget.steps.length} = ${currentStep.value + 1 / widget.steps.length}");
+        "progress, ( ${currentStep.value} +1) / ${widget.steps.length} = $progress");
     return ProgressStepLayout(
         progressBarHeight: widget.progressBarHeight,
         maxWidth: widget.maxWidth,
         topPadding: widget.topPadding,
-        progress: currentStep.value + 1 / widget.steps.length,
+        progress: progress,
         onBack: currentStep.value > 0
             ? () {
                 if (currentStep.value > 0) {
