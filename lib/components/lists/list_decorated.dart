@@ -22,12 +22,14 @@ class ListDecoratedItem {
 
 class ListDecorated extends StatefulHookConsumerWidget {
   final List<ListDecoratedItem> items;
+  final Color? selectedTileColor;
   final bool showDivider;
   final bool dense;
   final double width;
   const ListDecorated(
       {super.key,
       required this.items,
+      this.selectedTileColor,
       this.dense = false,
       this.showDivider = false,
       this.width = 450});
@@ -55,7 +57,7 @@ class _ListDecoratedState extends ConsumerState<ListDecorated> {
                   constraints: BoxConstraints(maxWidth: widget.width),
                   child: ListTile(
                       selected: item.selected,
-                      selectedTileColor:
+                      selectedTileColor: widget.selectedTileColor ??
                           Theme.of(context).colorScheme.primaryContainer,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
