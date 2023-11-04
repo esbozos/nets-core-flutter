@@ -1,13 +1,13 @@
 # This is a generated file; do not edit or check into version control.
 camera=/Users/nets/.pub-cache/hosted/pub.dev/camera-0.10.5+5/
 camera_android=/Users/nets/.pub-cache/hosted/pub.dev/camera_android-0.10.8+13/
-camera_avfoundation=/Users/nets/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+6/
+camera_avfoundation=/Users/nets/.pub-cache/hosted/pub.dev/camera_avfoundation-0.9.13+7/
 camera_web=/Users/nets/.pub-cache/hosted/pub.dev/camera_web-0.3.2+3/
 device_info_plus=/Users/nets/.pub-cache/hosted/pub.dev/device_info_plus-9.1.0/
-firebase_core=/Users/nets/.pub-cache/hosted/pub.dev/firebase_core-2.20.0/
+firebase_core=/Users/nets/.pub-cache/hosted/pub.dev/firebase_core-2.21.0/
 firebase_core_web=/Users/nets/.pub-cache/hosted/pub.dev/firebase_core_web-2.8.1/
-firebase_messaging=/Users/nets/.pub-cache/hosted/pub.dev/firebase_messaging-14.7.2/
-firebase_messaging_web=/Users/nets/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.11/
+firebase_messaging=/Users/nets/.pub-cache/hosted/pub.dev/firebase_messaging-14.7.3/
+firebase_messaging_web=/Users/nets/.pub-cache/hosted/pub.dev/firebase_messaging_web-3.5.12/
 flutter_local_notifications=/Users/nets/.pub-cache/hosted/pub.dev/flutter_local_notifications-16.1.0/
 flutter_plugin_android_lifecycle=/Users/nets/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.17/
 flutter_secure_storage=/Users/nets/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.0.0/
@@ -21,6 +21,6 @@ path_provider_foundation=/Users/nets/.pub-cache/hosted/pub.dev/path_provider_fou
 path_provider_linux=/Users/nets/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
 path_provider_windows=/Users/nets/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
 sqflite=/Users/nets/.pub-cache/hosted/pub.dev/sqflite-2.3.0/
-webview_flutter=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter-4.4.1/
-webview_flutter_android=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_android-3.12.0/
-webview_flutter_wkwebview=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.9.2/
+webview_flutter=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter-4.4.2/
+webview_flutter_android=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_android-3.12.1/
+webview_flutter_wkwebview=/Users/nets/.pub-cache/hosted/pub.dev/webview_flutter_wkwebview-3.9.3/
