@@ -16,6 +16,7 @@ class StepPage {
 
 class PageStepper extends StatefulHookConsumerWidget {
   final String? title;
+  final Widget? header;
   final List<StepPage> steps;
   final bool loading;
   final Widget? loadingWidget;
@@ -27,6 +28,7 @@ class PageStepper extends StatefulHookConsumerWidget {
   const PageStepper(
       {super.key,
       this.title,
+      this.header,
       required this.steps,
       this.loading = false,
       this.loadingWidget,
@@ -73,6 +75,7 @@ class _PageStepperState extends ConsumerState<PageStepper> {
               widget.title!,
               style: Theme.of(context).textTheme.displaySmall,
             ),
+          if (widget.header != null) widget.header!,
           if (widget.steps[currentStep.value].title != null)
             Text(widget.steps[currentStep.value].title!,
                 style: Theme.of(context).textTheme.titleSmall),
