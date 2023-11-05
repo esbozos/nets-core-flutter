@@ -424,7 +424,7 @@ class _FBEmailInputState extends State<FBEmailInput> {
   final TextEditingController _value = TextEditingController();
 
   void handleValueChange() {
-    if (widget.onChange != null) widget.onChange!(_value.text);
+    if (widget.onChange != null) widget.onChange!(_value.text.toLowerCase());
   }
 
   @override

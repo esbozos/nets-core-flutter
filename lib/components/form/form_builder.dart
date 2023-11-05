@@ -461,7 +461,7 @@ class _FBuilderState extends State<FBuilder> {
                           : const SizedBox.shrink(),
                       Form(
                         key: _formKey,
-                        autovalidateMode: AutovalidateMode.always,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: buildFields(),
                       ),
                       const SizedBox(
