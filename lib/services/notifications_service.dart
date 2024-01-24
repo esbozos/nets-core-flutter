@@ -110,11 +110,11 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
     launchPayload: null,
   );
 
-  final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
-          Platform.isLinux &&
-          Platform.isWindows
-      ? null
-      : await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+      (!kIsWeb && Platform.isLinux) || Platform.isWindows
+          ? null
+          : await flutterLocalNotificationsPlugin
+              .getNotificationAppLaunchDetails();
 
   // check for payload if app was launched via notification
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
