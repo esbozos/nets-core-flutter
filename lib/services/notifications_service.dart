@@ -96,6 +96,8 @@ class NotificationService {
 }
 
 Future<NotificationService> initializeLocalNotifications(String? icon,
+// if platform is windows we dont initialize notifications
+
     {List<NotificationAction>? actionCategories,
     bool requestPermissions = false,
     void Function(NotificationResponse)? onDidReceiveNotificationResponse,
@@ -109,7 +111,8 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
   );
 
   final NotificationAppLaunchDetails? notificationAppLaunchDetails = !kIsWeb &&
-          Platform.isLinux
+          Platform.isLinux &&
+          Platform.isWindows
       ? null
       : await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
@@ -160,8 +163,9 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
     macOS: initializationSettingsDarwin,
     linux: initializationSettingsLinux,
   );
-  notificationService.initialized =
-      await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+  notificationService.initialized = Platform.isWindows
+      ? false
+      : await flutterLocalNotificationsPlugin.initialize(initializationSettings,
           onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
           onDidReceiveBackgroundNotificationResponse:
               onDidReceiveBackgroundNotificationResponse);
