@@ -61,6 +61,7 @@ final StreamController<String?> selectNotificationStream =
 Future<void> showLocalNotification(
     NotificationChannel channel, NotificationMessage message,
     {int? notificationId}) async {
+  if (Platform.isWindows) return;
   AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails(channel.id, channel.name,
           channelDescription: channel.description,
