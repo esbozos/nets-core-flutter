@@ -140,11 +140,80 @@ class _AppStackState extends ConsumerState<AppStack> {
     // }
   }
 
+  Widget NavigationWithBottomAppBar() {
+    return ConvexAppBar.builder(
+      key: _appBarKey,
+      controller: _tabController,
+      // gradient: logoGradient,
+      curveSize: 0,
+      initialActiveIndex: 0,
+      count: AppState.navigationItems.length,
+      backgroundColor:
+          widget.backgroundColor ?? Theme.of(context).colorScheme.primary,
+      onTap: (index) => context.go(AppState.mapScreen[index]!),
+      itemBuilder: NavItemBuilder(
+          ref: ref,
+          items: widget.menu,
+          activeColor: widget.activeColor,
+          activeGradient: widget.activeGradient,
+          inactiveColor: widget.inactiveColor,
+          backgroundColor: widget.backgroundColor,
+          activeBackgroundColor: widget.activeBackgroundColor,
+          inactiveBackgroundColor: widget.inactiveBackgroundColor),
+      // shadowColor: Colors.white,
+      //  activeColor: Colors.white,
+      // backgroundColor: Colors.transparent,
+      // items: AppState.navigationTabItems
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: AppState.showNavBar,
       builder: (context, showNavBar, child) {
+        return LayoutBuilder(builder: (context, constraints) {
+          if (constraints.maxWidth > 600) {
+            return Scaffold(
+                key: _scaffoldKey,
+                appBar: AppBar(
+                  title: Text(widget.title),
+                  actions: [
+                    IconButton(
+                      icon: Icon(Icons.logout),
+                      onPressed: () {
+                        // ref.read(authProvider.notifier).signOut();
+                      },
+                    )
+                  ],
+                ),
+                body: Row(children: [
+                  NavigationRail(
+                    selectedIndex: 0,
+                    onDestinationSelected: (int index) {
+                      context.go(AppState.mapScreen[index]!);
+                    },
+                    labelType: NavigationRailLabelType.selected,
+                    destinations: AppState.navigationItems
+                        .map((e) => NavigationRailDestination(
+                              icon: Icon(e.icon),
+                              label: Text(e.label),
+                            ))
+                        .toList(),
+                  ),
+                  const VerticalDivider(thickness: 1, width: 1),
+                  Expanded(child: widget.child)
+                ]));
+          } else {
+            return Scaffold(
+              key: _scaffoldKey,
+              body: SafeArea(child: widget.child),
+              bottomNavigationBar:
+                  !showNavBar ? null : NavigationWithBottomAppBar(),
+            );
+          }
+        });
+
         return Scaffold(
           key: _scaffoldKey,
           body: SafeArea(child: widget.child),
