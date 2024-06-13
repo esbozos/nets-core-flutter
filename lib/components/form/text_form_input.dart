@@ -289,7 +289,7 @@ class FBTimeInput extends StatefulWidget {
   final void Function()? onTap;
   final bool isDense;
   final Widget? icon;
-  final DateTime? initialValue;
+  final TimeOfDay? initialValue;
   final void Function(TimeOfDay?)? onChange;
   final InputDecoration? decoration;
   final bool disabled;
