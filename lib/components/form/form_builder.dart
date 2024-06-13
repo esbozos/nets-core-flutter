@@ -72,10 +72,14 @@ enum FBButtonTypes { submit, cancel, delete }
 
 class FBButton {
   const FBButton(
-      {required this.label, required this.color, required this.icon});
+      {required this.label,
+      required this.color,
+      required this.icon,
+      this.textColor});
   final String? label;
   final IconData? icon;
   final Color? color;
+  final Color? textColor;
 }
 
 class FBuilder extends StatefulWidget {
@@ -248,7 +252,7 @@ class _FBuilderState extends State<FBuilder> {
           },
           icon: field.icon);
     }
-    if(field.type == FBFieldTypes.time) {
+    if (field.type == FBFieldTypes.time) {
       return FBTimeInput(
           label: field.label,
           initialValue: field.initialValue,
@@ -446,6 +450,8 @@ class _FBuilderState extends State<FBuilder> {
       submitColor: widget.submitButton?.color,
       cancelIcon: widget.cancelButton?.icon,
       submitIcon: widget.submitButton?.icon,
+      cancelTextColor: widget.cancelButton?.textColor,
+      submitTextColor: widget.submitButton?.textColor,
       onCancel: () {
         widget.onCancel();
       },
