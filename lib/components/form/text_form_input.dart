@@ -307,7 +307,7 @@ class _FBTimeInputState extends State<FBTimeInput> {
   }
 
   void handleValueChange() {
-    if (widget.onChange != null) widget.onChange!(_timeValue);
+    if (widget.onChange != null) widget.onChange!(TimeOfDay.fromDateTime(_timeValue!));
   }
 
   @override
