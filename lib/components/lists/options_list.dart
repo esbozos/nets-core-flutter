@@ -20,7 +20,7 @@ class _OptionsListState extends ConsumerState<OptionsList> {
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
             border:
-                Border.all(color: Theme.of(context).colorScheme.surfaceVariant),
+                Border.all(color: Theme.of(context).colorScheme.surfaceContainerHighest),
             borderRadius: BorderRadius.circular(10)),
         padding: const EdgeInsets.all(8),
         child: Column(

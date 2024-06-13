@@ -85,7 +85,7 @@ class _FullScreenLayoutState extends State<FullScreenLayout> {
                                   .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground),
+                                          .onSurface),
                               textAlign: TextAlign.center),
                         ),
                       if (widget.subtitle != null)
@@ -100,7 +100,7 @@ class _FullScreenLayoutState extends State<FullScreenLayout> {
                                   .copyWith(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .onBackground),
+                                          .onSurface),
                               textAlign: TextAlign.center,
                             )),
                       Padding(

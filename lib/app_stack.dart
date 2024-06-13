@@ -43,6 +43,7 @@ class AppStack extends ConsumerStatefulWidget {
       this.inactiveBackgroundColor,
       this.showAppBar = false,
       this.showNavBar = true,
+      this.appBar,
       this.listener});
   final Widget child;
   final String title;
@@ -54,6 +55,7 @@ class AppStack extends ConsumerStatefulWidget {
   final Gradient? activeGradient;
   final List<AppStackMenuItem> menu;
   final bool showAppBar;
+  final AppBar? appBar;
   final bool showNavBar;
   final Function(BuildContext context, WidgetRef ref)? listener;
 
@@ -176,17 +178,7 @@ class _AppStackState extends ConsumerState<AppStack> {
           if (constraints.maxWidth > 600) {
             return Scaffold(
                 key: _scaffoldKey,
-                appBar: AppBar(
-                  title: Text(widget.title),
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.logout),
-                      onPressed: () {
-                        // ref.read(authProvider.notifier).signOut();
-                      },
-                    )
-                  ],
-                ),
+                appBar: widget.appBar,
                 body: Row(children: [
                   NavigationRail(
                     selectedIndex: 0,
