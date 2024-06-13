@@ -442,6 +442,8 @@ class _FBuilderState extends State<FBuilder> {
     return CancelOrSubmitButtons(
       cancelLabel: widget.cancelButton?.label ?? t.translate('cancel'),
       submitLabel: widget.submitButton?.label ?? t.translate('submit'),
+      cancelColor: widget.cancelButton?.color,
+      submitColor: widget.submitButton?.color,
       cancelIcon: widget.cancelButton?.icon,
       submitIcon: widget.submitButton?.icon,
       onCancel: () {

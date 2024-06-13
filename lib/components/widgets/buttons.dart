@@ -55,8 +55,15 @@ class CancelButton extends StatefulWidget {
   final Function()? onPressed;
   final String label;
   final IconData? icon;
+  final Color? color;
+  final Color? textColor;
   const CancelButton(
-      {super.key, required this.label, this.icon, this.onPressed});
+      {super.key,
+      required this.label,
+      this.icon,
+      this.onPressed,
+      this.color,
+      this.textColor});
 
   @override
   State<CancelButton> createState() => _CancelButtonState();
@@ -77,12 +84,23 @@ class _CancelButtonState extends State<CancelButton> {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.error,
-            foregroundColor: Theme.of(context).colorScheme.onError),
+            backgroundColor:
+                widget.color ?? Theme.of(context).colorScheme.error,
+            foregroundColor: widget.textColor ??
+                (widget.color != null
+                    ? widget.color!.computeLuminance() > 0.5
+                        ? Colors.black
+                        : Colors.white
+                    : Theme.of(context).colorScheme.onError)),
         onPressed: widget.onPressed,
         icon: Icon(
           widget.icon ?? Icons.cancel,
-          color: Theme.of(context).colorScheme.onError,
+          color: widget.textColor ??
+              (widget.color != null
+                  ? widget.color!.computeLuminance() > 0.5
+                      ? Colors.black
+                      : Colors.white
+                  : Theme.of(context).colorScheme.onError),
         ),
         label: Text(widget.label.capitalize));
   }
@@ -92,8 +110,15 @@ class SubmitButton extends StatefulWidget {
   final Function()? onPressed;
   final String label;
   final IconData? icon;
+  final Color? color;
+  final Color? textColor;
   const SubmitButton(
-      {super.key, required this.label, this.icon, this.onPressed});
+      {super.key,
+      required this.label,
+      this.icon,
+      this.onPressed,
+      this.color,
+      this.textColor});
 
   @override
   State<SubmitButton> createState() => _SubmitButtonState();
@@ -114,12 +139,24 @@ class _SubmitButtonState extends State<SubmitButton> {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary),
+            backgroundColor:
+                widget.color ?? Theme.of(context).colorScheme.primary,
+            // compute luminance to determine if the text should be black or white
+            foregroundColor: widget.textColor ??
+                (widget.color != null
+                    ? widget.color!.computeLuminance() > 0.5
+                        ? Colors.black
+                        : Colors.white
+                    : Theme.of(context).colorScheme.onPrimary)),
         onPressed: widget.onPressed,
         icon: Icon(
           widget.icon ?? Icons.check,
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: widget.textColor ??
+              (widget.color != null
+                  ? widget.color!.computeLuminance() > 0.5
+                      ? Colors.black
+                      : Colors.white
+                  : Theme.of(context).colorScheme.onPrimary),
         ),
         label: Text(widget.label.capitalize));
   }
@@ -132,6 +169,10 @@ class CancelOrSubmitButtons extends StatefulWidget {
   final String submitLabel;
   final IconData? cancelIcon;
   final IconData? submitIcon;
+  final Color? cancelTextColor;
+  final Color? cancelColor;
+  final Color? submitTextColor;
+  final Color? submitColor;
   const CancelOrSubmitButtons(
       {super.key,
       required this.cancelLabel,
@@ -139,7 +180,11 @@ class CancelOrSubmitButtons extends StatefulWidget {
       this.cancelIcon,
       this.submitIcon,
       this.onCancel,
-      this.onSubmit});
+      this.onSubmit,
+      this.cancelColor,
+      this.submitColor,
+      this.cancelTextColor,
+      this.submitTextColor});
 
   @override
   State<CancelOrSubmitButtons> createState() => _CancelOrSubmitButtonsState();
@@ -164,10 +209,14 @@ class _CancelOrSubmitButtonsState extends State<CancelOrSubmitButtons> {
           CancelButton(
               label: widget.cancelLabel,
               icon: widget.cancelIcon,
+              color: widget.cancelColor,
+              textColor: widget.cancelTextColor,
               onPressed: widget.onCancel),
           SubmitButton(
               label: widget.submitLabel,
               icon: widget.submitIcon,
+              color: widget.submitColor,
+              textColor: widget.submitTextColor,
               onPressed: widget.onSubmit)
         ]);
   }
