@@ -65,6 +65,7 @@ class AppStack extends ConsumerStatefulWidget {
 
 class _AppStackState extends ConsumerState<AppStack> {
   String? purchaseStatus;
+  int _selectedIndex = 0;
   final GlobalKey<ConvexAppBarState> _appBarKey =
       GlobalKey<ConvexAppBarState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -103,6 +104,9 @@ class _AppStackState extends ConsumerState<AppStack> {
           if (i.location == locationPath) {
             debugPrint('nets-core-flutter: match: ${i.location}');
             int index = AppState.navigationItems.indexOf(i);
+            setState(() {
+              _selectedIndex = index;
+            });
             _tabController?.animateTo(index);
             _appBarKey.currentState!.animateTo(index);
             match = true;
@@ -113,17 +117,28 @@ class _AppStackState extends ConsumerState<AppStack> {
               if (locationPath.startsWith(j)) {
                 debugPrint('nets-core-flutter: match: $j');
                 int index = AppState.navigationItems.indexOf(i);
-                _tabController?.animateTo(index);
-                _appBarKey.currentState!.animateTo(index);
-                match = true;
+                if (_tabController != null) {
+                  if (_tabController!.index != index) {
+                    _tabController?.animateTo(index);
+                  }
+                  match = true;
+                }
+                if (_appBarKey.currentState != null) {
+                  _appBarKey.currentState!.animateTo(index);
+                  match = true;
+                }
                 break;
               }
             }
           }
         }
         if (!match) {
-          _appBarKey.currentState!.animateTo(0);
-          _tabController?.animateTo(0);
+          if (_tabController != null) {
+            _tabController?.animateTo(0);
+          }
+          if (_appBarKey.currentState != null) {
+            _appBarKey.currentState!.animateTo(0);
+          }
         }
       });
     });
@@ -181,7 +196,7 @@ class _AppStackState extends ConsumerState<AppStack> {
                 appBar: widget.appBar,
                 body: Row(children: [
                   NavigationRail(
-                    selectedIndex: 0,
+                    selectedIndex: _selectedIndex,
                     onDestinationSelected: (int index) {
                       context.go(AppState.mapScreen[index]!);
                     },
