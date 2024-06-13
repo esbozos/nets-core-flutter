@@ -307,14 +307,25 @@ class _FBTimeInputState extends State<FBTimeInput> {
   }
 
   void handleValueChange() {
-    if (widget.onChange != null) widget.onChange!(TimeOfDay.fromDateTime(_timeValue!));
+    if (widget.onChange != null)
+      widget.onChange!(TimeOfDay.fromDateTime(_timeValue!));
   }
 
   @override
   void initState() {
     if (widget.initialValue != null) {
-      _value.text = formatTime(widget.initialValue!);
-      _timeValue = widget.initialValue!;
+      _value.text = formatTime(DateTime(
+          _timeValue!.year,
+          _timeValue!.month,
+          _timeValue!.day,
+          widget.initialValue!.hour,
+          widget.initialValue!.minute));
+      _timeValue = DateTime(
+          _timeValue!.year,
+          _timeValue!.month,
+          _timeValue!.day,
+          widget.initialValue!.hour,
+          widget.initialValue!.minute);
     }
     _value.addListener(handleValueChange);
     super.initState();
