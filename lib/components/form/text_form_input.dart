@@ -247,33 +247,121 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
                   isDense: widget.isDense,
                   icon: widget.icon),
           enabled: false,
-          onTap: () {
-            // _showDialog(Column(children: [
-            //   SizedBox(
-            //       height: 200,
-            //       child: CupertinoDatePicker(
-            //         initialDateTime: _dateValue ?? DateTime.now(),
-            //         mode: CupertinoDatePickerMode.date,
-            //         use24hFormat: true,
-            //         // This is called when the user changes the date.
-            //         onDateTimeChanged: (DateTime newDate) {
-            //           handleChange(newDate);
-            //         },
-            //         maximumDate: _maxDate,
-            //         minimumDate: _minDate,
-            //       )),
-            //   CupertinoButton(
-            //       alignment: Alignment.bottomRight,
-            //       child: Text(t.done),
-            //       onPressed: () {
-            //         context.pop();
-            //       })
-            // ]));
-          },
+          onTap: () {},
         ));
   }
 
   // ignore: unused_element
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 280,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system
+        // navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(top: false, child: child),
+      ),
+    );
+  }
+}
+
+class FBTimeInput extends StatefulWidget {
+  const FBTimeInput(
+      {super.key,
+      this.label,
+      this.initialValue,
+      this.placeHolder,
+      this.onChange,
+      this.icon,
+      this.isDense = false,
+      this.decoration,
+      this.disabled = false,
+      this.onTap});
+  final String? label;
+  final String? placeHolder;
+  final void Function()? onTap;
+  final bool isDense;
+  final Widget? icon;
+  final DateTime? initialValue;
+  final void Function(TimeOfDay?)? onChange;
+  final InputDecoration? decoration;
+  final bool disabled;
+
+  @override
+  State<FBTimeInput> createState() => _FBTimeInputState();
+}
+
+class _FBTimeInputState extends State<FBTimeInput> {
+  final TextEditingController _value = TextEditingController();
+  DateTime? _timeValue = DateTime.now();
+
+  String formatTime(DateTime d) {
+    return DateFormat.jm().format(d);
+  }
+
+  void handleValueChange() {
+    if (widget.onChange != null) widget.onChange!(_timeValue);
+  }
+
+  @override
+  void initState() {
+    if (widget.initialValue != null) {
+      _value.text = formatTime(widget.initialValue!);
+      _timeValue = widget.initialValue!;
+    }
+    _value.addListener(handleValueChange);
+    super.initState();
+  }
+
+  void handleChange(newTime) {
+    setState(() {
+      _timeValue = newTime;
+      _value.text = formatTime(newTime);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // using showTimePicker
+    return GestureDetector(
+        onTap: widget.disabled
+            ? null
+            : () async {
+                TimeOfDay? selectedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.fromDateTime(_timeValue!),
+                );
+                if (selectedTime != null) {
+                  handleChange(DateTime(_timeValue!.year, _timeValue!.month,
+                      _timeValue!.day, selectedTime.hour, selectedTime.minute));
+                }
+              },
+        child: TextFormField(
+          controller: _value,
+          decoration: widget.decoration != null
+              ? widget.decoration!.copyWith(
+                  labelText: widget.label!.capitalize,
+                  hintText: widget.placeHolder,
+                  isDense: widget.isDense,
+                  icon: widget.icon)
+              : InputDecoration(
+                  enabledBorder: const UnderlineInputBorder(),
+                  labelText: widget.label,
+                  hintText: widget.placeHolder,
+                  isDense: widget.isDense,
+                  icon: widget.icon),
+          enabled: false,
+          onTap: () {},
+        ));
+  }
+
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,

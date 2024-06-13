@@ -20,6 +20,7 @@ enum FBFieldTypes {
   boolean,
   select,
   date,
+  time,
   country,
   email,
   password
@@ -243,6 +244,19 @@ class _FBuilderState extends State<FBuilder> {
           disabled: field.disabled,
           minDate: field.minValue,
           onChange: (DateTime? s) {
+            updateFieldValue(field.id, s);
+          },
+          icon: field.icon);
+    }
+    if(field.type == FBFieldTypes.time) {
+      return FBTimeInput(
+          label: field.label,
+          initialValue: field.initialValue,
+          placeHolder: field.placeholder,
+          isDense: widget.isDense,
+          decoration: inputDecoration,
+          disabled: field.disabled,
+          onChange: (TimeOfDay? s) {
             updateFieldValue(field.id, s);
           },
           icon: field.icon);
