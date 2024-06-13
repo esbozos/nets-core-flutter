@@ -213,37 +213,6 @@ class _AppStackState extends ConsumerState<AppStack> {
             );
           }
         });
-
-        return Scaffold(
-          key: _scaffoldKey,
-          body: SafeArea(child: widget.child),
-          bottomNavigationBar: !showNavBar
-              ? null
-              : ConvexAppBar.builder(
-                  key: _appBarKey,
-                  controller: _tabController,
-                  // gradient: logoGradient,
-                  curveSize: 0,
-                  initialActiveIndex: 0,
-                  count: AppState.navigationItems.length,
-                  backgroundColor: widget.backgroundColor ??
-                      Theme.of(context).colorScheme.primary,
-                  onTap: (index) => context.go(AppState.mapScreen[index]!),
-                  itemBuilder: NavItemBuilder(
-                      ref: ref,
-                      items: widget.menu,
-                      activeColor: widget.activeColor,
-                      activeGradient: widget.activeGradient,
-                      inactiveColor: widget.inactiveColor,
-                      backgroundColor: widget.backgroundColor,
-                      activeBackgroundColor: widget.activeBackgroundColor,
-                      inactiveBackgroundColor: widget.inactiveBackgroundColor),
-                  // shadowColor: Colors.white,
-                  //  activeColor: Colors.white,
-                  // backgroundColor: Colors.transparent,
-                  // items: AppState.navigationTabItems
-                ),
-        );
       },
     );
   }

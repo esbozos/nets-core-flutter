@@ -5,6 +5,7 @@ class ProgressStepLayout extends StatefulHookConsumerWidget {
   final double progress;
   final double? progressBarHeight;
   final double? maxWidth;
+  final Color? backgroundColor;
   final void Function()? onBack;
   final List<Widget> children;
   final double? topPadding;
@@ -15,7 +16,8 @@ class ProgressStepLayout extends StatefulHookConsumerWidget {
       this.maxWidth = 600,
       this.progressBarHeight = 10,
       this.topPadding = 60,
-      this.onBack});
+      this.onBack,
+      this.backgroundColor});
 
   @override
   ConsumerState<ProgressStepLayout> createState() => _ProgressStepLayoutState();
@@ -40,50 +42,50 @@ class _ProgressStepLayoutState extends ConsumerState<ProgressStepLayout> {
       maxWidth = widget.maxWidth!;
     }
 
-    return WillPopScope(
-        onWillPop: () {
+    return PopScope(
+        onPopInvoked: (c) {
           if (widget.onBack != null) {
             widget.onBack!();
           }
-          return Future.value(false);
         },
         child: SafeArea(
             child: Scaffold(
+                backgroundColor: widget.backgroundColor,
                 body: ListView(
-          children: [
-            // show progress
-            LinearProgressIndicator(
-              value: widget.progress,
-              minHeight: widget.progressBarHeight ?? 10,
-            ),
-            // show back button
-            if (widget.onBack != null)
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      width: 20,
+                    // show progress
+                    LinearProgressIndicator(
+                      value: widget.progress,
+                      minHeight: widget.progressBarHeight ?? 10,
                     ),
-                    IconButton(
-                        onPressed: () {
-                          widget.onBack!();
-                        },
-                        icon: const Icon(Icons.arrow_back))
-                  ]),
-            SizedBox(
-              height: widget.topPadding ?? 60,
-            ),
-            Column(children: [
-              Container(
-                constraints: BoxConstraints(maxWidth: maxWidth),
-                child: Column(children: widget.children),
-              ),
-            ]),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ))));
+                    // show back button
+                    if (widget.onBack != null)
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  widget.onBack!();
+                                },
+                                icon: const Icon(Icons.arrow_back))
+                          ]),
+                    SizedBox(
+                      height: widget.topPadding ?? 60,
+                    ),
+                    Column(children: [
+                      Container(
+                        constraints: BoxConstraints(maxWidth: maxWidth),
+                        child: Column(children: widget.children),
+                      ),
+                    ]),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ))));
   }
 }

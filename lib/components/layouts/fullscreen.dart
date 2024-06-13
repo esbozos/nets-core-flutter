@@ -39,6 +39,7 @@ class _FullScreenLayoutState extends State<FullScreenLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
+        backgroundColor: widget.backgroundColor,
         // backgroundColor: Colors.transparent,
         appBar: AppBar(
           // systemOverlayStyle: const SystemUiOverlayStyle(
