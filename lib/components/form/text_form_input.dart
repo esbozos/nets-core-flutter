@@ -651,7 +651,8 @@ class FBDecimalInput extends StatefulWidget {
       this.max,
       this.decoration,
       this.disabled = false,
-      this.icon});
+      this.icon,
+      this.validate});
   final String? label;
   final String? placeHolder;
   final String? initialValue;
@@ -663,6 +664,7 @@ class FBDecimalInput extends StatefulWidget {
   final double? max;
   final InputDecoration? decoration;
   final bool disabled;
+  final String? Function(String?)? validate;
 
   @override
   State<FBDecimalInput> createState() => _FBDecimalInputState();
@@ -702,15 +704,24 @@ class _FBDecimalInputState extends State<FBDecimalInput> {
               isDense: widget.isDense,
               icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      validator: (String? value) {
-        if (value == null) return 'Please enter some text';
-        // check if value match email pattern
-        if (!RegExp(r"^[0-9]+(\.[0-9]+)?").hasMatch(value)) {
-          return 'Please enter a valid number';
-        }
+      validator: widget.validate ??
+          (String? value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter some text';
+            }
+            // check if value match email pattern
+            if (!RegExp(r"^[0-9]+(\.[0-9]+)?").hasMatch(value)) {
+              return 'Please enter a valid number';
+            }
+            if (widget.max != null && double.parse(value) > widget.max!) {
+              return 'Please enter a number less than ${widget.max}';
+            }
+            if (widget.min != null && double.parse(value) < widget.min!) {
+              return 'Please enter a number greater than ${widget.min}';
+            }
 
-        return null;
-      },
+            return null;
+          },
     );
   }
 }
@@ -729,7 +740,8 @@ class FBNumberInput extends StatefulWidget {
       this.optional = false,
       this.decoration,
       this.disabled = false,
-      this.icon});
+      this.icon,
+      this.validate});
   final String? label;
   final String? placeHolder;
   final int? initialValue;
@@ -742,6 +754,7 @@ class FBNumberInput extends StatefulWidget {
   final int? max;
   final InputDecoration? decoration;
   final bool disabled;
+  final String? Function(String?)? validate;
 
   @override
   State<FBNumberInput> createState() => _FBNumberInputState();
@@ -783,26 +796,27 @@ class _FBNumberInputState extends State<FBNumberInput> {
               isDense: widget.isDense,
               icon: widget.icon),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      validator: (String? value) {
-        if ((value == null || value.isEmpty) && !widget.optional) {
-          return t.translate('numberIsRequired');
-        }
-        try {
-          int.parse(value!);
-        } catch (e) {
-          return t.translate('numberShouldBeInteger');
-        }
-        if (widget.max != null && int.parse(value) > widget.max!) {
-          return t.translate('numberShouldBeLessThan',
-              args: [widget.max.toString()]);
-        }
-        if (widget.min != null && int.parse(value) < widget.min!) {
-          return t.translate('numberShouldBeGreaterThan',
-              args: [widget.min.toString()]);
-        }
+      validator: widget.validate ??
+          (String? value) {
+            if ((value == null || value.isEmpty) && !widget.optional) {
+              return t.translate('numberIsRequired');
+            }
+            try {
+              int.parse(value!);
+            } catch (e) {
+              return t.translate('numberShouldBeInteger');
+            }
+            if (widget.max != null && int.parse(value) > widget.max!) {
+              return t.translate('numberShouldBeLessThan',
+                  args: [widget.max.toString()]);
+            }
+            if (widget.min != null && int.parse(value) < widget.min!) {
+              return t.translate('numberShouldBeGreaterThan',
+                  args: [widget.min.toString()]);
+            }
 
-        return null;
-      },
+            return null;
+          },
     );
   }
 }

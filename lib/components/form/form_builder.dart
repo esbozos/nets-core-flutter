@@ -239,18 +239,19 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.date) {
       return FBDateInput(
-          label: field.label,
-          initialValue: field.initialValue,
-          placeHolder: field.placeholder,
-          maxDate: field.maxValue,
-          isDense: widget.isDense,
-          decoration: inputDecoration,
-          disabled: field.disabled,
-          minDate: field.minValue,
-          onChange: (DateTime? s) {
-            updateFieldValue(field.id, s);
-          },
-          icon: field.icon);
+        label: field.label,
+        initialValue: field.initialValue,
+        placeHolder: field.placeholder,
+        maxDate: field.maxValue,
+        isDense: widget.isDense,
+        decoration: inputDecoration,
+        disabled: field.disabled,
+        minDate: field.minValue,
+        onChange: (DateTime? s) {
+          updateFieldValue(field.id, s);
+        },
+        icon: field.icon,
+      );
     }
     if (field.type == FBFieldTypes.time) {
       return FBTimeInput(
@@ -336,19 +337,19 @@ class _FBuilderState extends State<FBuilder> {
     }
     if (field.type == FBFieldTypes.decimal) {
       return FBDecimalInput(
-        icon: field.icon,
-        isDense: widget.isDense,
-        label: field.label,
-        initialValue: field.initialValue,
-        helpText: field.helpText,
-        max: field.maxValue,
-        min: field.minValue,
-        disabled: field.disabled,
-        decoration: inputDecoration,
-        onChange: (String? s) {
-          updateFieldValue(field.id, s);
-        },
-      );
+          icon: field.icon,
+          isDense: widget.isDense,
+          label: field.label,
+          initialValue: field.initialValue,
+          helpText: field.helpText,
+          max: field.maxValue,
+          min: field.minValue,
+          disabled: field.disabled,
+          decoration: inputDecoration,
+          onChange: (String? s) {
+            updateFieldValue(field.id, s);
+          },
+          validate: field.validate);
     }
     if (field.type == FBFieldTypes.number) {
       return FBNumberInput(
@@ -365,6 +366,7 @@ class _FBuilderState extends State<FBuilder> {
         onChange: (String? s) {
           updateFieldValue(field.id, s);
         },
+        validate: field.validate,
       );
     }
     return Text(t.translate('notImplementedFieldType'));
