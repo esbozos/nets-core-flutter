@@ -1,6 +1,6 @@
 name: nets_core
 description: A set of core components for the Nets projects.
-version: 0.0.98
+version: 0.0.99
 homepage:
 
 environment:
@@ -31,13 +31,20 @@ dependencies:
   intl: any
   flutter_hooks: any
   http: any
-dependency_overrides:
-  intl: any
+  json_annotation: ^4.9.0
+# dependency_overrides:
+#   intl: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.12
+  go_router_builder: ^2.7.1
+  freezed: ^2.5.7
+  riverpod_lint: ^2.3.12
+  riverpod_generator: ^2.4.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

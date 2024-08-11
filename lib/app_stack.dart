@@ -157,7 +157,7 @@ class _AppStackState extends ConsumerState<AppStack> {
     // }
   }
 
-  Widget NavigationWithBottomAppBar() {
+  Widget navigationWithBottomAppBar() {
     return ConvexAppBar.builder(
       key: _appBarKey,
       controller: _tabController,
@@ -216,7 +216,7 @@ class _AppStackState extends ConsumerState<AppStack> {
               key: _scaffoldKey,
               body: SafeArea(child: widget.child),
               bottomNavigationBar:
-                  !showNavBar ? null : NavigationWithBottomAppBar(),
+                  !showNavBar ? null : navigationWithBottomAppBar(),
             );
           }
         });
