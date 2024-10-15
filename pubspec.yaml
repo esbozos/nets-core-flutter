@@ -1,6 +1,6 @@
 name: nets_core
 description: A set of core components for the Nets projects.
-version: 0.0.102
+version: 0.0.103
 homepage:
 
 environment:
@@ -16,7 +16,7 @@ dependencies:
   collection: ^1.18.0
   convex_bottom_bar: ^3.2.0
   country_picker: ^2.0.26
-  device_info_plus: ^10.1.2
+  device_info_plus: ^11.0.0
   flutter_secure_storage: ^9.2.2
   go_router: ^14.2.1
   hooks_riverpod: ^2.5.1
@@ -37,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   json_serializable: ^6.8.0
   build_runner: ^2.4.12
   go_router_builder: ^2.7.1
