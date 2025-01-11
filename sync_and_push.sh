@@ -22,7 +22,7 @@ patch=$(echo $version | cut -d '.' -f 3 | awk '{print $1+1}')
 # example: 0.1.0 -> 0.1.1
 new_version=$(echo $version | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
-echo "replacing $version with $new_version"
+echo "old $version"
 
 # replace the old version number with the new version number
 sed -i '' "s/version: $version/version: $new_version/g" pubspec.yaml &> /dev/null
