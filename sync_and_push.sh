@@ -25,7 +25,7 @@ echo "new version is $new_version"
 echo "old $version"
 
 # replace the old version number with the new version number
-sed -i '' "s/version: $version/version: $new_version/g" pubspec.yaml &> /dev/null
+sed -i '' "s/version: 0.1.1/version: $new_version/g" pubspec.yaml &> /dev/null
 # the previous command is not working on mac, not change the version number
 
 # log to the console
