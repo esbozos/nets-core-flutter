@@ -228,10 +228,8 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
                   firstDate: _minDate,
                   lastDate: _maxDate,
                 );
-                if (selectedDate != null) {
-                  handleChange(selectedDate);
-                }
-              },
+                handleChange(selectedDate);
+                            },
         child: TextFormField(
           controller: _value,
           decoration: widget.decoration != null
@@ -441,11 +439,9 @@ class _FBCountryInput extends State<FBCountryInput> {
       Map<String, dynamic>? countryJson = countryCodes.firstWhereOrNull(
           (element) => element["iso2_cc"] == widget.initialValue);
 
-      if (countryJson != null) {
-        _country = Country.from(json: countryJson);
-        updateValue();
-      }
-    }
+      _country = Country.from(json: countryJson);
+      updateValue();
+        }
     _value.addListener(handleValueChange);
     super.initState();
   }

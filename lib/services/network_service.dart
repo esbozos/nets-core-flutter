@@ -220,22 +220,20 @@ class ApiService {
     if (kDebugMode) {
       print('set cookies is $allSetCookie');
     }
-    if (allSetCookie != null) {
-      var setCookies = allSetCookie.split(',');
+    var setCookies = allSetCookie.split(',');
 
-      for (var setCookie in setCookies) {
-        var cookies = setCookie.split(';');
+    for (var setCookie in setCookies) {
+      var cookies = setCookie.split(';');
 
-        for (var cookie in cookies) {
-          _setCookie(cookie);
-        }
+      for (var cookie in cookies) {
+        _setCookie(cookie);
       }
-
-      _headers['cookie'] = _generateCookieHeader();
-      await _storageService.writeSecureData(
-          'cookies', jsonEncode(_headers['cookie']));
     }
-  }
+
+    _headers['cookie'] = _generateCookieHeader();
+    await _storageService.writeSecureData(
+        'cookies', jsonEncode(_headers['cookie']));
+    }
 
   void _setCookie(String rawCookie) {
     if (rawCookie.isNotEmpty) {

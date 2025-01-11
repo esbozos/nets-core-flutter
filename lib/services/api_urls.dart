@@ -70,23 +70,19 @@ class ApiUrls {
 
     BaseUrl? ce = urls.firstWhereOrNull((e) => e.name == nameParts[0]);
 
-    if (ce != null) {
-      url += ce.path;
-      int i = 1;
-      while (i <= nameParts.length) {
-        ce = ce!.items.firstWhereOrNull((e) => e.name == nameParts[i]);
+    url += ce.path;
+    int i = 1;
+    while (i <= nameParts.length) {
+      ce = ce!.items.firstWhereOrNull((e) => e.name == nameParts[i]);
 
-        if (ce != null) {
-          url += ce.path;
-        } else {
-          break;
-        }
-        i++;
+      if (ce != null) {
+        url += ce.path;
+      } else {
+        break;
       }
-    } else {
-      throw UrlDoestNotExists();
+      i++;
     }
-    if (kDebugMode) {
+      if (kDebugMode) {
       return '$baseUrlDev$url';
     }
     return '$baseUrl$url';
