@@ -24,11 +24,12 @@ new_version=$(echo $version | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
 
 # replace the old version number with the new version number
-sed -i '' "s/version: $version/version: $new_version/g" pubspec.yaml
+sed -i "s/$version/$new_version/g" pubspec.yaml
+
 # log to the console
 echo "pubspec.yaml file updated"
 # commit the changes
-git commit -am "version: 0.0.$patch"
+git commit -am "version: $new_version"
 # push the changes to the remote repository
 git status
 git push origin master
