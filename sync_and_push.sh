@@ -12,24 +12,26 @@
 version=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
 # log to the console
 echo "current version is $version"
+
 # get the patch number from the version number and increment it
 patch=$(echo $version | cut -d '.' -f 3 | awk '{print $1+1}')
 
-# log to the console
-echo "new patch number is $patch"
-# create the new version number
-new_version="version: 0.0.$patch"
-# log to the console
+
+# change version patch number
+# keep major and minor version number
+# example: 0.1.0 -> 0.1.1
+new_version=$(echo $version | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
-# replace the old version number with the new version number ")syntax error: invalid arithmetic operator (error token is "
-sed -i '' "s/version: $version/$new_version/g" pubspec.yaml
+
+# replace the old version number with the new version number
+sed -i '' "s/version: $version/version: $new_version/g" pubspec.yaml
 # log to the console
 echo "pubspec.yaml file updated"
 # commit the changes
 git commit -am "version: 0.0.$patch"
 # push the changes to the remote repository
 git push
-
 # log to the console
-echo "$new_version pushed to the remote repository"
-# end of script
+echo "changes pushed to the remote repository"
+# log to the console
+echo "done"
