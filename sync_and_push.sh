@@ -30,7 +30,8 @@ echo "pubspec.yaml file updated"
 # commit the changes
 git commit -am "version: 0.0.$patch"
 # push the changes to the remote repository
-git push
+git status
+git push origin master
 # log to the console
 echo "changes pushed to the remote repository"
 # log to the console
