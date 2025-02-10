@@ -69,7 +69,9 @@ class ApiUrls {
     String url = '';
 
     BaseUrl? ce = urls.firstWhereOrNull((e) => e.name == nameParts[0]);
-
+    if (ce == null) {
+      throw UrlDoestNotExists();
+    }
     url += ce.path;
     int i = 1;
     while (i <= nameParts.length) {

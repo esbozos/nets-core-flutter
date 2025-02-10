@@ -220,9 +220,9 @@ class ApiService {
     if (kDebugMode) {
       print('set cookies is $allSetCookie');
     }
-    var setCookies = allSetCookie.split(',');
+    var setCookies = allSetCookie?.split(',');
 
-    for (var setCookie in setCookies) {
+    for (var setCookie in setCookies ?? []) {
       var cookies = setCookie.split(';');
 
       for (var cookie in cookies) {
