@@ -1,11 +1,11 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/nets/Dev/Frameworks/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/nets/projects/Projects/nets-core-flutter"
+export "FLUTTER_ROOT=/Users/nets/dev/flutter"
+export "FLUTTER_APPLICATION_PATH=/Volumes/BORG/projects/Projects/nets-core-flutter"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
-export "FLUTTER_BUILD_NAME=0.0.104"
-export "FLUTTER_BUILD_NUMBER=0.0.104"
+export "FLUTTER_BUILD_NAME=0.1.1"
+export "FLUTTER_BUILD_NUMBER=0.1.1"
 export "DART_OBFUSCATION=false"
 export "TRACK_WIDGET_CREATION=true"
 export "TREE_SHAKE_ICONS=false"

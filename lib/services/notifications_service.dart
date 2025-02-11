@@ -144,17 +144,17 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
     requestAlertPermission: false,
     requestBadgePermission: false,
     requestSoundPermission: false,
-    onDidReceiveLocalNotification:
-        (int id, String? title, String? body, String? payload) async {
-      didReceiveLocalNotificationStream.add(
-        NotificationMessage(
-          id: id,
-          title: title ?? '',
-          body: body ?? '',
-          payload: payload,
-        ),
-      );
-    },
+    // onDidReceiveLocalNotification:
+    //     (int id, String? title, String? body, String? payload) async {
+    //   didReceiveLocalNotificationStream.add(
+    //     NotificationMessage(
+    //       id: id,
+    //       title: title ?? '',
+    //       body: body ?? '',
+    //       payload: payload,
+    //     ),
+    //   );
+    // },
     notificationCategories: darwinNotificationCategories,
   );
 
