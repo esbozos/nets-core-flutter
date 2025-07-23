@@ -1,4 +1,4 @@
-# /bin/bash
+# !/bin/bash
 # script bash to sync and push the changes to the remote repository
 # update pubspec.yaml file version: 0.0.x
 # version number is in the format x.y.z
