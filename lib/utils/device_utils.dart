@@ -73,7 +73,7 @@ class DeviceIdentifier {
     return name;
   }
 
-  copyWith({
+  DeviceIdentifier copyWith({
     String? name,
     String? os,
     String? uuid,

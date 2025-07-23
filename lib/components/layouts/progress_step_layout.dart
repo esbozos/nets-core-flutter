@@ -43,7 +43,8 @@ class _ProgressStepLayoutState extends ConsumerState<ProgressStepLayout> {
     }
 
     return PopScope(
-        onPopInvoked: (c) {
+        
+        onPopInvokedWithResult: (poped, c) {
           if (widget.onBack != null) {
             widget.onBack!();
           }

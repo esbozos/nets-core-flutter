@@ -33,7 +33,7 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     // log('AuthClass constructor');
     loadFromStorage();
   }
-  loadFromStorage() async {
+  Future<void> loadFromStorage() async {
     // log('AuthClass loadFromStorage');
     var data = await storageService.readSecureData('netsCoreState');
     debugPrint('nestCoreState loaded from storage data: $data');
@@ -48,7 +48,7 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     saveState();
   }
 
-  saveState() {
+  void saveState() {
     // remove items that are not to be saved
     Map<String, dynamic> dataToSave = {};
     state.data.forEach((key, value) {

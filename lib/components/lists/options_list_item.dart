@@ -80,15 +80,6 @@ class OptionListItem {
           },
           secondary: leading,
         );
-      default:
-        return ListTile(
-          dense: true,
-          title: Text(title),
-          subtitle: Text(subtitle ?? ''),
-          onTap: onTap,
-          leading: leading,
-          trailing: trailing,
-        );
-    }
+      }
   }
 }

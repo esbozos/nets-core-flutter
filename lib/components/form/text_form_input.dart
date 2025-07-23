@@ -205,7 +205,7 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
     super.initState();
   }
 
-  void handleChange(newDate) {
+  void handleChange(DateTime newDate) {
     setState(() {
       _dateValue = newDate;
       _value.text = formatDate(newDate);
@@ -228,7 +228,7 @@ class _FBDateInputState extends ConsumerState<FBDateInput> {
                   firstDate: _minDate,
                   lastDate: _maxDate,
                 );
-                handleChange(selectedDate);
+                handleChange(selectedDate!);
               },
         child: TextFormField(
           controller: _value,
@@ -330,7 +330,7 @@ class _FBTimeInputState extends State<FBTimeInput> {
     super.initState();
   }
 
-  void handleChange(newTime) {
+  void handleChange(DateTime newTime) {
     setState(() {
       _timeValue = newTime;
       _value.text = formatTime(newTime);
@@ -438,18 +438,9 @@ class _FBCountryInput extends State<FBCountryInput> {
     if (widget.initialValue != null) {
       Map<String, dynamic>? countryJson = countryCodes.firstWhereOrNull(
           (element) => element["iso2_cc"] == widget.initialValue);
-      if (countryJson != null) {
-        _country = Country.from(json: countryJson);
-        updateValue();
-      } else {
-        countryJson = countryCodes.firstWhereOrNull(
-            (element) => element["iso3_cc"] == widget.initialValue);
-        if (countryJson != null) {
-          _country = Country.from(json: countryJson);
-          updateValue();
-        }
-      }
-      // _country = Country.from(json: countryJson);
+      _country = Country.from(json: countryJson!);
+      updateValue();
+          // _country = Country.from(json: countryJson);
       // updateValue();
     }
     _value.addListener(handleValueChange);

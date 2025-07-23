@@ -1,6 +1,6 @@
 // ignore_for_file: unused_import
 
-library nets_core;
+library;
 
 import 'dart:io';
 
