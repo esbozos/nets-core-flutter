@@ -25,7 +25,7 @@ sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
 # log to the console
 echo "pubspec.yaml file updated"
 # check version in pubspec.yaml
-grep "version:" pubspec.yaml
+grep "version:" pubspec.yaml | awk '{print $2}'
 # commit the changes
 git commit -a -m "version: $new_version"
 # push the changes to the remote repository
