@@ -1,5 +1,5 @@
-# !/bin/bash
-# script bash to sync and push the changes to the remote repository
+# !/bin/zsh
+# script zsh to sync and push the changes to the remote repository
 # update pubspec.yaml file version: 0.0.x
 # version number is in the format x.y.z
 # x is the major version number
@@ -19,13 +19,14 @@ patch=$(echo $version | cut -d '.' -f 3 | awk '{print $1+1}')
 new_version=$(echo $version | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
 echo "old $version"
-# replace the old version number with the new version number
+echo "os type is $OSTYPE"
 sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
 # the previous command is not working on mac, not change the version number
 # log to the console
 echo "pubspec.yaml file updated"
 # check version in pubspec.yaml
-grep "version:" pubspec.yaml | awk '{print $2}'
+check_version=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
+final_check=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
 # commit the changes
 git commit -a -m "version: $new_version"
 # push the changes to the remote repository
