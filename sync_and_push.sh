@@ -25,7 +25,7 @@ sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
 # log to the console
 echo "pubspec.yaml file updated"
 # commit the changes
-git commit -am "version: $new_version"
+git commit -a -m "version: $new_version"
 # push the changes to the remote repository
 git status
 git push origin master
