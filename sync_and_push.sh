@@ -7,7 +7,6 @@
 # z is the patch version number
 # the script will increment the patch number
 # and push the changes to the remote repository
-
 # get the current version number
 version=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
 # log to the console
