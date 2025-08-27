@@ -24,6 +24,8 @@ sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
 # the previous command is not working on mac, not change the version number
 # log to the console
 echo "pubspec.yaml file updated"
+# check version in pubspec.yaml
+grep "version:" pubspec.yaml
 # commit the changes
 git commit -a -m "version: $new_version"
 # push the changes to the remote repository
