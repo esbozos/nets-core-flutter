@@ -20,8 +20,11 @@ new_version=$(echo $version | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
 echo "old $version"
 echo "os type is $OSTYPE"
-sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
-# the previous command is not working on mac, not change the version number
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' "s/version: $version/version: $new_version/" pubspec.yaml
+else
+  sed -i "s/version: $version/version: $new_version/" pubspec.yaml
+fi
 # log to the console
 echo "pubspec.yaml file updated"
 # check version in pubspec.yaml
