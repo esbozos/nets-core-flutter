@@ -269,8 +269,20 @@ class _FBuilderState extends State<FBuilder> {
     if (field.type == FBFieldTypes.select) {
       return Column(children: [
         DropdownButtonFormField(
-            isExpanded: true,
-            decoration: inputDecoration.copyWith(
+          validator: (value) {
+            if (field.optional) {
+              return null;
+            }
+            if (field.validate != null) {
+              return field.validate!(value?.toString());
+            }
+            if (value == null && !field.optional) {
+              return t.translate('requiredField');
+            }
+            return null;
+          },
+          isExpanded: true,
+          decoration: inputDecoration.copyWith(
                 enabledBorder: const UnderlineInputBorder(),
                 labelText: field.label!.capitalize,
                 labelStyle: Theme.of(context)
