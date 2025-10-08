@@ -291,7 +291,7 @@ class _FBuilderState extends State<FBuilder> {
                     .copyWith(overflow: TextOverflow.ellipsis),
                 isDense: widget.isDense,
                 icon: field.icon),
-            value: _values[field.id],
+            initialValue: _values[field.id],
             icon: const Icon(Icons.keyboard_arrow_down_rounded),
             items: field.options!.map((o) {
               return DropdownMenuItem(
