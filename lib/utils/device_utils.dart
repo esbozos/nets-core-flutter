@@ -262,7 +262,7 @@ class DeviceIdentifierUtil {
       deviceIdentifier.name =
           '${allInfo['computerName']} ${allInfo['model']} ${allInfo['osRelease']} $emu ';
       deviceIdentifier.os =
-          'MacOS ${allInfo['osRelease']} ${allInfo['osVersion']}';
+          'macOS ${allInfo['osRelease']} ${allInfo['osVersion']}';
       deviceIdentifier.osVersion = allInfo['osRelease'];
       deviceIdentifier.appVersion = appVersion;
       deviceIdentifier.deviceToken = allInfo['systemGUID'];

@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,114 +9,71 @@ part of 'nets_provider.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-NetsCoreState _$NetsCoreStateFromJson(Map<String, dynamic> json) {
-  return _NetsCoreState.fromJson(json);
-}
 
 /// @nodoc
 mixin _$NetsCoreState {
-  bool get initialized => throw _privateConstructorUsedError;
-  bool get synced => throw _privateConstructorUsedError;
-  DateTime? get lastSync => throw _privateConstructorUsedError;
-  double get appVersion => throw _privateConstructorUsedError;
-  bool get appRegistered => throw _privateConstructorUsedError;
-  Map<String, dynamic> get data => throw _privateConstructorUsedError;
-  Map<String, bool> get saveKeys => throw _privateConstructorUsedError;
-
-  /// Serializes this NetsCoreState to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  bool get initialized;
+  bool get synced;
+  DateTime? get lastSync;
+  double get appVersion;
+  bool get appRegistered;
+  Map<String, dynamic> get data;
+  Map<String, bool> get saveKeys;
 
   /// Create a copy of NetsCoreState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NetsCoreStateCopyWith<NetsCoreState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NetsCoreStateCopyWith<$Res> {
-  factory $NetsCoreStateCopyWith(
-          NetsCoreState value, $Res Function(NetsCoreState) then) =
-      _$NetsCoreStateCopyWithImpl<$Res, NetsCoreState>;
-  @useResult
-  $Res call(
-      {bool initialized,
-      bool synced,
-      DateTime? lastSync,
-      double appVersion,
-      bool appRegistered,
-      Map<String, dynamic> data,
-      Map<String, bool> saveKeys});
-}
-
-/// @nodoc
-class _$NetsCoreStateCopyWithImpl<$Res, $Val extends NetsCoreState>
-    implements $NetsCoreStateCopyWith<$Res> {
-  _$NetsCoreStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NetsCoreState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NetsCoreStateCopyWith<NetsCoreState> get copyWith =>
+      _$NetsCoreStateCopyWithImpl<NetsCoreState>(
+          this as NetsCoreState, _$identity);
+
+  /// Serializes this NetsCoreState to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? initialized = null,
-    Object? synced = null,
-    Object? lastSync = freezed,
-    Object? appVersion = null,
-    Object? appRegistered = null,
-    Object? data = null,
-    Object? saveKeys = null,
-  }) {
-    return _then(_value.copyWith(
-      initialized: null == initialized
-          ? _value.initialized
-          : initialized // ignore: cast_nullable_to_non_nullable
-              as bool,
-      synced: null == synced
-          ? _value.synced
-          : synced // ignore: cast_nullable_to_non_nullable
-              as bool,
-      lastSync: freezed == lastSync
-          ? _value.lastSync
-          : lastSync // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      appVersion: null == appVersion
-          ? _value.appVersion
-          : appVersion // ignore: cast_nullable_to_non_nullable
-              as double,
-      appRegistered: null == appRegistered
-          ? _value.appRegistered
-          : appRegistered // ignore: cast_nullable_to_non_nullable
-              as bool,
-      data: null == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
-      saveKeys: null == saveKeys
-          ? _value.saveKeys
-          : saveKeys // ignore: cast_nullable_to_non_nullable
-              as Map<String, bool>,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NetsCoreState &&
+            (identical(other.initialized, initialized) ||
+                other.initialized == initialized) &&
+            (identical(other.synced, synced) || other.synced == synced) &&
+            (identical(other.lastSync, lastSync) ||
+                other.lastSync == lastSync) &&
+            (identical(other.appVersion, appVersion) ||
+                other.appVersion == appVersion) &&
+            (identical(other.appRegistered, appRegistered) ||
+                other.appRegistered == appRegistered) &&
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other.saveKeys, saveKeys));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      initialized,
+      synced,
+      lastSync,
+      appVersion,
+      appRegistered,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(saveKeys));
+
+  @override
+  String toString() {
+    return 'NetsCoreState(initialized: $initialized, synced: $synced, lastSync: $lastSync, appVersion: $appVersion, appRegistered: $appRegistered, data: $data, saveKeys: $saveKeys)';
   }
 }
 
 /// @nodoc
-abstract class _$$NetsCoreStateImplCopyWith<$Res>
-    implements $NetsCoreStateCopyWith<$Res> {
-  factory _$$NetsCoreStateImplCopyWith(
-          _$NetsCoreStateImpl value, $Res Function(_$NetsCoreStateImpl) then) =
-      __$$NetsCoreStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NetsCoreStateCopyWith<$Res> {
+  factory $NetsCoreStateCopyWith(
+          NetsCoreState value, $Res Function(NetsCoreState) _then) =
+      _$NetsCoreStateCopyWithImpl;
   @useResult
   $Res call(
       {bool initialized,
@@ -129,12 +86,12 @@ abstract class _$$NetsCoreStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$NetsCoreStateImplCopyWithImpl<$Res>
-    extends _$NetsCoreStateCopyWithImpl<$Res, _$NetsCoreStateImpl>
-    implements _$$NetsCoreStateImplCopyWith<$Res> {
-  __$$NetsCoreStateImplCopyWithImpl(
-      _$NetsCoreStateImpl _value, $Res Function(_$NetsCoreStateImpl) _then)
-      : super(_value, _then);
+class _$NetsCoreStateCopyWithImpl<$Res>
+    implements $NetsCoreStateCopyWith<$Res> {
+  _$NetsCoreStateCopyWithImpl(this._self, this._then);
+
+  final NetsCoreState _self;
+  final $Res Function(NetsCoreState) _then;
 
   /// Create a copy of NetsCoreState
   /// with the given fields replaced by the non-null parameter values.
@@ -149,43 +106,227 @@ class __$$NetsCoreStateImplCopyWithImpl<$Res>
     Object? data = null,
     Object? saveKeys = null,
   }) {
-    return _then(_$NetsCoreStateImpl(
+    return _then(_self.copyWith(
       initialized: null == initialized
-          ? _value.initialized
+          ? _self.initialized
           : initialized // ignore: cast_nullable_to_non_nullable
               as bool,
       synced: null == synced
-          ? _value.synced
+          ? _self.synced
           : synced // ignore: cast_nullable_to_non_nullable
               as bool,
       lastSync: freezed == lastSync
-          ? _value.lastSync
+          ? _self.lastSync
           : lastSync // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       appVersion: null == appVersion
-          ? _value.appVersion
+          ? _self.appVersion
           : appVersion // ignore: cast_nullable_to_non_nullable
               as double,
       appRegistered: null == appRegistered
-          ? _value.appRegistered
+          ? _self.appRegistered
           : appRegistered // ignore: cast_nullable_to_non_nullable
               as bool,
       data: null == data
-          ? _value._data
+          ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
       saveKeys: null == saveKeys
-          ? _value._saveKeys
+          ? _self.saveKeys
           : saveKeys // ignore: cast_nullable_to_non_nullable
               as Map<String, bool>,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [NetsCoreState].
+extension NetsCoreStatePatterns on NetsCoreState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NetsCoreState value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NetsCoreState value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_NetsCoreState value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            bool initialized,
+            bool synced,
+            DateTime? lastSync,
+            double appVersion,
+            bool appRegistered,
+            Map<String, dynamic> data,
+            Map<String, bool> saveKeys)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState() when $default != null:
+        return $default(_that.initialized, _that.synced, _that.lastSync,
+            _that.appVersion, _that.appRegistered, _that.data, _that.saveKeys);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            bool initialized,
+            bool synced,
+            DateTime? lastSync,
+            double appVersion,
+            bool appRegistered,
+            Map<String, dynamic> data,
+            Map<String, bool> saveKeys)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState():
+        return $default(_that.initialized, _that.synced, _that.lastSync,
+            _that.appVersion, _that.appRegistered, _that.data, _that.saveKeys);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            bool initialized,
+            bool synced,
+            DateTime? lastSync,
+            double appVersion,
+            bool appRegistered,
+            Map<String, dynamic> data,
+            Map<String, bool> saveKeys)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NetsCoreState() when $default != null:
+        return $default(_that.initialized, _that.synced, _that.lastSync,
+            _that.appVersion, _that.appRegistered, _that.data, _that.saveKeys);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$NetsCoreStateImpl implements _NetsCoreState {
-  const _$NetsCoreStateImpl(
+class _NetsCoreState implements NetsCoreState {
+  const _NetsCoreState(
       {this.initialized = false,
       this.synced = false,
       this.lastSync,
@@ -195,9 +336,8 @@ class _$NetsCoreStateImpl implements _NetsCoreState {
       final Map<String, bool> saveKeys = const <String, bool>{}})
       : _data = data,
         _saveKeys = saveKeys;
-
-  factory _$NetsCoreStateImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NetsCoreStateImplFromJson(json);
+  factory _NetsCoreState.fromJson(Map<String, dynamic> json) =>
+      _$NetsCoreStateFromJson(json);
 
   @override
   @JsonKey()
@@ -231,16 +371,26 @@ class _$NetsCoreStateImpl implements _NetsCoreState {
     return EqualUnmodifiableMapView(_saveKeys);
   }
 
+  /// Create a copy of NetsCoreState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'NetsCoreState(initialized: $initialized, synced: $synced, lastSync: $lastSync, appVersion: $appVersion, appRegistered: $appRegistered, data: $data, saveKeys: $saveKeys)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NetsCoreStateCopyWith<_NetsCoreState> get copyWith =>
+      __$NetsCoreStateCopyWithImpl<_NetsCoreState>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$NetsCoreStateToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NetsCoreStateImpl &&
+            other is _NetsCoreState &&
             (identical(other.initialized, initialized) ||
                 other.initialized == initialized) &&
             (identical(other.synced, synced) || other.synced == synced) &&
@@ -266,54 +416,82 @@ class _$NetsCoreStateImpl implements _NetsCoreState {
       const DeepCollectionEquality().hash(_data),
       const DeepCollectionEquality().hash(_saveKeys));
 
-  /// Create a copy of NetsCoreState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$NetsCoreStateImplCopyWith<_$NetsCoreStateImpl> get copyWith =>
-      __$$NetsCoreStateImplCopyWithImpl<_$NetsCoreStateImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NetsCoreStateImplToJson(
-      this,
-    );
+  String toString() {
+    return 'NetsCoreState(initialized: $initialized, synced: $synced, lastSync: $lastSync, appVersion: $appVersion, appRegistered: $appRegistered, data: $data, saveKeys: $saveKeys)';
   }
 }
 
-abstract class _NetsCoreState implements NetsCoreState {
-  const factory _NetsCoreState(
-      {final bool initialized,
-      final bool synced,
-      final DateTime? lastSync,
-      final double appVersion,
-      final bool appRegistered,
-      final Map<String, dynamic> data,
-      final Map<String, bool> saveKeys}) = _$NetsCoreStateImpl;
+/// @nodoc
+abstract mixin class _$NetsCoreStateCopyWith<$Res>
+    implements $NetsCoreStateCopyWith<$Res> {
+  factory _$NetsCoreStateCopyWith(
+          _NetsCoreState value, $Res Function(_NetsCoreState) _then) =
+      __$NetsCoreStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool initialized,
+      bool synced,
+      DateTime? lastSync,
+      double appVersion,
+      bool appRegistered,
+      Map<String, dynamic> data,
+      Map<String, bool> saveKeys});
+}
 
-  factory _NetsCoreState.fromJson(Map<String, dynamic> json) =
-      _$NetsCoreStateImpl.fromJson;
+/// @nodoc
+class __$NetsCoreStateCopyWithImpl<$Res>
+    implements _$NetsCoreStateCopyWith<$Res> {
+  __$NetsCoreStateCopyWithImpl(this._self, this._then);
 
-  @override
-  bool get initialized;
-  @override
-  bool get synced;
-  @override
-  DateTime? get lastSync;
-  @override
-  double get appVersion;
-  @override
-  bool get appRegistered;
-  @override
-  Map<String, dynamic> get data;
-  @override
-  Map<String, bool> get saveKeys;
+  final _NetsCoreState _self;
+  final $Res Function(_NetsCoreState) _then;
 
   /// Create a copy of NetsCoreState
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NetsCoreStateImplCopyWith<_$NetsCoreStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? initialized = null,
+    Object? synced = null,
+    Object? lastSync = freezed,
+    Object? appVersion = null,
+    Object? appRegistered = null,
+    Object? data = null,
+    Object? saveKeys = null,
+  }) {
+    return _then(_NetsCoreState(
+      initialized: null == initialized
+          ? _self.initialized
+          : initialized // ignore: cast_nullable_to_non_nullable
+              as bool,
+      synced: null == synced
+          ? _self.synced
+          : synced // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lastSync: freezed == lastSync
+          ? _self.lastSync
+          : lastSync // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      appVersion: null == appVersion
+          ? _self.appVersion
+          : appVersion // ignore: cast_nullable_to_non_nullable
+              as double,
+      appRegistered: null == appRegistered
+          ? _self.appRegistered
+          : appRegistered // ignore: cast_nullable_to_non_nullable
+              as bool,
+      data: null == data
+          ? _self._data
+          : data // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>,
+      saveKeys: null == saveKeys
+          ? _self._saveKeys
+          : saveKeys // ignore: cast_nullable_to_non_nullable
+              as Map<String, bool>,
+    ));
+  }
 }
+
+// dart format on

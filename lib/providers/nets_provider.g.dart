@@ -6,8 +6,8 @@ part of 'nets_provider.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NetsCoreStateImpl _$$NetsCoreStateImplFromJson(Map<String, dynamic> json) =>
-    _$NetsCoreStateImpl(
+_NetsCoreState _$NetsCoreStateFromJson(Map<String, dynamic> json) =>
+    _NetsCoreState(
       initialized: json['initialized'] as bool? ?? false,
       synced: json['synced'] as bool? ?? false,
       lastSync: json['lastSync'] == null
@@ -22,7 +22,7 @@ _$NetsCoreStateImpl _$$NetsCoreStateImplFromJson(Map<String, dynamic> json) =>
           const <String, bool>{},
     );
 
-Map<String, dynamic> _$$NetsCoreStateImplToJson(_$NetsCoreStateImpl instance) =>
+Map<String, dynamic> _$NetsCoreStateToJson(_NetsCoreState instance) =>
     <String, dynamic>{
       'initialized': instance.initialized,
       'synced': instance.synced,
