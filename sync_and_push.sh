@@ -1,4 +1,4 @@
-# !/bin/zsh
+#!/bin/zsh
 # script zsh to sync and push the changes to the remote repository
 # update pubspec.yaml file version: 0.0.x
 # version number is in the format x.y.z
@@ -12,11 +12,11 @@ version=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2)
 # log to the console
 echo "current version is $version"
 # get the patch number from the version number and increment it
-patch=$(echo $version | cut -d '.' -f 3 | awk '{print $1+1}')
+patch=$(echo "$version" | cut -d '.' -f 3 | awk '{print $1+1}')
 # change version patch number
 # keep major and minor version number
 # example: 0.1.0 -> 0.1.1
-new_version=$(echo $version | cut -d '.' -f 1,2).$patch
+new_version=$(echo "$version" | cut -d '.' -f 1,2).$patch
 echo "new version is $new_version"
 echo "old $version"
 echo "os type is $OSTYPE"
