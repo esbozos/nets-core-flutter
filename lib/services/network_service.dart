@@ -112,6 +112,7 @@ class ApiService {
       return response;
     } catch (e) {
       log('Api service post error ${e.toString()}');
+      rethrow;
     }
   }
 
