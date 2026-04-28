@@ -79,7 +79,7 @@ Future<void> showLocalNotification(
   NotificationDetails notificationDetails =
       NotificationDetails(android: androidNotificationDetails);
   await flutterLocalNotificationsPlugin.show(
-      notificationId ?? id++, message.title, message.body, notificationDetails,
+      id: notificationId ?? id++, title: message.title, body: message.body, notificationDetails: notificationDetails,
       payload: message.payload);
 }
 
@@ -166,7 +166,7 @@ Future<NotificationService> initializeLocalNotifications(String? icon,
   );
   notificationService.initialized = Platform.isWindows
       ? false
-      : await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+      : await flutterLocalNotificationsPlugin.initialize(settings: initializationSettings,
           onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
           onDidReceiveBackgroundNotificationResponse:
               onDidReceiveBackgroundNotificationResponse);
