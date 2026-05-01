@@ -2,19 +2,42 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
+/// Represents a registered device with its hardware, OS, and token information.
 class DeviceIdentifier {
+  /// Human-readable device name (brand, model, etc.).
   String name;
+
+  /// Operating system name and version string.
   String os;
+
+  /// Unique device identifier (UUID / vendor identifier).
   String? uuid;
+
+  /// OS version string.
   String? osVersion;
+
+  /// Application version string.
   String? appVersion;
+
+  /// Platform push notification token.
   String? deviceToken;
+
+  /// Firebase Cloud Messaging token.
   String? firebaseToken;
+
+  /// Device IP address.
   String? ip;
+
+  /// Whether the device is considered active.
   bool active;
+
+  /// Server-assigned identifier.
   int? id;
+
+  /// Timestamps for last login, creation, and last update.
   DateTime? lastLogin, created, updated;
 
+  /// Creates a [DeviceIdentifier].
   DeviceIdentifier(
       {required this.name,
       required this.os,
@@ -30,6 +53,7 @@ class DeviceIdentifier {
       this.updated,
       this.ip});
 
+  /// Deserialises a [DeviceIdentifier] from a JSON [Map].
   factory DeviceIdentifier.fromJson(Map<String, dynamic> json) {
     return DeviceIdentifier(
       name: json['name'],
@@ -50,6 +74,7 @@ class DeviceIdentifier {
     );
   }
 
+  /// Serialises this [DeviceIdentifier] to a JSON [Map].
   Map<String, dynamic> toJson() {
     return {
       'name': name,
@@ -73,6 +98,7 @@ class DeviceIdentifier {
     return name;
   }
 
+  /// Returns a copy of this [DeviceIdentifier] with the given fields replaced.
   DeviceIdentifier copyWith({
     String? name,
     String? os,
@@ -106,12 +132,18 @@ class DeviceIdentifier {
   }
 }
 
+/// Utility class that holds and exposes the current device's [DeviceIdentifier]
+/// as a set of static convenience getters and setters.
 class DeviceIdentifierUtil {
   final deviceInfoPlugin = DeviceInfoPlugin();
+
+  /// The singleton [DeviceIdentifier] for the running device.
   static DeviceIdentifier? deviceIdentifier;
 
+  /// The device name, or an empty string if not set.
   static String get deviceName => deviceIdentifier?.name ?? '';
 
+  /// The device OS string, or an empty string if not set.
   static String get deviceOs => deviceIdentifier?.os ?? '';
 
   static String? get deviceUuid => deviceIdentifier?.uuid;
@@ -197,6 +229,9 @@ class DeviceIdentifierUtil {
     deviceIdentifier = null;
   }
 
+  /// Collects device information and returns a populated [DeviceIdentifier].
+  ///
+  /// Pass the optional [appVersion] string to embed in the identifier.
   Future<DeviceIdentifier> getIdentifier(String? appVersion) async {
     appVersion ??= '';
 

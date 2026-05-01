@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// Visual style variants for an [OptionListItem].
 enum OptionListType { normal, switcher, radio, checkbox }
 
+/// A configurable list-row widget that can render as a plain tile, a switch,
+/// a radio button, or a checkbox depending on [type].
 class OptionListItem {
   final void Function()? onTap;
   final String title;
@@ -59,15 +62,17 @@ class OptionListItem {
           secondary: leading,
         );
       case OptionListType.radio:
-        return RadioListTile(
-          dense: true,
-          title: Text(title),
-          value: value ?? false,
-          onChanged: (value) {
+        return RadioGroup<bool>(
+          groupValue: value ?? false,
+          onChanged: (_) {
             onTap?.call();
           },
-          secondary: leading,
-          groupValue: null,
+          child: RadioListTile<bool>(
+            dense: true,
+            title: Text(title),
+            value: value ?? false,
+            secondary: leading,
+          ),
         );
       case OptionListType.checkbox:
         return CheckboxListTile(

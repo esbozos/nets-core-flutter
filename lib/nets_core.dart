@@ -13,4 +13,8 @@ import 'package:nets_core/utils/device_utils.dart';
 
 export 'services/storage_service.dart';
 
+/// Entry-point class for the `nets_core` package.
+///
+/// Import this library to access the package's services, components,
+/// providers, and utilities.
 class NetsCore {}

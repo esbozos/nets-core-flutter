@@ -1,14 +1,31 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
+/// Callback invoked during file download to report progress.
+///
+/// [receivedBytes] is the number of bytes received so far.
+/// [totalBytes] is the total size of the file being downloaded.
 typedef OnDownloadProgressCallback = void Function(
     int receivedBytes, int totalBytes);
+
+/// Callback invoked during file upload to report progress.
+///
+/// [sentBytes] is the number of bytes sent so far.
+/// [totalBytes] is the total size of the file being uploaded.
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
+/// Represents a named URL segment in a hierarchical URL tree.
 class BaseUrl {
+  /// The logical name used to identify this URL segment (e.g. `'auth'`).
   String name;
+
+  /// The URL path fragment (e.g. `'auth/'`).
   String path;
+
+  /// Nested URL segments under this one.
   List<BaseUrl> items;
+
+  /// Creates a [BaseUrl] with the given [name] and [path].
   BaseUrl({required this.name, required this.path, this.items = const []});
 
   @override
@@ -17,6 +34,7 @@ class BaseUrl {
   }
 }
 
+/// Exception thrown when a dotted URL name cannot be resolved in [ApiUrls].
 class UrlDoestNotExists implements Exception {
   @override
   String toString() {
@@ -24,13 +42,30 @@ class UrlDoestNotExists implements Exception {
   }
 }
 
+/// Manages the base URLs and named route tree for the API.
+///
+/// Resolves dotted names (e.g. `'auth.login'`) to full URL strings,
+/// automatically switching between production and development base URLs
+/// depending on [kDebugMode].
 class ApiUrls {
+  /// Production base URL for API endpoints.
   final String baseUrl;
+
+  /// Development base URL for API endpoints.
   final String baseUrlDev;
+
+  /// Production base URL for media files.
   final String baseMediaUrl;
+
+  /// Development base URL for media files.
   final String baseMediaUrlDev;
+
+  /// The list of registered URL trees, including built-in [authUrls].
   final List<BaseUrl> urls;
 
+  /// Creates an [ApiUrls] instance.
+  ///
+  /// All string parameters must be non-empty.
   ApiUrls(
       {required this.baseUrl,
       required this.baseUrlDev,
@@ -55,6 +90,7 @@ class ApiUrls {
     urls.addAll(authUrls);
   }
 
+  /// Built-in authentication URL routes (`auth.login`, `auth.logout`, etc.).
   static List<BaseUrl> authUrls = [
     BaseUrl(name: 'auth', path: 'auth/', items: [
       BaseUrl(name: 'login', path: 'login/'),
@@ -64,6 +100,10 @@ class ApiUrls {
     ]),
   ];
 
+  /// Resolves a dotted [name] (e.g. `'auth.login'`) to a full URL string.
+  ///
+  /// Throws [UrlDoestNotExists] if any segment in [name] is not registered.
+  /// Returns the dev URL in debug mode and the production URL otherwise.
   String getUrl(String name) {
     List<String> nameParts = name.split('.');
     String url = '';
@@ -88,6 +128,10 @@ class ApiUrls {
     return '$baseUrl$url';
   }
 
+  /// Builds a full media URL from a relative [path].
+  ///
+  /// Automatically prepends the `dj-media/` prefix if missing and
+  /// uses the dev base URL in debug mode.
   String mediaUrl(String path) {
     // path join with baseMediaUrl
 

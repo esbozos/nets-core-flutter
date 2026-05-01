@@ -1,6 +1,6 @@
 name: nets_core
 description: Core UI components, networking, secure storage, push notifications, and utilities shared across Nets Flutter projects.
-version: 0.1.13
+version: 0.1.14
 homepage: https://github.com/esbozos/nets-core-flutter
 repository: https://github.com/esbozos/nets-core-flutter
 issue_tracker: https://github.com/esbozos/nets-core-flutter/issues

@@ -13,23 +13,40 @@ typedef OnDownloadProgressCallback = void Function(
     int receivedBytes, int totalBytes);
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
+/// HTTP API client that handles authentication, cookies, and file transfers.
+///
+/// Uses [ApiUrls] to resolve named routes and [StorageService] to persist
+/// auth tokens and cookies across sessions.
 class ApiService {
+  /// OAuth2 client identifier.
   final String clientId;
 
+  /// OAuth2 client secret.
   final String clientSecret;
+
+  /// Current session cookies keyed by name.
   Map<String, String> cookies = {};
   final Map<String, String> _headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
   };
+
+  /// Named URL resolver for this service instance.
   final ApiUrls urls;
+
+  /// Creates an [ApiService].
   ApiService(
       {required this.urls, required this.clientId, required this.clientSecret});
 
   final StorageService _storageService = StorageService();
+
+  /// When `true`, self-signed TLS certificates are accepted.
+  /// Should only be enabled during development.
   static bool trustSelfSigned = true;
 
+  /// Returns an [HttpClient] configured with a 10-second timeout and
+  /// optional self-signed certificate trust.
   static HttpClient getHttpClient() {
     HttpClient httpClient = HttpClient()
       ..connectionTimeout = const Duration(seconds: 10)
@@ -39,6 +56,10 @@ class ApiService {
     return httpClient;
   }
 
+  /// Performs an authenticated HTTP GET request.
+  ///
+  /// [urlName] is a dotted route name (e.g. `'user.profile'`).
+  /// [data] is sent as query parameters.
   Future<http.Response> get(String urlName, Map<String, dynamic> data) async {
     try {
       // get Url from dotted name
@@ -71,6 +92,9 @@ class ApiService {
     }
   }
 
+  /// Ensures the request headers contain the current auth token and cookies.
+  ///
+  /// Merges any extra [headers] into the shared header map.
   Future ensureHeaders(Map<String, String>? headers) async {
     // Ensure headers for requests, auth and cookies included
     if (!_headers.containsKey('Authorization')) await setAuth();
@@ -78,6 +102,9 @@ class ApiService {
     log('ensure headers ${_headers.toString()}');
   }
 
+  /// Performs an authenticated HTTP POST request with JSON body.
+  ///
+  /// [urlName] is a dotted route name resolved via [ApiUrls].
   Future post(String urlName, Map<String, dynamic> data,
       {Map<String, String>? headers, Encoding? encoding}) async {
     try {
@@ -116,6 +143,7 @@ class ApiService {
     }
   }
 
+  /// Authenticates a user using an email and one-time [code].
   Future authenticate(String email, String code) async {
     return post('auth.auth', {
       "email": email,
@@ -125,6 +153,7 @@ class ApiService {
     });
   }
 
+  /// Loads the stored auth token and cookies into the request headers.
   Future setAuth() async {
     dynamic auth = await _storageService.readSecureData('authState');
 
@@ -143,6 +172,10 @@ class ApiService {
     return;
   }
 
+  /// Uploads a [file] as a multipart POST request.
+  ///
+  /// Reports upload progress via the optional [onUploadProgress] callback.
+  /// Returns the decoded JSON response body.
   Future<Map<String, dynamic>> fileUploadMultipart(
       {required String urlName,
       required Map<String, String> data,
@@ -269,6 +302,7 @@ class ApiService {
     return cookie;
   }
 
+  /// Downloads a file from [urlName] and returns its raw bytes.
   Future<Uint8List> downloadFile(
       {required String urlName, Map<String, dynamic>? data}) async {
     final url = Uri.parse(urls.getUrl(urlName));

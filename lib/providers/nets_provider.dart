@@ -10,6 +10,10 @@ part 'nets_provider.freezed.dart';
 part 'nets_provider.g.dart';
 
 @freezed
+/// Immutable state for the [NetsCoreProvider].
+///
+/// Holds generic key-value [data] persisted to secure storage, sync metadata,
+/// and flags that control which keys survive across sessions.
 abstract class NetsCoreState with _$NetsCoreState {
   const factory NetsCoreState({
     @Default(false) bool initialized,
@@ -25,6 +29,10 @@ abstract class NetsCoreState with _$NetsCoreState {
       _$NetsCoreStateFromJson(json);
 }
 
+/// Riverpod [StateNotifier] that manages persistent app-level key-value data.
+///
+/// Automatically loads state from [StorageService] on construction and
+/// persists changes back to secure storage on every mutation.
 class NetsCoreProvider extends StateNotifier<NetsCoreState> {
   final Ref ref;
   static const _initial = NetsCoreState();
@@ -34,6 +42,8 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     // log('AuthClass constructor');
     loadFromStorage();
   }
+  /// Loads the previously persisted [NetsCoreState] from secure storage
+  /// and updates [state] accordingly.
   Future<void> loadFromStorage() async {
     // log('AuthClass loadFromStorage');
     var data = await storageService.readSecureData('netsCoreState');
@@ -49,6 +59,9 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     saveState();
   }
 
+  /// Persists the current state to secure storage.
+  ///
+  /// Only keys listed in [NetsCoreState.saveKeys] with value `true` are saved.
   void saveState() {
     // remove items that are not to be saved
     Map<String, dynamic> dataToSave = {};
@@ -60,6 +73,10 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     storageService.writeSecureData('netsCoreState', jsonEncode(dataToSave));
   }
 
+  /// Stores [value] under [key] in the state data map.
+  ///
+  /// Set [saveKey] to `false` to prevent this key from being persisted
+  /// across app restarts.
   void setItem(String key, dynamic value, {bool saveKey = true}) {
     state = state.copyWith(data: {
       ...state.data,
@@ -71,6 +88,7 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     saveState();
   }
 
+  /// Removes the entry for [key] from the state data map.
   void removeItem(String key) {
     state = state.copyWith(
         data: {
@@ -79,12 +97,14 @@ class NetsCoreProvider extends StateNotifier<NetsCoreState> {
     saveState();
   }
 
+  /// Clears all entries from the state data map and persists the empty state.
   void clearData() {
     state = state.copyWith(data: {});
     saveState();
   }
 }
 
+/// Global [StateNotifierProvider] exposing [NetsCoreProvider] and [NetsCoreState].
 final netsCoreProvider =
     StateNotifierProvider<NetsCoreProvider, NetsCoreState>((ref) {
   return NetsCoreProvider(ref);
