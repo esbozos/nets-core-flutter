@@ -1,0 +1,47 @@
+name: Publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Validate tag matches pubspec version
+        shell: bash
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PUBSPEC_VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+
+          if [[ "$TAG_VERSION" != "$PUBSPEC_VERSION" ]]; then
+            echo "Tag version ($TAG_VERSION) does not match pubspec version ($PUBSPEC_VERSION)."
+            exit 1
+          fi
+
+      - name: Install pub credentials
+        shell: bash
+        env:
+          PUB_CREDENTIALS_JSON: ${{ secrets.PUB_CREDENTIALS_JSON }}
+        run: |
+          mkdir -p "$HOME/.pub-cache"
+          printf '%s' "$PUB_CREDENTIALS_JSON" > "$HOME/.pub-cache/credentials.json"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Publish package
+        run: dart pub publish --force

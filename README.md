@@ -188,3 +188,37 @@ Navigator.push(context, MaterialPageRoute(
 - **Licence**: see the [LICENSE](LICENSE) file.
 - **Versioning**: this package follows [Semantic Versioning](https://semver.org/). Breaking changes increment the major version.
 
+## Automated releases (GitHub Actions)
+
+This repository includes automation for quality checks and publishing:
+
+- **CI workflow** (`.github/workflows/ci.yml`): runs analysis and tests on push/PR.
+- **Publish workflow** (`.github/workflows/publish_pubdev.yml`): publishes to pub.dev when a tag like `v0.1.14` is pushed.
+
+### One-time setup
+
+1. Generate your pub.dev credentials on a trusted machine (if you do not have them yet):
+
+```sh
+dart pub token add https://pub.dev
+cat ~/.pub-cache/credentials.json
+```
+
+2. In GitHub repository settings, add a secret:
+
+- Name: `PUB_CREDENTIALS_JSON`
+- Value: full JSON content of `~/.pub-cache/credentials.json`
+
+### Release flow
+
+1. Update `pubspec.yaml` version and `CHANGELOG.md`.
+2. Merge to `master`.
+3. Create and push a matching tag:
+
+```sh
+git tag v0.1.14
+git push origin v0.1.14
+```
+
+The publish workflow validates that the tag and `pubspec.yaml` version match before uploading.
+
