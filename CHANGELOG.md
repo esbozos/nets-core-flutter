@@ -1,3 +1,9 @@
+## 0.1.14
+
+* Replace deprecated Radio APIs with RadioGroup in list option widgets.
+* Increase public API documentation coverage with dartdoc across core services and providers.
+* Harden pub.dev publish workflow version parsing and credentials handling for CI.
+
 ## 0.1.13
 
 * Update package metadata to the new public GitHub repository.
