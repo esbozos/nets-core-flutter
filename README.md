@@ -77,7 +77,7 @@ A Flutter package that provides a set of core UI components, services, and utili
 
 ```yaml
 dependencies:
-  nets_core: ^0.1.12
+  nets_core: ^0.1.13
 ```
 
 Then run:
@@ -184,7 +184,7 @@ Navigator.push(context, MaterialPageRoute(
 
 ## Additional information
 
-- **Issues & contributions**: open an issue or pull request on the [GitHub repository](https://github.com/nets-dev/nets-core-flutter).
+- **Issues & contributions**: open an issue or pull request on the [GitHub repository](https://github.com/esbozos/nets-core-flutter).
 - **Licence**: see the [LICENSE](LICENSE) file.
 - **Versioning**: this package follows [Semantic Versioning](https://semver.org/). Breaking changes increment the major version.
 

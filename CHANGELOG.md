@@ -1,3 +1,9 @@
+## 0.1.13
+
+* Update package metadata to the new public GitHub repository.
+* Repository links now point to `https://github.com/esbozos/nets-core-flutter`.
+* Clean repository for public maintenance by removing local/generated artifacts from version control.
+
 ## 0.1.12
 
 * Public release.
