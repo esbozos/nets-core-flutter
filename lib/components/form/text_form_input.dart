@@ -372,6 +372,7 @@ class _FBTimeInputState extends State<FBTimeInput> {
         ));
   }
 
+  // ignore: unused_element
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,

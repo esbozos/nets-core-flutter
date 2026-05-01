@@ -1,7 +1,9 @@
 name: nets_core
-description: A set of core components for the Nets projects.
+description: Core UI components, networking, secure storage, push notifications, and utilities shared across Nets Flutter projects.
 version: 0.1.12
-homepage:
+homepage: https://github.com/nets-dev/nets-core-flutter
+repository: https://github.com/nets-dev/nets-core-flutter
+issue_tracker: https://github.com/nets-dev/nets-core-flutter/issues
 
 environment:
   sdk: ^3.5.0
@@ -27,10 +29,11 @@ dependencies:
   jiffy: ^6.2.2
   webview_flutter: ^4.2.2
 
-  intl: any
-  flutter_hooks: any
-  http: any
+  intl: ^0.20.2
+  flutter_hooks: ^0.21.3+1
+  http: ^1.6.0
   json_annotation: ^4.9.0
+  freezed_annotation: ^3.0.0
   
 # dependency_overrides:
 #   intl: any
