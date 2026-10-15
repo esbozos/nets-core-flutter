@@ -1,224 +1,219 @@
 # nets_core
 
-A Flutter package that provides a set of core UI components, services, and utilities shared across Nets projects. It standardizes navigation, network communication, secure storage, push notifications, and common UI patterns so every app in the Nets ecosystem starts from a solid, consistent foundation.
+Modern Flutter foundations for Nets apps. `nets_core` packages the shared UI, services, app shell, storage, notifications, localisation, and utilities that Nets projects use to start consistent and move faster.
 
----
+[![pub package](https://img.shields.io/pub/v/nets_core.svg)](https://pub.dev/packages/nets_core)
+[![Dart SDK](https://img.shields.io/badge/dart-%5E3.5.0-0175C2.svg)](https://dart.dev)
+[![Flutter](https://img.shields.io/badge/flutter-ready-02569B.svg)](https://flutter.dev)
+[![License](https://img.shields.io/badge/license-see%20LICENSE-111827.svg)](LICENSE)
 
-## Features
+## What You Get
 
-### 🧭 Navigation & App Shell
-- **`AppStack`** – a `ConsumerStatefulWidget` that wraps the whole app with a convex bottom navigation bar (powered by [`convex_bottom_bar`](https://pub.dev/packages/convex_bottom_bar)) and integrates with `go_router`. Supports custom active/inactive colours, gradients, an optional `AppBar`, and a reactive listener callback.
-- **`AppStackMenuItem`** – model class for each navigation item (icon, label, route location, optional badge and custom item builder).
+`nets_core` is the common layer for Flutter applications in the Nets ecosystem. It keeps repeated product work out of each app and gives teams a reliable base for navigation, forms, secure data, API calls, notifications, and platform utilities.
 
-### 🗂 Layouts
-- **`FullscreenLayout`** – simple full-screen container.
-- **`HeaderBodyScrollLayout`** – sticky header with a scrollable body.
-- **`PageStepper`** – multi-step page flow.
-- **`ProgressStepLayout`** – step-based progress indicator layout.
+| Area | Included |
+| --- | --- |
+| App shell | `AppStack`, `AppStackMenuItem`, `go_router` integration, convex bottom navigation |
+| UI | Buttons, profile avatars, loading screens, decorated lists, sliver headers, gradient helpers |
+| Layouts | Fullscreen, sticky header/body, stepper, progress-step layouts |
+| Forms | Declarative form builder and styled text inputs |
+| Camera | Ready-to-use picture capture and preview flow |
+| Networking | URL registry, authenticated requests, cookies, multipart uploads, development certificates |
+| Storage | Secure key-value helpers backed by `flutter_secure_storage` |
+| Notifications | Local notifications and Firebase Cloud Messaging helpers |
+| State | Riverpod state notifier with selective secure persistence |
+| Utilities | Device info, country helpers, string extensions, package localisations |
 
-### 🧱 UI Components
-- **`WideButton`** – full-width `ElevatedButton` with icon support, configurable colours, and automatic text capitalisation.
-- **`ProfileAvatar`** – user avatar widget with network image caching via [`cached_network_image`](https://pub.dev/packages/cached_network_image).
-- **`ListDecorated`**, **`OptionsList`**, **`OptionsListItem`** – pre-styled list containers and option row widgets.
-- **`SliverHeader`** / **`SliverHeaderGeneric`** – customisable sliver headers for `CustomScrollView`.
-- **`GradientShader`** – applies a gradient shader to any child widget.
-- **`MenuItem`** – standard navigation menu item.
-- **`WebViewScreen`** – in-app WebView screen backed by [`webview_flutter`](https://pub.dev/packages/webview_flutter).
-- **`LoadingScreen`** – full-screen loading placeholder.
+## Installation
 
-### 📸 Camera
-- **`TakePictureScreen`** – ready-to-use camera screen built with the [`camera`](https://pub.dev/packages/camera) plugin. Accepts a `CameraDescription` and an `onPictureTaken(File)` callback.
-
-### 📝 Forms
-- **`FormBuilder`** – declarative form container.
-- **`TextFormInput`** – styled text input field with built-in validation helpers.
-
-### 🌐 Networking — `ApiService`
-- Dot-notation URL resolution via `ApiUrls` (production and development base URLs, media URLs, and nested route trees).
-- Automatic `Authorization` header injection with OAuth2 `client_credentials` token refresh.
-- Secure cookie handling.
-- `GET`, `POST`, `PATCH`, `DELETE`, and multipart file-upload support.
-- Configurable self-signed certificate trust for development environments.
-
-### 💾 Secure Storage — `StorageService`
-- Thin wrapper around [`flutter_secure_storage`](https://pub.dev/packages/flutter_secure_storage) with Android `EncryptedSharedPreferences`.
-- CRUD helpers: `writeSecureData`, `readSecureData`, `deleteSecureData`, `readAllSecureData`, `deleteAllSecureData`, `containsKeyInSecureData`.
-
-### 🔔 Push Notifications — `NotificationsService`
-- Local notifications via [`flutter_local_notifications`](https://pub.dev/packages/flutter_local_notifications).
-- Firebase Cloud Messaging integration via [`firebase_messaging`](https://pub.dev/packages/firebase_messaging).
-- `NotificationChannel`, `NotificationMessage`, and `NotificationAction` model classes for composing rich notifications.
-
-### 🗃 State Management — `NetsCoreProvider`
-- `StateNotifier` (Riverpod) that holds global app state (`NetsCoreState`) including version, sync status, and an arbitrary key-value data map with configurable persistence.
-- Automatically persists selected keys to secure storage on every state change.
-
-### 🛠 Utilities
-- **`StringExtension`** – `capitalize`, `capitalizeFirstofEach`, `capitalizeFirstofEachWord`, `capitalizeFirstofEachSentence`, and more.
-- **`DeviceUtils`** – device information helpers via [`device_info_plus`](https://pub.dev/packages/device_info_plus).
-- **`CountryUtils`** – country picker helpers via [`country_picker`](https://pub.dev/packages/country_picker).
-
-### 🌍 Localisation
-- Ships with English ARB strings (`app_en.arb`) and generated `AppLocalizations`.
-- Exposes `NetsLocalizationsDelegate` so host apps can merge nets_core strings with their own.
-
----
-
-## Getting started
-
-### Requirements
-
-| Tool | Minimum version |
-|------|----------------|
-| Dart SDK | `^3.5.0` |
-| Flutter | `>=3.24.0` |
-
-### 1. Add the dependency
+Add the package to your app:
 
 ```yaml
 dependencies:
-  nets_core: ^0.1.13
+  nets_core: ^0.1.15
 ```
 
-Then run:
+Then fetch dependencies:
 
 ```sh
 flutter pub get
 ```
 
-### 2. Firebase setup
+## Requirements
 
-`nets_core` depends on `firebase_core` and `firebase_messaging`. Make sure your host app already has Firebase initialised:
+| Tool | Version |
+| --- | --- |
+| Dart SDK | `^3.5.0` |
+| Flutter | Compatible with the Dart SDK above |
 
-```dart
-await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-```
+Some features depend on platform setup in the host app. Camera, push notifications, Firebase, and secure storage should be configured in the application that consumes this package.
 
-### 3. Platform permissions
+## Quick Start
 
-**Android** (`AndroidManifest.xml`):
-```xml
-<uses-permission android:name="android.permission.CAMERA"/>
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-```
+### App Shell
 
-**iOS** (`Info.plist`):
-```xml
-<key>NSCameraUsageDescription</key>
-<string>Required for taking profile pictures.</string>
-```
-
----
-
-## Usage
-
-### AppStack — main scaffold with bottom navigation
+Use `AppStack` as the shared scaffold for apps that use bottom navigation with `go_router`.
 
 ```dart
 AppStack(
-  title: 'My App',
+  title: 'Nets App',
   menu: [
-    AppStackMenuItem(label: 'Home',    icon: Icons.home,    location: '/home'),
-    AppStackMenuItem(label: 'Profile', icon: Icons.person,  location: '/profile'),
+    AppStackMenuItem(
+      label: 'Home',
+      icon: Icons.home,
+      location: '/home',
+    ),
+    AppStackMenuItem(
+      label: 'Profile',
+      icon: Icons.person,
+      location: '/profile',
+    ),
   ],
-  child: child, // provided by go_router ShellRoute
+  child: child,
 )
 ```
 
-### ApiService — HTTP client
+### Secure Storage
+
+Store sensitive app values behind a small, predictable API.
+
+```dart
+final storage = StorageService();
+
+await storage.writeSecureData('accessToken', token);
+final savedToken = await storage.readSecureData('accessToken');
+```
+
+### API Client
+
+Define named routes once, then call them through `ApiService`.
 
 ```dart
 final apiUrls = ApiUrls(
-  baseUrl:        'https://api.example.com',
-  baseUrlDev:     'https://dev.api.example.com',
-  baseMediaUrl:   'https://media.example.com',
-  baseMediaUrlDev:'https://dev.media.example.com',
+  baseUrl: 'https://api.example.com',
+  baseUrlDev: 'https://dev.api.example.com',
+  baseMediaUrl: 'https://media.example.com',
+  baseMediaUrlDev: 'https://dev.media.example.com',
   urls: [
-    BaseUrl(name: 'users', path: '/api/users/', items: [
-      BaseUrl(name: 'detail', path: '/api/users/{id}/'),
-    ]),
+    BaseUrl(
+      name: 'users',
+      path: '/api/users/',
+      items: [
+        BaseUrl(name: 'detail', path: '/api/users/{id}/'),
+      ],
+    ),
   ],
 );
 
 final api = ApiService(
-  urls:         apiUrls,
-  clientId:     'my-client-id',
-  clientSecret: 'my-client-secret',
+  urls: apiUrls,
+  clientId: 'client-id',
+  clientSecret: 'client-secret',
 );
 
 final response = await api.get('users', {});
 ```
 
-### StorageService — secure key-value storage
+### Camera Flow
 
-```dart
-final storage = StorageService();
-await storage.writeSecureData('token', 'abc123');
-final token = await storage.readSecureData('token');
-```
-
-### TakePictureScreen — camera
+Launch the built-in capture screen and receive the selected file when the user continues.
 
 ```dart
 final cameras = await availableCameras();
-Navigator.push(context, MaterialPageRoute(
-  builder: (_) => TakePictureScreen(
-    camera: cameras.first,
-    title: 'Profile photo',
-    onPictureTaken: (file) {
-      // handle the captured File
-    },
+
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (_) => TakePictureScreen(
+      camera: cameras.first,
+      title: 'Profile photo',
+      onPictureTaken: (file) {
+        // Upload or persist the captured image.
+      },
+    ),
   ),
-));
+);
 ```
 
-### StringExtension
+### String Utilities
+
+Use shared extensions for common display formatting.
 
 ```dart
-'hello world'.capitalize;               // 'Hello world'
-'hello world'.capitalizeFirstofEach;   // 'Hello World'
+'hello world'.capitalize;             // Hello world
+'hello world'.capitalizeFirstofEach; // Hello World
 ```
 
----
+## Platform Setup
 
-## Additional information
+### Firebase
 
-- **Issues & contributions**: open an issue or pull request on the [GitHub repository](https://github.com/esbozos/nets-core-flutter).
-- **Licence**: see the [LICENSE](LICENSE) file.
-- **Versioning**: this package follows [Semantic Versioning](https://semver.org/). Breaking changes increment the major version.
+The notification stack expects Firebase to be initialised by the host app before Firebase Messaging is used.
 
-## Automated releases (GitHub Actions)
+```dart
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+```
 
-This repository includes automation for quality checks and publishing:
+### Android
 
-- **CI workflow** (`.github/workflows/ci.yml`): runs analysis and tests on push/PR.
-- **Publish workflow** (`.github/workflows/publish_pubdev.yml`): publishes to pub.dev when a tag like `v0.1.14` is pushed.
+Add the permissions required by the features you enable.
 
-### One-time setup
+```xml
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+```
 
-1. Generate your pub.dev credentials on a trusted machine (if you do not have them yet):
+### iOS
+
+Provide user-facing permission descriptions in `Info.plist`.
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Required for taking profile pictures.</string>
+```
+
+## Package Map
+
+```text
+lib/
+  app_stack.dart                 Navigation shell and menu model
+  components/                    Reusable UI, layouts, forms, screens, widgets
+  l10n/                          Package localisation delegates and strings
+  providers/                     Riverpod state provider
+  services/                      API URLs, network, notifications, storage
+  utils/                         Country, device, and string helpers
+```
+
+## Development
+
+Run the standard Flutter checks before publishing changes.
 
 ```sh
-dart pub token add https://pub.dev
-cat ~/.pub-cache/credentials.json
+flutter analyze
+flutter test
+dart pub publish --dry-run
 ```
 
-2. In GitHub repository settings, add a secret:
-
-- Name: `PUB_CREDENTIALS_JSON`
-- Value: full JSON content of `~/.pub-cache/credentials.json`
-
-### Release flow
-
-1. Update `pubspec.yaml` version and `CHANGELOG.md`.
-2. Merge to `master`.
-3. Create and push a matching tag:
+Generated code is used for providers and JSON models. When annotations change, rebuild with:
 
 ```sh
-git tag v0.1.14
-git push origin v0.1.14
+dart run build_runner build --delete-conflicting-outputs
 ```
 
-The publish workflow validates that the tag and `pubspec.yaml` version match before uploading.
+## Release Flow
 
+1. Update `version` in `pubspec.yaml`.
+2. Add the release notes to `CHANGELOG.md`.
+3. Run analysis, tests, and publish dry-run locally.
+4. Merge to `master`.
+5. Push a matching tag, for example `v0.1.15`.
+
+The repository publish workflow validates that the Git tag matches the package version before publishing to pub.dev.
+
+## Links
+
+- [Repository](https://github.com/esbozos/nets-core-flutter)
+- [Issue tracker](https://github.com/esbozos/nets-core-flutter/issues)
+- [License](LICENSE)

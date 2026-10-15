@@ -14,14 +14,10 @@ class StorageItem {
 }
 
 /// Service for reading and writing encrypted data using [FlutterSecureStorage].
-///
-/// On Android, encrypted shared preferences are used for extra security.
 class StorageService {
   final _secureStorage = const FlutterSecureStorage();
 
-  AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
+  AndroidOptions _getAndroidOptions() => const AndroidOptions();
 
   /// Writes [value] to secure storage under the given [key].
   Future<void> writeSecureData(String key, String value) async {

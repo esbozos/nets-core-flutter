@@ -70,6 +70,8 @@ class _AppStackState extends ConsumerState<AppStack> {
       GlobalKey<ConvexAppBarState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TabController? _tabController;
+  GoRouteInformationProvider? _routerInformationProvider;
+  VoidCallback? _routeListener;
 
   @override
   void initState() {
@@ -82,67 +84,80 @@ class _AppStackState extends ConsumerState<AppStack> {
 
   @override
   void dispose() {
+    if (_routeListener != null) {
+      _routerInformationProvider?.removeListener(_routeListener!);
+    }
     super.dispose();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    updateProviders();
+    final routerInfoProvider =
+        GoRouter.of(context).routeInformationProvider;
+    if (_routerInformationProvider != routerInfoProvider) {
+      if (_routeListener != null) {
+        _routerInformationProvider?.removeListener(_routeListener!);
+      }
+      _routerInformationProvider = routerInfoProvider;
+      _routeListener = _handleRouteInformationChanged;
+      _routerInformationProvider?.addListener(_routeListener!);
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      updateProviders();
-      // add listen to GoRouter.of(context).location
-      GoRouter.of(context).routeInformationProvider.addListener(() {
-        bool match = false;
-        String locationPath = GoRouter.of(context)
-            .routerDelegate
-            .currentConfiguration
-            .uri
-            .toString();
-        debugPrint('nets-core-flutter: locationPath: $locationPath');
-        for (var i in AppState.navigationItems) {
-          // check if location starts with any of the matchLocations
-          if (i.location == locationPath) {
-            debugPrint('nets-core-flutter: match: ${i.location}');
+      _handleRouteInformationChanged();
+    });
+  }
+
+  void _handleRouteInformationChanged() {
+    if (!mounted) return;
+    bool match = false;
+    String locationPath = GoRouter.of(context)
+        .routerDelegate
+        .currentConfiguration
+        .uri
+        .toString();
+    debugPrint('nets-core-flutter: locationPath: $locationPath');
+    for (var i in AppState.navigationItems) {
+      // check if location starts with any of the matchLocations
+      if (i.location == locationPath) {
+        debugPrint('nets-core-flutter: match: ${i.location}');
+        int index = AppState.navigationItems.indexOf(i);
+        if (_selectedIndex != index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        }
+        _tabController?.animateTo(index);
+        _appBarKey.currentState?.animateTo(index);
+        match = true;
+        break;
+      }
+      if (i.matchLocations.isNotEmpty) {
+        for (var j in i.matchLocations) {
+          if (locationPath.startsWith(j)) {
+            debugPrint('nets-core-flutter: match: $j');
             int index = AppState.navigationItems.indexOf(i);
-            setState(() {
-              _selectedIndex = index;
-            });
-            _tabController?.animateTo(index);
-            _appBarKey.currentState!.animateTo(index);
+            if (_selectedIndex != index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            }
+            if (_tabController != null && _tabController!.index != index) {
+              _tabController?.animateTo(index);
+            }
+            _appBarKey.currentState?.animateTo(index);
             match = true;
             break;
           }
-          if (i.matchLocations.isNotEmpty) {
-            for (var j in i.matchLocations) {
-              if (locationPath.startsWith(j)) {
-                debugPrint('nets-core-flutter: match: $j');
-                int index = AppState.navigationItems.indexOf(i);
-                if (_tabController != null) {
-                  if (_tabController!.index != index) {
-                    _tabController?.animateTo(index);
-                  }
-                  match = true;
-                }
-                if (_appBarKey.currentState != null) {
-                  _appBarKey.currentState!.animateTo(index);
-                  match = true;
-                }
-                break;
-              }
-            }
-          }
         }
-        if (!match) {
-          if (_tabController != null) {
-            _tabController?.animateTo(0);
-          }
-          if (_appBarKey.currentState != null) {
-            _appBarKey.currentState!.animateTo(0);
-          }
-        }
-      });
-    });
-    // updateProviders();
+        if (match) break;
+      }
+    }
+    if (!match) {
+      _tabController?.animateTo(0);
+      _appBarKey.currentState?.animateTo(0);
+    }
   }
 
   void updateProviders() {

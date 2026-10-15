@@ -1,3 +1,9 @@
+## 0.1.15
+
+* Update package dependencies and metadata for the current Flutter ecosystem.
+* Remove the obsolete Android `EncryptedSharedPreferences` secure-storage option.
+* Refresh the README with a modern package overview and updated usage guidance.
+
 ## 0.1.14
 
 * Replace deprecated Radio APIs with RadioGroup in list option widgets.
