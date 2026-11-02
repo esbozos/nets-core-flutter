@@ -57,6 +57,7 @@ Use `AppStack` as the shared scaffold for apps that use bottom navigation with `
 ```dart
 AppStack(
   title: 'Nets App',
+  useMaterialNavigation: true,
   menu: [
     AppStackMenuItem(
       label: 'Home',
@@ -72,6 +73,14 @@ AppStack(
   child: child,
 )
 ```
+
+`useMaterialNavigation` opts into a labelled Material `NavigationBar` that stays
+inside the scaffold, supports badges/custom icons, and hides while the keyboard
+is open. The default remains the legacy convex bar for existing consumers.
+Both layouts use a rail above 600 logical pixels. `showNavBar: false` hides
+navigation in either layout; `AppState.showNavBar` remains the runtime toggle.
+Use `matchLocations` for related routes outside a destination's path; Material
+navigation also matches child paths and ignores query parameters.
 
 ### Secure Storage
 

@@ -43,6 +43,7 @@ class AppStack extends ConsumerStatefulWidget {
       this.inactiveBackgroundColor,
       this.showAppBar = false,
       this.showNavBar = true,
+      this.useMaterialNavigation = false,
       this.appBar,
       this.listener});
   final Widget child;
@@ -57,6 +58,9 @@ class AppStack extends ConsumerStatefulWidget {
   final bool showAppBar;
   final AppBar? appBar;
   final bool showNavBar;
+
+  /// Uses an in-flow, labelled Material bar instead of the legacy convex bar.
+  final bool useMaterialNavigation;
   final Function(BuildContext context, WidgetRef ref)? listener;
 
   @override
@@ -70,7 +74,7 @@ class _AppStackState extends ConsumerState<AppStack> {
       GlobalKey<ConvexAppBarState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TabController? _tabController;
-  GoRouteInformationProvider? _routerInformationProvider;
+  GoRouterDelegate? _routerDelegate;
   VoidCallback? _routeListener;
 
   @override
@@ -83,9 +87,20 @@ class _AppStackState extends ConsumerState<AppStack> {
   }
 
   @override
+  void didUpdateWidget(covariant AppStack oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    AppState.navigationItems = widget.menu;
+    AppState.mapScreen = {
+      for (var index = 0; index < widget.menu.length; index++)
+        index: widget.menu[index].location,
+    };
+    _handleRouteInformationChanged();
+  }
+
+  @override
   void dispose() {
     if (_routeListener != null) {
-      _routerInformationProvider?.removeListener(_routeListener!);
+      _routerDelegate?.removeListener(_routeListener!);
     }
     super.dispose();
   }
@@ -94,15 +109,14 @@ class _AppStackState extends ConsumerState<AppStack> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     updateProviders();
-    final routerInfoProvider =
-        GoRouter.of(context).routeInformationProvider;
-    if (_routerInformationProvider != routerInfoProvider) {
+    final routerDelegate = GoRouter.of(context).routerDelegate;
+    if (_routerDelegate != routerDelegate) {
       if (_routeListener != null) {
-        _routerInformationProvider?.removeListener(_routeListener!);
+        _routerDelegate?.removeListener(_routeListener!);
       }
-      _routerInformationProvider = routerInfoProvider;
+      _routerDelegate = routerDelegate;
       _routeListener = _handleRouteInformationChanged;
-      _routerInformationProvider?.addListener(_routeListener!);
+      _routerDelegate?.addListener(_routeListener!);
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _handleRouteInformationChanged();
@@ -112,15 +126,13 @@ class _AppStackState extends ConsumerState<AppStack> {
   void _handleRouteInformationChanged() {
     if (!mounted) return;
     bool match = false;
-    String locationPath = GoRouter.of(context)
-        .routerDelegate
-        .currentConfiguration
-        .uri
-        .toString();
+    String locationPath = GoRouter.of(context).state.uri.path;
     debugPrint('nets-core-flutter: locationPath: $locationPath');
     for (var i in AppState.navigationItems) {
       // check if location starts with any of the matchLocations
-      if (i.location == locationPath) {
+      if (i.location == locationPath ||
+          (widget.useMaterialNavigation &&
+              locationPath.startsWith('${i.location}/'))) {
         debugPrint('nets-core-flutter: match: ${i.location}');
         int index = AppState.navigationItems.indexOf(i);
         if (_selectedIndex != index) {
@@ -155,6 +167,9 @@ class _AppStackState extends ConsumerState<AppStack> {
       }
     }
     if (!match) {
+      if (widget.useMaterialNavigation && _selectedIndex != 0) {
+        setState(() => _selectedIndex = 0);
+      }
       _tabController?.animateTo(0);
       _appBarKey.currentState?.animateTo(0);
     }
@@ -173,6 +188,29 @@ class _AppStackState extends ConsumerState<AppStack> {
   }
 
   Widget navigationWithBottomAppBar() {
+    if (widget.useMaterialNavigation) {
+      Widget iconFor(AppStackMenuItem item, bool active) {
+        final icon = item.itemBuilder?.call(context, active) ?? Icon(item.icon);
+        return Badge(
+          isLabelVisible: (item.badge ?? 0) > 0,
+          label: Text((item.badge ?? 0) > 99 ? '99+' : '${item.badge ?? 0}'),
+          child: icon,
+        );
+      }
+
+      return NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (index) =>
+            context.go(widget.menu[index].location),
+        destinations: widget.menu
+            .map((item) => NavigationDestination(
+                  icon: iconFor(item, false),
+                  selectedIcon: iconFor(item, true),
+                  label: item.label,
+                ))
+            .toList(),
+      );
+    }
     return ConvexAppBar.builder(
       key: _appBarKey,
       controller: _tabController,
@@ -210,28 +248,34 @@ class _AppStackState extends ConsumerState<AppStack> {
                 key: _scaffoldKey,
                 appBar: widget.appBar,
                 body: Row(children: [
-                  NavigationRail(
-                    selectedIndex: _selectedIndex,
-                    onDestinationSelected: (int index) {
-                      context.go(AppState.mapScreen[index]!);
-                    },
-                    labelType: NavigationRailLabelType.selected,
-                    destinations: AppState.navigationItems
-                        .map((e) => NavigationRailDestination(
-                              icon: Icon(e.icon),
-                              label: Text(e.label),
-                            ))
-                        .toList(),
-                  ),
-                  const VerticalDivider(thickness: 1, width: 1),
+                  if (showNavBar && widget.showNavBar)
+                    NavigationRail(
+                      selectedIndex: _selectedIndex,
+                      onDestinationSelected: (int index) {
+                        context.go(AppState.mapScreen[index]!);
+                      },
+                      labelType: NavigationRailLabelType.selected,
+                      destinations: AppState.navigationItems
+                          .map((e) => NavigationRailDestination(
+                                icon: Icon(e.icon),
+                                label: Text(e.label),
+                              ))
+                          .toList(),
+                    ),
+                  if (showNavBar && widget.showNavBar)
+                    const VerticalDivider(thickness: 1, width: 1),
                   Expanded(child: widget.child)
                 ]));
           } else {
             return Scaffold(
               key: _scaffoldKey,
               body: SafeArea(child: widget.child),
-              bottomNavigationBar:
-                  !showNavBar ? null : navigationWithBottomAppBar(),
+              bottomNavigationBar: !showNavBar ||
+                      !widget.showNavBar ||
+                      (widget.useMaterialNavigation &&
+                          MediaQuery.viewInsetsOf(context).bottom > 0)
+                  ? null
+                  : navigationWithBottomAppBar(),
             );
           }
         });

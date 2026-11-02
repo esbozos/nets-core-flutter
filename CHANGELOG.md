@@ -1,3 +1,10 @@
+## Unreleased
+
+* Add opt-in `AppStack.useMaterialNavigation` with labelled, non-overlapping
+  Material navigation, badges and keyboard-aware visibility.
+* Refresh menu labels on widget updates and match nested Material destinations.
+* Respect navigation visibility in both bottom-bar and rail layouts.
+
 ## 0.1.15
 
 * Update package dependencies and metadata for the current Flutter ecosystem.
